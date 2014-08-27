@@ -6,3 +6,10 @@
 #
 # Pods/
 
+KnightWhoSaidSwift.xcodeproj/project.xcworkspace/xcuserdata/
+KnightWhoSaidSwift.xcodeproj/xcuserdata/
+
+build/
+
+DerivedData/
+
