@@ -1,25 +1,73 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6162" systemVersion="14A238h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LVB-YS-i5n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LVB-YS-i5n">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6160"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="FFFATLAN.TTF">
+            <string>FFFAtlantisTrial</string>
+            <string>FFFAtlantisTrial</string>
+            <string>FFFAtlantisTrial</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
-        <!--Game View Controller-->
+        <!--Main Menu View Controller-->
         <scene sceneID="CtS-rA-C9T">
             <objects>
-                <viewController id="LVB-YS-i5n" customClass="GameViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="LVB-YS-i5n" customClass="MainMenuViewController" customModule="KnightWhoSaidSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PCf-gQ-wO7"/>
                         <viewControllerLayoutGuide type="bottom" id="b3d-qh-BLL"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bdc-N1-crn" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Asi-XA-23y">
+                                <rect key="frame" x="348" y="428" width="112" height="44"/>
+                                <fontDescription key="fontDescription" name="FFFAtlantisTrial" family="FFF Atlantis  Trial" pointSize="11"/>
+                                <inset key="titleEdgeInsets" minX="22" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Start" backgroundImage="sword.png">
+                                    <color key="titleColor" red="0.1960784314" green="0.18823529410000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4X-rr-L4k">
+                                <rect key="frame" x="348" y="526" width="112" height="44"/>
+                                <fontDescription key="fontDescription" name="FFFAtlantisTrial" family="FFF Atlantis  Trial" pointSize="10"/>
+                                <inset key="titleEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="credits" backgroundImage="sword.png">
+                                    <color key="titleColor" red="0.1960784314" green="0.18823529410000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPe-Fe-bMi">
+                                <rect key="frame" x="348" y="477" width="112" height="44"/>
+                                <fontDescription key="fontDescription" name="FFFAtlantisTrial" family="FFF Atlantis  Trial" pointSize="10"/>
+                                <inset key="titleEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="settings" backgroundImage="sword.png">
+                                    <color key="titleColor" red="0.1960784314" green="0.18823529410000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="C4X-rr-L4k" secondAttribute="trailing" constant="140" id="16e-0f-X03"/>
+                            <constraint firstItem="EPe-Fe-bMi" firstAttribute="top" secondItem="Asi-XA-23y" secondAttribute="bottom" constant="5" id="Cun-FV-PK1"/>
+                            <constraint firstAttribute="trailing" secondItem="EPe-Fe-bMi" secondAttribute="trailing" constant="140" id="H59-yM-kc6"/>
+                            <constraint firstItem="b3d-qh-BLL" firstAttribute="top" secondItem="C4X-rr-L4k" secondAttribute="bottom" constant="30" id="dPT-7q-pBa"/>
+                            <constraint firstItem="C4X-rr-L4k" firstAttribute="top" secondItem="EPe-Fe-bMi" secondAttribute="bottom" constant="5" id="m0V-aW-JyG"/>
+                            <constraint firstAttribute="trailing" secondItem="Asi-XA-23y" secondAttribute="trailing" constant="140" id="rew-gX-qMq"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btX-cZ-eVz" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="249" y="102"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="sword.png" width="112" height="44"/>
+    </resources>
 </document>
