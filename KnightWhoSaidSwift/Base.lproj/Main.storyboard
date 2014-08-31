@@ -24,7 +24,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Asi-XA-23y">
-                                <rect key="frame" x="348" y="428" width="112" height="44"/>
+                                <rect key="frame" x="318" y="428" width="112" height="44"/>
                                 <fontDescription key="fontDescription" name="FFFAtlantisTrial" family="FFF Atlantis  Trial" pointSize="11"/>
                                 <inset key="titleEdgeInsets" minX="22" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Start" backgroundImage="sword.png">
@@ -33,7 +33,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4X-rr-L4k">
-                                <rect key="frame" x="348" y="526" width="112" height="44"/>
+                                <rect key="frame" x="318" y="526" width="112" height="44"/>
                                 <fontDescription key="fontDescription" name="FFFAtlantisTrial" family="FFF Atlantis  Trial" pointSize="10"/>
                                 <inset key="titleEdgeInsets" minX="30" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="credits" backgroundImage="sword.png">
@@ -42,7 +42,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPe-Fe-bMi">
-                                <rect key="frame" x="348" y="477" width="112" height="44"/>
+                                <rect key="frame" x="318" y="477" width="112" height="44"/>
                                 <fontDescription key="fontDescription" name="FFFAtlantisTrial" family="FFF Atlantis  Trial" pointSize="10"/>
                                 <inset key="titleEdgeInsets" minX="36" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="settings" backgroundImage="sword.png">
@@ -53,12 +53,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="C4X-rr-L4k" secondAttribute="trailing" constant="140" id="16e-0f-X03"/>
+                            <constraint firstAttribute="trailing" secondItem="C4X-rr-L4k" secondAttribute="trailing" constant="170" id="16e-0f-X03"/>
                             <constraint firstItem="EPe-Fe-bMi" firstAttribute="top" secondItem="Asi-XA-23y" secondAttribute="bottom" constant="5" id="Cun-FV-PK1"/>
-                            <constraint firstAttribute="trailing" secondItem="EPe-Fe-bMi" secondAttribute="trailing" constant="140" id="H59-yM-kc6"/>
+                            <constraint firstAttribute="trailing" secondItem="EPe-Fe-bMi" secondAttribute="trailing" constant="170" id="H59-yM-kc6"/>
                             <constraint firstItem="b3d-qh-BLL" firstAttribute="top" secondItem="C4X-rr-L4k" secondAttribute="bottom" constant="30" id="dPT-7q-pBa"/>
                             <constraint firstItem="C4X-rr-L4k" firstAttribute="top" secondItem="EPe-Fe-bMi" secondAttribute="bottom" constant="5" id="m0V-aW-JyG"/>
-                            <constraint firstAttribute="trailing" secondItem="Asi-XA-23y" secondAttribute="trailing" constant="140" id="rew-gX-qMq"/>
+                            <constraint firstAttribute="trailing" secondItem="Asi-XA-23y" secondAttribute="trailing" constant="170" id="rew-gX-qMq"/>
                         </constraints>
                     </view>
                 </viewController>
