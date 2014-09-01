@@ -8,15 +8,19 @@
 
 import SpriteKit
 
-class SKVelocitySpriteNode: SKSpriteNode {
+class KWSVelocitySpriteNode: SKSpriteNode {
     
     internal var acceleration : CGPoint
     
     init(imageNamed name: String!) {
-        acceleration = CGPointMake(10 + Int(rand()) % 40, 0);
+        acceleration = CGPointMake(10.0 + CGFloat(Int(rand()) % 40), 0)
         
-        let texture : SKTexture = SKTexture(imageNamed: name);
-        super.init(texture: texture, color: nil, size: texture.size());
+        let texture : SKTexture = SKTexture(imageNamed: name)
+        super.init(texture: texture, color: nil, size: texture.size())
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func updateVelocity(time: CFTimeInterval) {

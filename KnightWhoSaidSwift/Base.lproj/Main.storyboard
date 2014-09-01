@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LVB-YS-i5n">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.8" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="c3O-7Y-5Sh">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
+        <capability name="Constraints with attributes relative to the layout margin" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="FFFATLAN.TTF">
+            <string>FFFAtlantisTrial</string>
+            <string>FFFAtlantisTrial</string>
+            <string>FFFAtlantisTrial</string>
             <string>FFFAtlantisTrial</string>
             <string>FFFAtlantisTrial</string>
             <string>FFFAtlantisTrial</string>
@@ -14,7 +18,7 @@
         <!--Main Menu View Controller-->
         <scene sceneID="CtS-rA-C9T">
             <objects>
-                <viewController id="LVB-YS-i5n" customClass="MainMenuViewController" customModule="KnightWhoSaidSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="LVB-YS-i5n" customClass="KWSMainMenuViewController" customModule="KnightWhoSaidSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PCf-gQ-wO7"/>
                         <viewControllerLayoutGuide type="bottom" id="b3d-qh-BLL"/>
@@ -40,6 +44,9 @@
                                     <color key="titleColor" red="0.1960784314" green="0.18823529410000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="57C-0X-9Iu" kind="show" id="pFa-mU-hEw"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPe-Fe-bMi">
                                 <rect key="frame" x="318" y="477" width="112" height="44"/>
@@ -49,6 +56,9 @@
                                     <color key="titleColor" red="0.1960784314" green="0.18823529410000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="0WQ-Ve-qgN" kind="presentation" identifier="kKWSSettingsSegueIdentifier" modalTransitionStyle="crossDissolve" id="eHe-Cn-uH4"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -61,13 +71,135 @@
                             <constraint firstAttribute="trailing" secondItem="Asi-XA-23y" secondAttribute="trailing" constant="170" id="rew-gX-qMq"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="buO-4V-5Sc"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btX-cZ-eVz" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="249" y="102"/>
         </scene>
+        <!--Credits View Controller-->
+        <scene sceneID="Bz3-25-b87">
+            <objects>
+                <viewController id="57C-0X-9Iu" customClass="KWSCreditsViewController" customModule="KnightWhoSaidSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5UY-Ut-PIs"/>
+                        <viewControllerLayoutGuide type="bottom" id="IC8-04-hRE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XjB-KL-PJJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="QyM-Za-KoN">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vOr-Sh-o4m">
+                                <rect key="frame" x="251" y="536" width="112" height="44"/>
+                                <fontDescription key="fontDescription" name="FFFAtlantisTrial" family="FFF Atlantis  Trial" pointSize="11"/>
+                                <inset key="titleEdgeInsets" minX="22" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Back" backgroundImage="sword.png">
+                                    <color key="titleColor" red="0.1960784314" green="0.18823529410000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismissViewController:" destination="57C-0X-9Iu" eventType="touchUpInside" id="rWY-Fm-2k1"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s5N-Hr-IT1">
+                                <rect key="frame" x="0.0" y="66" width="600" height="140"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="140" id="lJd-Xb-ooH"/>
+                                </constraints>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="FFFAtlantisTrial" family="FFF Atlantis  Trial" pointSize="22"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QyM-Za-KoN" firstAttribute="top" secondItem="5UY-Ut-PIs" secondAttribute="bottom" id="9ES-FR-Jwz"/>
+                            <constraint firstItem="s5N-Hr-IT1" firstAttribute="leading" secondItem="XjB-KL-PJJ" secondAttribute="leadingMargin" constant="-16" id="Kd8-BM-rhX"/>
+                            <constraint firstAttribute="centerX" secondItem="vOr-Sh-o4m" secondAttribute="centerX" constant="-7" id="LPe-sL-N02"/>
+                            <constraint firstItem="IC8-04-hRE" firstAttribute="top" secondItem="vOr-Sh-o4m" secondAttribute="bottom" constant="20" id="csm-JB-9bz"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="s5N-Hr-IT1" secondAttribute="trailing" constant="-16" id="k8S-2I-HIF"/>
+                            <constraint firstItem="s5N-Hr-IT1" firstAttribute="top" secondItem="5UY-Ut-PIs" secondAttribute="bottom" constant="66" id="ta0-yJ-csA"/>
+                            <constraint firstItem="IC8-04-hRE" firstAttribute="top" secondItem="QyM-Za-KoN" secondAttribute="bottom" id="uo1-Rc-CgJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="QyM-Za-KoN" secondAttribute="trailing" constant="-16" id="wej-X5-j6p"/>
+                            <constraint firstItem="QyM-Za-KoN" firstAttribute="leading" secondItem="XjB-KL-PJJ" secondAttribute="leadingMargin" constant="-16" id="wxN-8X-kqE"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <connections>
+                        <outlet property="creditsTextView" destination="s5N-Hr-IT1" id="cJp-wJ-S1j"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uyb-kQ-aPa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="249" y="938"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="6ZX-T8-DMO">
+            <objects>
+                <viewController id="0WQ-Ve-qgN" customClass="KWSSettingsViewController" customModule="KnightWhoSaidSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1NM-PH-Gdc"/>
+                        <viewControllerLayoutGuide type="bottom" id="QaR-V0-wOh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NiA-sM-ulo">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg.png" translatesAutoresizingMaskIntoConstraints="NO" id="DGT-t2-rrh">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z2P-2a-8KJ">
+                                <rect key="frame" x="244" y="536" width="112" height="44"/>
+                                <fontDescription key="fontDescription" name="FFFAtlantisTrial" family="FFF Atlantis  Trial" pointSize="11"/>
+                                <inset key="titleEdgeInsets" minX="22" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Back" backgroundImage="sword.png">
+                                    <color key="titleColor" red="0.1960784314" green="0.18823529410000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismissViewController:" destination="bAK-1W-WFS" eventType="touchUpInside" id="HEW-RT-e5b"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="DGT-t2-rrh" firstAttribute="leading" secondItem="NiA-sM-ulo" secondAttribute="leadingMargin" constant="-16" id="0is-Ic-TzU"/>
+                            <constraint firstItem="DGT-t2-rrh" firstAttribute="top" secondItem="1NM-PH-Gdc" secondAttribute="bottom" id="H07-28-SyI"/>
+                            <constraint firstAttribute="centerX" secondItem="z2P-2a-8KJ" secondAttribute="centerX" id="fBQ-QA-63z"/>
+                            <constraint firstItem="QaR-V0-wOh" firstAttribute="top" secondItem="DGT-t2-rrh" secondAttribute="bottom" id="sWZ-9j-hfo"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="DGT-t2-rrh" secondAttribute="trailing" constant="-16" id="tXt-kK-AkD"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="z2P-2a-8KJ" secondAttribute="bottom" constant="20" id="u4q-cr-8v2"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bAK-1W-WFS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="914" y="938"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Dw0-OE-mYg">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="c3O-7Y-5Sh" sceneMemberID="viewController">
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f7e-ah-awx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="LVB-YS-i5n" kind="relationship" relationship="rootViewController" id="UDc-eP-MYE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="amY-ke-tzV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-435" y="102"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="bg.png" width="225" height="180"/>
         <image name="sword.png" width="112" height="44"/>
     </resources>
 </document>

@@ -9,15 +9,19 @@
 /* Begin PBXBuildFile section */
 		042A794619B338C700D5B75A /* castle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 042A794519B338C700D5B75A /* castle@2x.png */; };
 		0431207E19AE495600036D9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0431207D19AE495600036D9F /* AppDelegate.swift */; };
-		0431208019AE495600036D9F /* MainMenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0431207F19AE495600036D9F /* MainMenuScene.sks */; };
-		0431208219AE495600036D9F /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0431208119AE495600036D9F /* MainMenuScene.swift */; };
-		0431208419AE495600036D9F /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0431208319AE495600036D9F /* MainMenuViewController.swift */; };
+		0431208019AE495600036D9F /* KWSMainMenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0431207F19AE495600036D9F /* KWSMainMenuScene.sks */; };
+		0431208219AE495600036D9F /* KWSMainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0431208119AE495600036D9F /* KWSMainMenuScene.swift */; };
+		0431208419AE495600036D9F /* KWSMainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0431208319AE495600036D9F /* KWSMainMenuViewController.swift */; };
 		0431208719AE495600036D9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0431208519AE495600036D9F /* Main.storyboard */; };
 		0431208919AE495600036D9F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0431208819AE495600036D9F /* Images.xcassets */; };
 		0431209519AE495600036D9F /* KnightWhoSaidSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0431209419AE495600036D9F /* KnightWhoSaidSwiftTests.swift */; };
-		049137E419B23CC500076903 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049137E319B23CC500076903 /* CGFloat+Extensions.swift */; };
-		049137E619B240B800076903 /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049137E519B240B800076903 /* CGPoint+Extensions.swift */; };
-		049137E919B2489600076903 /* SKVelocitySpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049137E819B2489600076903 /* SKVelocitySpriteNode.swift */; };
+		0464B70319B4BB6000A6E073 /* KWSCreditsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0464B70219B4BB6000A6E073 /* KWSCreditsViewController.swift */; };
+		049137E419B23CC500076903 /* CGFloat+KWSExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049137E319B23CC500076903 /* CGFloat+KWSExtensions.swift */; };
+		049137E619B240B800076903 /* CGPoint+KWSExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049137E519B240B800076903 /* CGPoint+KWSExtensions.swift */; };
+		049137E919B2489600076903 /* KWSVelocitySpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049137E819B2489600076903 /* KWSVelocitySpriteNode.swift */; };
+		04A855D719B4F5E800AE2E6E /* KWSSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A855D619B4F5E800AE2E6E /* KWSSettingsViewController.swift */; };
+		04A855D919B507E300AE2E6E /* KWSBluetoothLEServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A855D819B507E300AE2E6E /* KWSBluetoothLEServer.swift */; };
+		04A855DB19B507F700AE2E6E /* KWSBluetoothLEClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A855DA19B507F700AE2E6E /* KWSBluetoothLEClient.swift */; };
 		04E80BF819B1ED6D006C4917 /* FFFATLAN.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 04E80BE819B1ED6D006C4917 /* FFFATLAN.TTF */; };
 		04E80BF919B1ED6D006C4917 /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E80BEA19B1ED6D006C4917 /* bg@2x.png */; };
 		04E80BFA19B1ED6D006C4917 /* cloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E80BEB19B1ED6D006C4917 /* cloud@2x.png */; };
@@ -48,17 +52,21 @@
 		0431207819AE495600036D9F /* KnightWhoSaidSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KnightWhoSaidSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0431207C19AE495600036D9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0431207D19AE495600036D9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0431207F19AE495600036D9F /* MainMenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenuScene.sks; sourceTree = "<group>"; };
-		0431208119AE495600036D9F /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
-		0431208319AE495600036D9F /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		0431207F19AE495600036D9F /* KWSMainMenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = KWSMainMenuScene.sks; sourceTree = "<group>"; };
+		0431208119AE495600036D9F /* KWSMainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KWSMainMenuScene.swift; sourceTree = "<group>"; };
+		0431208319AE495600036D9F /* KWSMainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KWSMainMenuViewController.swift; sourceTree = "<group>"; };
 		0431208619AE495600036D9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0431208819AE495600036D9F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0431208E19AE495600036D9F /* KnightWhoSaidSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KnightWhoSaidSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0431209319AE495600036D9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0431209419AE495600036D9F /* KnightWhoSaidSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnightWhoSaidSwiftTests.swift; sourceTree = "<group>"; };
-		049137E319B23CC500076903 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
-		049137E519B240B800076903 /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
-		049137E819B2489600076903 /* SKVelocitySpriteNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKVelocitySpriteNode.swift; sourceTree = "<group>"; };
+		0464B70219B4BB6000A6E073 /* KWSCreditsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSCreditsViewController.swift; sourceTree = "<group>"; };
+		049137E319B23CC500076903 /* CGFloat+KWSExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+KWSExtensions.swift"; sourceTree = "<group>"; };
+		049137E519B240B800076903 /* CGPoint+KWSExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+KWSExtensions.swift"; sourceTree = "<group>"; };
+		049137E819B2489600076903 /* KWSVelocitySpriteNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSVelocitySpriteNode.swift; sourceTree = "<group>"; };
+		04A855D619B4F5E800AE2E6E /* KWSSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSSettingsViewController.swift; sourceTree = "<group>"; };
+		04A855D819B507E300AE2E6E /* KWSBluetoothLEServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSBluetoothLEServer.swift; sourceTree = "<group>"; };
+		04A855DA19B507F700AE2E6E /* KWSBluetoothLEClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSBluetoothLEClient.swift; sourceTree = "<group>"; };
 		04E80BE819B1ED6D006C4917 /* FFFATLAN.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = FFFATLAN.TTF; sourceTree = "<group>"; };
 		04E80BEA19B1ED6D006C4917 /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
 		04E80BEB19B1ED6D006C4917 /* cloud@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cloud@2x.png"; sourceTree = "<group>"; };
@@ -153,8 +161,8 @@
 		049137E219B23C9900076903 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				049137E319B23CC500076903 /* CGFloat+Extensions.swift */,
-				049137E519B240B800076903 /* CGPoint+Extensions.swift */,
+				049137E319B23CC500076903 /* CGFloat+KWSExtensions.swift */,
+				049137E519B240B800076903 /* CGPoint+KWSExtensions.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -162,7 +170,9 @@
 		049137E719B2488000076903 /* Gameplay */ = {
 			isa = PBXGroup;
 			children = (
-				049137E819B2489600076903 /* SKVelocitySpriteNode.swift */,
+				049137E819B2489600076903 /* KWSVelocitySpriteNode.swift */,
+				04A855D819B507E300AE2E6E /* KWSBluetoothLEServer.swift */,
+				04A855DA19B507F700AE2E6E /* KWSBluetoothLEClient.swift */,
 			);
 			name = Gameplay;
 			sourceTree = "<group>";
@@ -224,7 +234,9 @@
 		04E80C0519B232CC006C4917 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				0431208319AE495600036D9F /* MainMenuViewController.swift */,
+				0431208319AE495600036D9F /* KWSMainMenuViewController.swift */,
+				0464B70219B4BB6000A6E073 /* KWSCreditsViewController.swift */,
+				04A855D619B4F5E800AE2E6E /* KWSSettingsViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -232,8 +244,8 @@
 		04E80C0619B232D9006C4917 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0431207F19AE495600036D9F /* MainMenuScene.sks */,
-				0431208119AE495600036D9F /* MainMenuScene.swift */,
+				0431207F19AE495600036D9F /* KWSMainMenuScene.sks */,
+				0431208119AE495600036D9F /* KWSMainMenuScene.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -328,7 +340,7 @@
 			files = (
 				0431208919AE495600036D9F /* Images.xcassets in Resources */,
 				04E80C0119B1ED6D006C4917 /* logo@2x.png in Resources */,
-				0431208019AE495600036D9F /* MainMenuScene.sks in Resources */,
+				0431208019AE495600036D9F /* KWSMainMenuScene.sks in Resources */,
 				04E80C0319B1ED6D006C4917 /* Level.mp3 in Resources */,
 				04E80BFB19B1ED6D006C4917 /* Enviro.atlas in Resources */,
 				04E80BFA19B1ED6D006C4917 /* cloud@2x.png in Resources */,
@@ -360,12 +372,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0431208219AE495600036D9F /* MainMenuScene.swift in Sources */,
-				049137E919B2489600076903 /* SKVelocitySpriteNode.swift in Sources */,
-				049137E619B240B800076903 /* CGPoint+Extensions.swift in Sources */,
-				0431208419AE495600036D9F /* MainMenuViewController.swift in Sources */,
-				049137E419B23CC500076903 /* CGFloat+Extensions.swift in Sources */,
+				0464B70319B4BB6000A6E073 /* KWSCreditsViewController.swift in Sources */,
+				0431208219AE495600036D9F /* KWSMainMenuScene.swift in Sources */,
+				049137E919B2489600076903 /* KWSVelocitySpriteNode.swift in Sources */,
+				04A855D919B507E300AE2E6E /* KWSBluetoothLEServer.swift in Sources */,
+				04A855DB19B507F700AE2E6E /* KWSBluetoothLEClient.swift in Sources */,
+				049137E619B240B800076903 /* CGPoint+KWSExtensions.swift in Sources */,
+				0431208419AE495600036D9F /* KWSMainMenuViewController.swift in Sources */,
+				049137E419B23CC500076903 /* CGFloat+KWSExtensions.swift in Sources */,
 				0431207E19AE495600036D9F /* AppDelegate.swift in Sources */,
+				04A855D719B4F5E800AE2E6E /* KWSSettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

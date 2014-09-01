@@ -16,24 +16,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication!, didFinishLaunchingWithOptions launchOptions: NSDictionary!) -> Bool {
 
-        //self.printFonts();
+        self.printFonts()
         
         return true
     }
     
     func printFonts() {
         
-        let familyNames : [String] = UIFont.familyNames() as [String];
+        let familyNames : [String] = UIFont.familyNames() as [String]
         
         for name : String in familyNames {
             
-            println("Family: \(name)");
+            println("Family: \(name)")
             
-            let fontNames = UIFont.fontNamesForFamilyName(name);
+            let fontNames = UIFont.fontNamesForFamilyName(name)
             
             for fontName in fontNames {
                 
-                println("\tname: \(fontName)");
+                println("\tname: \(fontName)")
             }
         }
     }

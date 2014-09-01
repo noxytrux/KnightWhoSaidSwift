@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-let kDebugOption : Bool = 1;
+let kDebugOption : Bool = 1
 
 extension SKNode {
     
@@ -17,22 +17,24 @@ extension SKNode {
         
         let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks")
         
-        var sceneData = NSData.dataWithContentsOfFile(path, options: .DataReadingMappedIfSafe, error: nil)
+        var sceneData = NSData.dataWithContentsOfFile(path!, options: .DataReadingMappedIfSafe, error: nil)
         var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
         
         archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-        let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as MainMenuScene
+        let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as KWSMainMenuScene
         archiver.finishDecoding()
         return scene
     }
 }
 
-class MainMenuViewController: UIViewController {
+class KWSMainMenuViewController: UIViewController, UIPopoverPresentationControllerDelegate{
+
+    let kKWSSettingsSegueIdentifier = "kKWSSettingsSegueIdentifier"
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let scene = MainMenuScene.unarchiveFromFile("MainMenuScene") as? MainMenuScene {
+        if let scene = KWSMainMenuScene.unarchiveFromFile("KWSMainMenuScene") as? KWSMainMenuScene {
           
             let skView = self.view as SKView
             
@@ -70,4 +72,13 @@ class MainMenuViewController: UIViewController {
         
         return true
     }
+
+    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+        
+        if kKWSSettingsSegueIdentifier == segue.identifier? {
+        
+            
+        }
+    }
+
 }

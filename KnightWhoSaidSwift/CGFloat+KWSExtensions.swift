@@ -13,6 +13,6 @@ extension CGFloat {
     
     static func random(minimum: CGFloat, maximum: CGFloat) -> CGFloat {
         
-        return minimum + CGFloat(Float(rand())) / (CGFloat(Float(RAND_MAX))/(maximum-minimum));
+        return minimum + CGFloat(Float(rand())) / (CGFloat(Float(RAND_MAX))/(maximum-minimum))
     }
 }
