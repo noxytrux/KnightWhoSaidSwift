@@ -73,9 +73,9 @@ class KWSMainMenuViewController: UIViewController, UIPopoverPresentationControll
         return true
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
-        if kKWSSettingsSegueIdentifier == segue.identifier? {
+        if kKWSSettingsSegueIdentifier == segue.identifier {
         
             
         }

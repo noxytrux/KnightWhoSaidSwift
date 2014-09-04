@@ -22,7 +22,7 @@ class KWSCreditsViewController: UIViewController {
     
     @IBAction func dismissViewController(sender: UIButton) {
         
-        self.navigationController.popViewControllerAnimated(true)
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
 }
