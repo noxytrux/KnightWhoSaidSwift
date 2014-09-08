@@ -9,28 +9,43 @@
 import UIKit
 import CoreBluetooth
 
-class KWSBluetoothLEClient: NSObject, CBPeripheralManagerDelegate  {
+class KWSBluetoothLEClient: KWSBluetoothLEInterface,
+//DELEGATE
+CBPeripheralManagerDelegate  {
    
-    var peripheralManager : CBPeripheralManager!
-    var peripheralQueue : dispatch_queue_t!
+    private var peripheralManager : CBPeripheralManager!
+    private var peripheralQueue : dispatch_queue_t!
+    private var transferService : CBMutableService? = nil
+    private var readCharacteristic : CBMutableCharacteristic? = nil
+    private var writeCharacteristic : CBMutableCharacteristic? = nil
     
-    var transferService : CBMutableService? = nil
-    var readCharacteristic : CBMutableCharacteristic? = nil
-    var writeCharacteristic : CBMutableCharacteristic? = nil
-    
-    var recivedData : NSData? = nil
-    var sendedData : NSData? = nil
+    internal var recivedData : NSData? = nil
+    internal var sendedData : NSData? = nil
     
     override init() {
     
         super.init()
     
-        self.peripheralQueue = dispatch_queue_create("com.mp.devs.kwss", nil)
+        self.peripheralQueue = dispatch_queue_create("com.mp.devs.kwss.client", nil)
         self.peripheralManager = CBPeripheralManager(delegate: self, queue: self.peripheralQueue)
     }
     
-    func sendCommand(#command: KWSPacketType, data: NSData!) {
+    override func sendCommand(#command: KWSPacketType, data: NSData!) {
     
+        var header : Int = command.toRaw()
+        var dataToSend : NSMutableData = NSMutableData(bytes: &header, length: sizeof(Int))
+            dataToSend.appendData(data)
+        
+        if dataToSend.length > kKWSMaxPacketSize {
+            
+            println("Error data packet to long!")
+            
+            return
+        }
+        
+        self.peripheralManager.updateValue( dataToSend,
+                         forCharacteristic: self.readCharacteristic,
+                      onSubscribedCentrals: nil)
         
     }
     
@@ -52,10 +67,6 @@ class KWSBluetoothLEClient: NSObject, CBPeripheralManagerDelegate  {
         
             self.peripheralManager.stopAdvertising()
         }
-    }
-
-    func resetConnection() {
-    
     }
     
     //MARK: CBPeripheralManagerDelegate method implementation
@@ -79,13 +90,13 @@ class KWSBluetoothLEClient: NSObject, CBPeripheralManagerDelegate  {
                                                            value: nil,
                                                      permissions: CBAttributePermissions.Writeable)
         
-        self.transferService = CBMutableService(type: CBUUID.UUIDWithString(KKWServiceUUID), primary: true)
+        self.transferService = CBMutableService(type: CBUUID.UUIDWithString(kKWServiceUUID), primary: true)
 
         self.peripheralManager.addService(self.transferService!)
         
         let delay = 1.0
         let runAfter : dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
-        let options : Dictionary<NSString, AnyObject> = [ CBAdvertisementDataServiceUUIDsKey: CBUUID.UUIDWithString(KKWServiceUUID) ]
+        let options : Dictionary<NSString, AnyObject> = [ CBAdvertisementDataServiceUUIDsKey: CBUUID.UUIDWithString(kKWServiceUUID) ]
         
         dispatch_after(runAfter, dispatch_get_main_queue()) { () -> Void in
             
@@ -111,36 +122,12 @@ class KWSBluetoothLEClient: NSObject, CBPeripheralManagerDelegate  {
         
             let data : NSData = req.value
             let header : NSData = data.subdataWithRange(NSMakeRange(0, sizeof(Int)))
+            let body : NSData = data.subdataWithRange(NSMakeRange(sizeof(Int), data.length - sizeof(Int)))
             
             let actionValue : UnsafePointer<Int> = UnsafePointer<Int>(header.bytes)
             let action : KWSPacketType = KWSPacketType.fromRaw(actionValue.memory)!
             
-            switch action {
-            
-            case .Disconnect:
-                println("disconnect")
-                
-            case .Attack:
-                println("heartBeat")
-                
-            case .Defense:
-                println("heartBeat")
-                
-            case .Jump:
-                println("heartBeat")
-                
-            case .Move:
-                println("heartBeat")
-                
-            case .HearBeat:
-                println("heartBeat")
-            
-            case .Connect:
-                println("connect")
-                
-            default:
-                println("unknown packet")
-            }
+            self.delegate?.interfaceDidUpdate(interface: self, command: action, data: body)
             
             self.peripheralManager.respondToRequest(req, withResult: CBATTError.Success)
         }

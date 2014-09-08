@@ -20,6 +20,8 @@
 		0431208719AE495600036D9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0431208519AE495600036D9F /* Main.storyboard */; };
 		0431208919AE495600036D9F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0431208819AE495600036D9F /* Images.xcassets */; };
 		0431209519AE495600036D9F /* KnightWhoSaidSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0431209419AE495600036D9F /* KnightWhoSaidSwiftTests.swift */; };
+		0432501619BE01CD00188DF0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0432501519BE01CD00188DF0 /* AudioToolbox.framework */; };
+		0432501819BE0C2600188DF0 /* KWSBluetoothLEInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0432501719BE0C2600188DF0 /* KWSBluetoothLEInterface.swift */; };
 		0464B70319B4BB6000A6E073 /* KWSCreditsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0464B70219B4BB6000A6E073 /* KWSCreditsViewController.swift */; };
 		049137E419B23CC500076903 /* CGFloat+KWSExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049137E319B23CC500076903 /* CGFloat+KWSExtensions.swift */; };
 		049137E619B240B800076903 /* CGPoint+KWSExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049137E519B240B800076903 /* CGPoint+KWSExtensions.swift */; };
@@ -71,6 +73,8 @@
 		0431208E19AE495600036D9F /* KnightWhoSaidSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KnightWhoSaidSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0431209319AE495600036D9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0431209419AE495600036D9F /* KnightWhoSaidSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnightWhoSaidSwiftTests.swift; sourceTree = "<group>"; };
+		0432501519BE01CD00188DF0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		0432501719BE0C2600188DF0 /* KWSBluetoothLEInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSBluetoothLEInterface.swift; sourceTree = "<group>"; };
 		0464B70219B4BB6000A6E073 /* KWSCreditsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSCreditsViewController.swift; sourceTree = "<group>"; };
 		049137E319B23CC500076903 /* CGFloat+KWSExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+KWSExtensions.swift"; sourceTree = "<group>"; };
 		049137E519B240B800076903 /* CGPoint+KWSExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+KWSExtensions.swift"; sourceTree = "<group>"; };
@@ -99,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0432501619BE01CD00188DF0 /* AudioToolbox.framework in Frameworks */,
 				04A855DD19B5095700AE2E6E /* CoreBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -116,6 +121,7 @@
 		0431206F19AE495600036D9F = {
 			isa = PBXGroup;
 			children = (
+				0432501519BE01CD00188DF0 /* AudioToolbox.framework */,
 				04A855DC19B5095700AE2E6E /* CoreBluetooth.framework */,
 				0431207A19AE495600036D9F /* KnightWhoSaidSwift */,
 				0431209119AE495600036D9F /* KnightWhoSaidSwiftTests */,
@@ -188,6 +194,7 @@
 				04A855D819B507E300AE2E6E /* KWSBluetoothLEServer.swift */,
 				04A855DA19B507F700AE2E6E /* KWSBluetoothLEClient.swift */,
 				0402161719B64D7800B79A17 /* KWSCommon.swift */,
+				0432501719BE0C2600188DF0 /* KWSBluetoothLEInterface.swift */,
 			);
 			name = Gameplay;
 			sourceTree = "<group>";
@@ -400,6 +407,7 @@
 				049137E919B2489600076903 /* KWSVelocitySpriteNode.swift in Sources */,
 				04A855D919B507E300AE2E6E /* KWSBluetoothLEServer.swift in Sources */,
 				04A855DB19B507F700AE2E6E /* KWSBluetoothLEClient.swift in Sources */,
+				0432501819BE0C2600188DF0 /* KWSBluetoothLEInterface.swift in Sources */,
 				049137E619B240B800076903 /* CGPoint+KWSExtensions.swift in Sources */,
 				0431208419AE495600036D9F /* KWSMainMenuViewController.swift in Sources */,
 				0402161819B64D7800B79A17 /* KWSCommon.swift in Sources */,
