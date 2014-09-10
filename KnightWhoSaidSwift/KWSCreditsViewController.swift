@@ -22,6 +22,9 @@ class KWSCreditsViewController: UIViewController {
     
     @IBAction func dismissViewController(sender: UIButton) {
         
+        let gameAudio = KWSGameAudioManager.sharedInstance
+            gameAudio.playClickButtonSound()
+
         self.navigationController?.popViewControllerAnimated(true)
     }
     

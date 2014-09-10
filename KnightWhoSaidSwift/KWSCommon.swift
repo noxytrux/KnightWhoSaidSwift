@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 enum KWSPacketType : Int {
+    
     case HearBeat
     case Connect
     case Disconnect
@@ -19,8 +20,19 @@ enum KWSPacketType : Int {
     case Defense
 }
 
+enum KWSSoundType : Int {
+    
+    case AttackSound
+    case JumpSound
+    case WalkSound
+    case DieSound
+    case DefenseSound
+    case HitSound
+}
+
 let kKWSWriteUUID : String! = "1E832CE0-FE05-4B93-90E4-870FF08DA162"
 let kKWSReadUUID  : String! = "0024F793-D583-43B2-A4C7-976CBCA33312"
 let kKWServiceUUID : String! = "07547DC7-FCFE-4827-8694-01788139B5B7"
 
 let kKWSMaxPacketSize : Int! = 20
+

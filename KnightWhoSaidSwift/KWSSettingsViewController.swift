@@ -17,6 +17,9 @@ class KWSSettingsViewController: UIViewController {
 
     @IBAction func dismissViewController(sender: UIButton) {
         
+        let gameAudio = KWSGameAudioManager.sharedInstance
+            gameAudio.playClickButtonSound()
+        
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 }

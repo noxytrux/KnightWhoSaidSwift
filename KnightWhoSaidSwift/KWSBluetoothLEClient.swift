@@ -22,10 +22,10 @@ CBPeripheralManagerDelegate  {
     internal var recivedData : NSData? = nil
     internal var sendedData : NSData? = nil
     
-    override init() {
-    
-        super.init()
-    
+    override init(ownerController : UIViewController, delegate: KWSBlueToothLEDelegate) {
+        
+        super.init(ownerController: ownerController, delegate: delegate)
+        
         self.peripheralQueue = dispatch_queue_create("com.mp.devs.kwss.client", nil)
         self.peripheralManager = CBPeripheralManager(delegate: self, queue: self.peripheralQueue)
     }

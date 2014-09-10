@@ -23,9 +23,10 @@ CBPeripheralDelegate {
     private var readCharacteristic : CBCharacteristic? = nil
     private var writeCharacteristic : CBCharacteristic? = nil
     
-    override init() {
+    override init(ownerController : UIViewController, delegate: KWSBlueToothLEDelegate) {
         
-        super.init();
+        super.init(ownerController: ownerController, delegate: delegate)
+        
         self.centralQueue = dispatch_queue_create("com.mp.devs.kwss.server", nil)
         self.centralManager = CBCentralManager(delegate: self, queue: self.centralQueue)
     }
@@ -74,7 +75,13 @@ CBPeripheralDelegate {
     }
     
     func cleanup() {
-    
+        //funny: Compile error ?! SEG FAULT 11
+        
+//        if self.discoveredPeripheral?.state == .Disconnected {
+//            
+//            return
+//        }
+        
         if let discoveredPeripheral = self.discoveredPeripheral {
             
             if discoveredPeripheral.state == .Disconnected {

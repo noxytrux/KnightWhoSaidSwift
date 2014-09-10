@@ -18,6 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.printFonts()
         
+        
+        let runAfter : dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
+    
+        dispatch_after(runAfter, dispatch_get_main_queue()) { () -> Void in
+            
+            let gameAudio = KWSGameAudioManager.sharedInstance
+                gameAudio.playMusic(musicName: "Menu")
+                gameAudio.setMusicVolume(volume: 0.3)
+        }
+        
         return true
     }
     

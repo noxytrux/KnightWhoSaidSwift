@@ -23,6 +23,13 @@ class KWSBluetoothLEInterface: NSObject, BTLEInterface {
     var delegate : KWSBlueToothLEDelegate?
     var ownerViewController : UIViewController?
     
+    init(ownerController : UIViewController, delegate: KWSBlueToothLEDelegate) {
+        
+        self.ownerViewController = ownerController
+        self.delegate = delegate
+        super.init()
+    }
+    
     func sendCommand(#command: KWSPacketType, data: NSData!) {
         
         self.doesNotRecognizeSelector(Selector(__FUNCTION__))

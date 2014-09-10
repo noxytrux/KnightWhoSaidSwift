@@ -53,6 +53,12 @@ class KWSMainMenuViewController: UIViewController, UIPopoverPresentationControll
         }
     }
 
+    @IBAction func didPressMenuButton(sender: AnyObject) {
+        
+        let gameAudio = KWSGameAudioManager.sharedInstance
+            gameAudio.playClickButtonSound()
+    }
+
     override func shouldAutorotate() -> Bool {
         
         return true
