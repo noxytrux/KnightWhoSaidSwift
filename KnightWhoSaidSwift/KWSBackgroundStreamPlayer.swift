@@ -19,12 +19,12 @@ class KWSBackgroundStreamPlayer: NSObject {
     private let numQueueBuffers = 3
     private var audioFile : AudioFileID = COpaquePointer.null()
     private var audioFormat : AudioStreamBasicDescription
-    private var audioQueue : AudioQueue?
     private var packetIndex : Int64
     private var numPacketsToRead : UInt32
     private var packetDescs : UnsafeMutablePointer<AudioStreamPacketDescription> = UnsafeMutablePointer<AudioStreamPacketDescription>.convertFromNilLiteral()
     private var trackClosed : Bool
     private var buffers : Array<AudioQueueBufferRef>
+    private var audioQueue : AudioQueue!
     
     internal var repeat : Bool
     
@@ -67,16 +67,22 @@ class KWSBackgroundStreamPlayer: NSObject {
             return
         }
         
-        var audioPointer : Unmanaged<AudioQueue>?
-
-        //THIS IS BROKEN:
-        var bufferCallBackProc : AudioQueueOutputCallback = AudioQueueOutputCallback.convertFromNilLiteral() //BufferCallback
+        //convert function to proper Swift pointer
+        let pointer = UnsafeMutablePointer<(UnsafeMutablePointer<Void>, AudioQueue!, AudioQueueBufferRef) -> Void>.alloc(1)
+            pointer.initialize(BufferCallback)
+        let opaquePointer = COpaquePointer(pointer)
+        let bufferCallBackProc = AudioQueueOutputCallback(opaquePointer)
         
-        //THIS IS HACK
-        var unsafeSelf : UnsafeMutablePointer<KWSBackgroundStreamPlayer> = UnsafeMutablePointer<KWSBackgroundStreamPlayer>.alloc(sizeof(KWSBackgroundStreamPlayer))
+        //convert self to proper void pointer
+        let unsafeSelf = UnsafeMutablePointer<KWSBackgroundStreamPlayer>.alloc(sizeof(KWSBackgroundStreamPlayer))
             unsafeSelf.initialize(self)
-        var dataPointer : COpaquePointer = COpaquePointer(unsafeSelf)
-        var voidSelf : UnsafeMutablePointer<Void> = UnsafeMutablePointer<Void>(dataPointer)
+        let dataPointer = COpaquePointer(unsafeSelf)
+        let voidSelf = UnsafeMutablePointer<Void>(dataPointer)
+    
+        var rawPointer = UnsafeMutablePointer<AudioQueue>.alloc(1)
+        var opaqueQueue = COpaquePointer(rawPointer);
+        
+        var audioPointer : Unmanaged<AudioQueue>?
         
         AudioFileGetProperty(self.audioFile, AudioFilePropertyID(kAudioFilePropertyDataFormat), &size, &self.audioFormat)
         AudioQueueNewOutput(&self.audioFormat, bufferCallBackProc, voidSelf, nil, nil, 0, &audioPointer)

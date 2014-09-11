@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
-extern void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBufferRef buffer);
+void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBufferRef buffer);
 

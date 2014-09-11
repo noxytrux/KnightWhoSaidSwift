@@ -8,39 +8,9 @@
 
 import SpriteKit
 
-class KWSMainMenuScene: SKScene {
+class KWSMainMenuScene: SKBaseScene {
     
-    internal var menuClouds = [KWSVelocitySpriteNode]()
-    internal var previousUpdateTime : CFTimeInterval = 0.0
     internal let kKWSBlockSize : CGFloat = 64.0
-    
-    func loadClouds() {
-        
-        let maxClouds = 10
-        
-        for _ in 1...maxClouds {
-            
-            let sprite = KWSVelocitySpriteNode(imageNamed:"cloud")
-            
-            let localScale : CGFloat = CGFloat.random(0.8, maximum: 3.0)
-            
-            sprite.xScale = localScale
-            sprite.yScale = localScale
-            sprite.zPosition = 1
-            
-            let maxWidth = CGRectGetMaxX(self.frame)
-            let posX = CGFloat.random(0, maximum: maxWidth)
-            let posY = CGFloat.random(0, maximum: 200)
-        
-            sprite.position = CGPointMake(posX, CGRectGetMaxY(self.frame) - posY)
-            
-            self.menuClouds.append(sprite)
-            
-            self.addChild(sprite)
-            
-        }
-
-    }
     
     func loadBottomPart() {
     
@@ -60,34 +30,6 @@ class KWSMainMenuScene: SKScene {
             sprite.position = CGPointMake(CGFloat(index) * kKWSBlockSize + 32.0, 32.0)
             
             self.addChild(sprite)
-        }
-    }
-    
-    func animateClouds(currentTime: CFTimeInterval) {
-    
-        var delta : CFTimeInterval = currentTime - self.previousUpdateTime
-        self.previousUpdateTime = currentTime
-        
-        if delta > 0.3 {
-            delta = 0.3
-        }
-    
-        for cloud in self.menuClouds {
-        
-            cloud.updateVelocity(delta)
-            
-            var pos = cloud.position.x - cloud.size.width*0.5
-            var maxWidth = CGRectGetMaxX(self.frame)
-            
-            if  pos > maxWidth {
-                
-                cloud.position = CGPointMake(-cloud.size.width, cloud.position.y)
-                
-                let localScale : CGFloat = CGFloat.random(0.8, maximum: 3.0)
-                
-                cloud.xScale = localScale
-                cloud.yScale = localScale
-            }
         }
     }
     
