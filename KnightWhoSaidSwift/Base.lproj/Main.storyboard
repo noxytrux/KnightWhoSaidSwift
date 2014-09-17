@@ -37,6 +37,7 @@
                                 </state>
                                 <connections>
                                     <action selector="didPressMenuButton:" destination="LVB-YS-i5n" eventType="touchUpInside" id="CLa-W6-1tF"/>
+                                    <segue destination="snk-ss-MKO" kind="show" identifier="kKWSPlayGameSegueIdentifier" id="4xh-l2-fyS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4X-rr-L4k">
@@ -81,6 +82,132 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btX-cZ-eVz" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="249" y="102"/>
+        </scene>
+        <!--Game View Controller-->
+        <scene sceneID="gfc-5d-L76">
+            <objects>
+                <viewController id="snk-ss-MKO" customClass="KWSGameViewController" customModule="KnightWhoSaidSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aVb-Ky-3bX"/>
+                        <viewControllerLayoutGuide type="bottom" id="beU-Z1-UHs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HJQ-hR-1EZ" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gq2-7T-1Bv">
+                                <rect key="frame" x="8" y="8" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="CDH-FU-zvl"/>
+                                    <constraint firstAttribute="width" constant="64" id="FHU-hy-XXY"/>
+                                </constraints>
+                                <color key="tintColor" red="0.098039215690000001" green="0.090196078430000007" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="back.png"/>
+                                <connections>
+                                    <action selector="popGameController:" destination="snk-ss-MKO" eventType="touchUpInside" id="TEE-ju-imh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s35-bD-Nqv">
+                                <rect key="frame" x="16" y="516" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="gqB-d5-ZWp"/>
+                                    <constraint firstAttribute="width" constant="64" id="kuK-R9-Edo"/>
+                                </constraints>
+                                <state key="normal" image="direction.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2FP-h1-kUg">
+                                <rect key="frame" x="113" y="516" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="LPg-DN-rTM"/>
+                                    <constraint firstAttribute="height" constant="64" id="Wbo-ap-Ig1"/>
+                                </constraints>
+                                <state key="normal" image="direction.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nkH-Yj-kfN">
+                                <rect key="frame" x="446" y="456" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="Vhv-Bc-nxk"/>
+                                    <constraint firstAttribute="height" constant="64" id="ZfW-86-96q"/>
+                                </constraints>
+                                <state key="normal" image="shield.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VS9-Bb-5pp">
+                                <rect key="frame" x="520" y="400" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="56S-E4-wND"/>
+                                    <constraint firstAttribute="width" constant="64" id="Qi4-li-Y4A"/>
+                                </constraints>
+                                <state key="normal" image="jump.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dth-wM-pqs">
+                                <rect key="frame" x="372" y="516" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="nVZ-TI-2Do"/>
+                                    <constraint firstAttribute="height" constant="60" id="v09-0V-KVX"/>
+                                </constraints>
+                                <state key="normal" image="machete.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="beU-Z1-UHs" firstAttribute="top" secondItem="nkH-Yj-kfN" secondAttribute="bottom" constant="80" id="0qn-hR-oru"/>
+                            <constraint firstItem="VS9-Bb-5pp" firstAttribute="leading" secondItem="nkH-Yj-kfN" secondAttribute="trailing" constant="10" id="1zw-xb-8a1"/>
+                            <constraint firstItem="beU-Z1-UHs" firstAttribute="top" secondItem="Dth-wM-pqs" secondAttribute="bottom" constant="24" id="FPB-Xx-z5f"/>
+                            <constraint firstItem="beU-Z1-UHs" firstAttribute="top" secondItem="VS9-Bb-5pp" secondAttribute="bottom" constant="136" id="MW7-UB-Gq8"/>
+                            <constraint firstItem="gq2-7T-1Bv" firstAttribute="leading" secondItem="HJQ-hR-1EZ" secondAttribute="leading" constant="8" id="NwW-IY-u0w"/>
+                            <constraint firstItem="beU-Z1-UHs" firstAttribute="top" secondItem="2FP-h1-kUg" secondAttribute="bottom" constant="20" id="T5v-Va-SWh"/>
+                            <constraint firstItem="beU-Z1-UHs" firstAttribute="top" secondItem="s35-bD-Nqv" secondAttribute="bottom" constant="20" id="UUN-xo-aaG"/>
+                            <constraint firstAttribute="trailing" secondItem="Dth-wM-pqs" secondAttribute="trailing" constant="168" id="YLD-kq-rb3"/>
+                            <constraint firstItem="gq2-7T-1Bv" firstAttribute="top" secondItem="aVb-Ky-3bX" secondAttribute="bottom" constant="8" id="Zqc-c4-U2S"/>
+                            <constraint firstAttribute="trailing" secondItem="VS9-Bb-5pp" secondAttribute="trailing" constant="16" id="hzf-lD-wm8"/>
+                            <constraint firstItem="2FP-h1-kUg" firstAttribute="leading" secondItem="s35-bD-Nqv" secondAttribute="trailing" constant="33" id="pkE-Hx-Yvl"/>
+                            <constraint firstItem="s35-bD-Nqv" firstAttribute="leading" secondItem="HJQ-hR-1EZ" secondAttribute="leadingMargin" id="vKX-wK-pLj"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4VY-CN-Ge8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1012" y="102"/>
         </scene>
         <!--Credits View Controller-->
         <scene sceneID="Bz3-25-b87">
@@ -204,7 +331,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back.png" width="128" height="128"/>
         <image name="bg.png" width="225" height="180"/>
+        <image name="direction.png" width="256" height="256"/>
+        <image name="jump.png" width="256" height="256"/>
+        <image name="machete.png" width="256" height="256"/>
+        <image name="shield.png" width="256" height="256"/>
         <image name="sword.png" width="112" height="44"/>
     </resources>
 </document>

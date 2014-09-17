@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SpriteKit
 
 enum KWSPacketType : Int {
     
@@ -36,3 +37,18 @@ let kKWServiceUUID : String! = "07547DC7-FCFE-4827-8694-01788139B5B7"
 
 let kKWSMaxPacketSize : Int! = 20
 
+extension SKNode {
+    
+    class func unarchiveFromFile(file : NSString) -> SKNode? {
+        
+        let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks")
+        
+        var sceneData = NSData.dataWithContentsOfFile(path!, options: .DataReadingMappedIfSafe, error: nil)
+        var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
+        
+        archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
+        let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as SKScene
+        archiver.finishDecoding()
+        return scene
+    }
+}

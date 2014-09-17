@@ -11,26 +11,13 @@ import SpriteKit
 
 let kDebugOption : Bool = 1
 
-extension SKNode {
-    
-    class func unarchiveFromFile(file : NSString) -> SKNode? {
-        
-        let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks")
-        
-        var sceneData = NSData.dataWithContentsOfFile(path!, options: .DataReadingMappedIfSafe, error: nil)
-        var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
-        
-        archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-        let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as KWSMainMenuScene
-        archiver.finishDecoding()
-        return scene
-    }
-}
-
 class KWSMainMenuViewController: UIViewController, UIPopoverPresentationControllerDelegate{
 
-    let kKWSSettingsSegueIdentifier = "kKWSSettingsSegueIdentifier"
-
+    let kKWSSettingsSegueIdentifier : String! = "kKWSSettingsSegueIdentifier"
+    let kKWSPlayGameSegueIdentifier : String! = "kKWSPlayGameSegueIdentifier"
+    
+    var gameAudio : KWSGameAudioManager?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -51,6 +38,10 @@ class KWSMainMenuViewController: UIViewController, UIPopoverPresentationControll
             
             skView.presentScene(scene)
         }
+        
+        self.gameAudio = KWSGameAudioManager.sharedInstance
+        self.gameAudio!.playMusic(musicName: "Menu")
+        self.gameAudio!.setMusicVolume(volume: 0.3)
     }
 
     @IBAction func didPressMenuButton(sender: AnyObject) {
@@ -81,9 +72,19 @@ class KWSMainMenuViewController: UIViewController, UIPopoverPresentationControll
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
-        if kKWSSettingsSegueIdentifier == segue.identifier {
+        if kKWSPlayGameSegueIdentifier == segue.identifier {
         
+            let runAfter : dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
             
+            dispatch_after(runAfter, dispatch_get_main_queue()) { () -> Void in
+                
+                
+                if let gameAudio = self.gameAudio {
+                
+                    gameAudio.playMusic(musicName: "Level")
+                    gameAudio.setMusicVolume(volume: 0.3)
+                }
+            }
         }
     }
 
