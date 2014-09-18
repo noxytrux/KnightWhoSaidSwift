@@ -9,9 +9,7 @@
 import SpriteKit
 
 class KWSMainMenuScene: SKBaseScene {
-    
-    internal let kKWSBlockSize : CGFloat = 64.0
-    
+        
     func loadBottomPart() {
     
         let step : CGFloat = CGRectGetMaxX(self.frame) / kKWSBlockSize

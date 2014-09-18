@@ -37,6 +37,8 @@ let kKWServiceUUID : String! = "07547DC7-FCFE-4827-8694-01788139B5B7"
 
 let kKWSMaxPacketSize : Int! = 20
 
+let kKWSBlockSize : CGFloat! = 64.0
+
 extension SKNode {
     
     class func unarchiveFromFile(file : NSString) -> SKNode? {

@@ -39,6 +39,16 @@ func - (left: CGPoint, right: CGPoint) -> CGPoint {
     return CGPointMake(left.x - right.x, left.y - right.y)
 }
 
+func + (left: CGPoint, right: CGFloat) -> CGPoint {
+    
+    return CGPointMake(left.x + right, left.y + right)
+}
+
+func - (left: CGPoint, right: CGFloat) -> CGPoint {
+    
+    return CGPointMake(left.x - right, left.y - right)
+}
+
 func += (inout left: CGPoint, right: CGPoint) {
 
     left = left + right

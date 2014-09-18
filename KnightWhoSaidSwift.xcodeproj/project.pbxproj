@@ -13,6 +13,8 @@
 		0402161619B64D5900B79A17 /* shield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0402161219B64D5900B79A17 /* shield@2x.png */; };
 		0402161819B64D7800B79A17 /* KWSCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402161719B64D7800B79A17 /* KWSCommon.swift */; };
 		042A794619B338C700D5B75A /* castle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 042A794519B338C700D5B75A /* castle@2x.png */; };
+		0430F91A19CB242C0037C623 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0430F91919CB242C0037C623 /* Utilities.swift */; };
+		0430F91C19CB2ECB0037C623 /* mapimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0430F91B19CB2ECB0037C623 /* mapimage.png */; };
 		0431207E19AE495600036D9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0431207D19AE495600036D9F /* AppDelegate.swift */; };
 		0431208019AE495600036D9F /* KWSMainMenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0431207F19AE495600036D9F /* KWSMainMenuScene.sks */; };
 		0431208219AE495600036D9F /* KWSMainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0431208119AE495600036D9F /* KWSMainMenuScene.swift */; };
@@ -79,6 +81,8 @@
 		0402161219B64D5900B79A17 /* shield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shield@2x.png"; sourceTree = "<group>"; };
 		0402161719B64D7800B79A17 /* KWSCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSCommon.swift; sourceTree = "<group>"; };
 		042A794519B338C700D5B75A /* castle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "castle@2x.png"; sourceTree = "<group>"; };
+		0430F91919CB242C0037C623 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		0430F91B19CB2ECB0037C623 /* mapimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapimage.png; sourceTree = "<group>"; };
 		0431207819AE495600036D9F /* KnightWhoSaidSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KnightWhoSaidSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0431207C19AE495600036D9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0431207D19AE495600036D9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -250,6 +254,7 @@
 		048D36E519C9F7BB00CB211E /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				0430F91919CB242C0037C623 /* Utilities.swift */,
 			);
 			name = Image;
 			sourceTree = "<group>";
@@ -311,6 +316,7 @@
 		04E80BE919B1ED6D006C4917 /* GFX */ = {
 			isa = PBXGroup;
 			children = (
+				0430F91B19CB2ECB0037C623 /* mapimage.png */,
 				048D36EF19CA02E600CB211E /* back@2x.png */,
 				0402160F19B64D5900B79A17 /* direction@2x.png */,
 				0402161019B64D5900B79A17 /* jump@2x.png */,
@@ -474,6 +480,7 @@
 				04E80BFA19B1ED6D006C4917 /* cloud@2x.png in Resources */,
 				042A794619B338C700D5B75A /* castle@2x.png in Resources */,
 				04E80BFD19B1ED6D006C4917 /* defense.atlas in Resources */,
+				0430F91C19CB2ECB0037C623 /* mapimage.png in Resources */,
 				04E80C0219B1ED6D006C4917 /* sword@2x.png in Resources */,
 				0402161619B64D5900B79A17 /* shield@2x.png in Resources */,
 				04E80BF819B1ED6D006C4917 /* FFFATLAN.TTF in Resources */,
@@ -515,6 +522,7 @@
 				049137E619B240B800076903 /* CGPoint+KWSExtensions.swift in Sources */,
 				045C4BF419BF59A3007C11C5 /* AudioBridge.m in Sources */,
 				04BBBF5819C0CD2E0008222C /* KWSGameAudioManager.swift in Sources */,
+				0430F91A19CB242C0037C623 /* Utilities.swift in Sources */,
 				0468D3B919BE39A60012EB82 /* Boolean+KWSExtensions.swift in Sources */,
 				0431208419AE495600036D9F /* KWSMainMenuViewController.swift in Sources */,
 				0402161819B64D7800B79A17 /* KWSCommon.swift in Sources */,
