@@ -69,7 +69,7 @@ CBPeripheralDelegate {
         println("Scaning started")
         
         let service : [AnyObject] = [CBUUID.UUIDWithString(kKWServiceUUID)]
-        let options : [String:NSValue] = [CBCentralManagerScanOptionAllowDuplicatesKey : NSValue(nonretainedObject: 1)]
+        let options : [String:NSNumber] = [CBCentralManagerScanOptionAllowDuplicatesKey : NSNumber(bool: true)]
         
         self.centralManager.scanForPeripheralsWithServices(service, options: options)
     }

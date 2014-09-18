@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import AudioToolbox
 
 let kKWSAudioDeviceMuteKey : String! = "kKWSAudioDeviceMuteKey"
 

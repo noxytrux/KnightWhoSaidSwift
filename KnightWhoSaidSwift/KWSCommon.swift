@@ -36,8 +36,8 @@ let kKWSReadUUID  : String! = "0024F793-D583-43B2-A4C7-976CBCA33312"
 let kKWServiceUUID : String! = "07547DC7-FCFE-4827-8694-01788139B5B7"
 
 let kKWSMaxPacketSize : Int! = 20
-
 let kKWSBlockSize : CGFloat! = 64.0
+let kKWSAnimationDuration : NSTimeInterval! = 0.3
 
 extension SKNode {
     

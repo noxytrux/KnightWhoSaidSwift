@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVFoundation
+import AudioToolbox
 
 class KWSGameAudioManager: KWSAudioManager {
     

@@ -12,8 +12,12 @@
  - *.mm files are not supported!
  */
 
-#import "KnightWhoSaidSwift-Swift.h"
 #import "AudioBridge.h"
+
+void InitializeAudioBuffer(void *userAudioClass)
+{
+
+}
 
 void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBufferRef buffer)
 {

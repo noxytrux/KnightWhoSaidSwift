@@ -16,16 +16,17 @@ let KWSMusicTrackFinishedPlayingNotification : String! = "KWSMusicTrackFinishedP
 class KWSBackgroundStreamPlayer: NSObject {
    
     private let bufferSizeBytes : UInt32 = 0x10000;
-    private let numQueueBuffers = 3
     private var audioFile : AudioFileID = COpaquePointer.null()
     private var audioFormat : AudioStreamBasicDescription
     private var packetIndex : Int64
     private var numPacketsToRead : UInt32
     private var packetDescs : UnsafeMutablePointer<AudioStreamPacketDescription> = UnsafeMutablePointer<AudioStreamPacketDescription>.convertFromNilLiteral()
     private var trackClosed : Bool
+  
+    private let numQueueBuffers = 3
     private var buffers : Array<AudioQueueBufferRef>
-    private var audioQueue : AudioQueue!
-    
+
+    internal var audioQueue : AudioQueue!
     internal var repeat : Bool
     
     override init() {
@@ -69,7 +70,7 @@ class KWSBackgroundStreamPlayer: NSObject {
         
         //convert function to proper Swift pointer
         let pointer = UnsafeMutablePointer<(UnsafeMutablePointer<Void>, AudioQueue!, AudioQueueBufferRef) -> Void>.alloc(1)
-            pointer.initialize(BufferCallback)
+      //      pointer.initialize(BufferCallback)
         let opaquePointer = COpaquePointer(pointer)
         let bufferCallBackProc = AudioQueueOutputCallback(opaquePointer)
         
