@@ -22,9 +22,7 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
 
     private var audioSamplesIdentifiers = [SystemSoundID]()
     
-    //for now lets use AVAudioPlayer as long as CoreAudio is not functional...
-    private var audioSession : AVAudioSession!
-    private var backgroundMusicPlayer : AVAudioPlayer? = nil
+    private var backgroundMusicPlayer : KWSBackgroundStreamPlayer? = nil
     private var playingMusic : Bool = false
 
     private var _deviceMuted : Bool = false {
@@ -33,7 +31,7 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
             
             if let backgroundMusicPlayer = self.backgroundMusicPlayer {
             
-                if _deviceMuted && backgroundMusicPlayer.playing {
+                if self.playingMusic && _deviceMuted {
                     
                     backgroundMusicPlayer.pause()
                 }
@@ -71,7 +69,6 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
         
         let userDefaults = NSUserDefaults.standardUserDefaults()
         self.deviceMuted = userDefaults.boolForKey(kKWSAudioDeviceMuteKey)
-        
         self.setupAudioSession()
     }
     
@@ -80,6 +77,26 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
         for (_, object) in enumerate(self.audioSamplesIdentifiers) {
             
             AudioServicesDisposeSystemSoundID(object)
+        }
+    }
+    
+    func setupAudioSession() {
+        
+        var setCategoryErr : NSError?
+        var activateErr : NSError?
+        var audioSession = AVAudioSession.sharedInstance()
+        
+        audioSession.setCategory(AVAudioSessionCategoryPlayback, withOptions: AVAudioSessionCategoryOptions.MixWithOthers, error: &setCategoryErr)
+        audioSession.setActive(true, error: &activateErr)
+        
+        if let setCategoryErr = setCategoryErr {
+        
+            println("Error while setting category: \(setCategoryErr)")
+        }
+        
+        if let activateErr = activateErr {
+            
+            println("Error while activating session: \(activateErr)")
         }
     }
     
@@ -93,29 +110,12 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
         return staticStruct.instance! as KWSAudioManager
     }
     
-    func setupAudioSession() {
-    
-        self.audioSession = AVAudioSession.sharedInstance()
-        var setCategoryError : NSError? = nil
-        
-        if self.audioSession.otherAudioPlaying {
-            
-            self.audioSession.setCategory(AVAudioSessionCategorySoloAmbient, error: &setCategoryError)
-            
-        } else {
-            
-            self.audioSession.setCategory(AVAudioSessionCategoryAmbient, error: &setCategoryError)
-        }
-        
-        if let setCategoryError = setCategoryError {
-            
-            println("Error setting category: \(setCategoryError.localizedDescription) code: \(setCategoryError.code)");
-        }
-    }
-    
     func setMusicVolume(#volume: Float) {
         
-        self.backgroundMusicPlayer?.volume = volume
+        if let backgroundMusicPlayer = self.backgroundMusicPlayer {
+            
+            backgroundMusicPlayer.setGain(volume)
+        }
     }
     
     func stopMusic() {
@@ -123,53 +123,22 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
         self.playingMusic = false
         
         if let backgroundMusicPlayer = self.backgroundMusicPlayer {
-            
-            if backgroundMusicPlayer.playing {
-                
-                backgroundMusicPlayer.stop()
-            }
+        
+            backgroundMusicPlayer.pause()
         }
     }
 
     func playMusic(#musicName: String!) {
     
+        self.backgroundMusicPlayer = KWSBackgroundStreamPlayer()
+        
         if let backgroundMusicPlayer = self.backgroundMusicPlayer {
             
-            if backgroundMusicPlayer.playing {
-                
-                backgroundMusicPlayer.stop()
-            }
-        }
+            backgroundMusicPlayer.loadFromFile(musicName, repeat: true)
+            backgroundMusicPlayer.play()
         
-        var path = NSBundle.mainBundle().pathForResource(musicName, ofType: "mp3")
-    
-        if let path = path {
-        
-            var error : NSError? = nil
-            
-            self.backgroundMusicPlayer = AVAudioPlayer(contentsOfURL: NSURL.fileURLWithPath(path), error: &error)
-           
-            if let backgroundMusicPlayer = self.backgroundMusicPlayer {
-                
-                backgroundMusicPlayer.delegate = self
-                
-                backgroundMusicPlayer.numberOfLoops = -1
-                backgroundMusicPlayer.prepareToPlay()
-                backgroundMusicPlayer.play()
-            }
-            
             self.playingMusic = true
-            
-            if let error = error {
-            
-                println("Error while opening music file: \(musicName)")
-            }
         }
-        else {
-            
-            println("Error while loading music named: \(musicName)")
-        }
-
     }
 
     func loadSound(#soundName: String!) {

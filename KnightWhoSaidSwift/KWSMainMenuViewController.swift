@@ -17,7 +17,7 @@ class KWSMainMenuViewController: UIViewController, UIPopoverPresentationControll
     let kKWSPlayGameSegueIdentifier : String! = "kKWSPlayGameSegueIdentifier"
     
     var gameAudio : KWSGameAudioManager?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,6 +42,7 @@ class KWSMainMenuViewController: UIViewController, UIPopoverPresentationControll
         self.gameAudio = KWSGameAudioManager.sharedInstance
         self.gameAudio!.playMusic(musicName: "Menu")
         self.gameAudio!.setMusicVolume(volume: 0.3)
+
     }
 
     @IBAction func didPressMenuButton(sender: AnyObject) {
