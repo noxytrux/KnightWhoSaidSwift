@@ -12,7 +12,8 @@ class SKBaseScene: SKScene {
    
     internal var menuClouds = [KWSVelocitySpriteNode]()
     internal var previousUpdateTime : CFTimeInterval = 0.0
-   
+    internal var delta : CFTimeInterval = 0.0
+    
     func loadClouds() {
         
         let maxClouds = 10
@@ -43,7 +44,7 @@ class SKBaseScene: SKScene {
 
     func animateClouds(currentTime: CFTimeInterval) {
         
-        var delta : CFTimeInterval = currentTime - self.previousUpdateTime
+        self.delta = currentTime - self.previousUpdateTime
         self.previousUpdateTime = currentTime
         
         if delta > 0.3 {

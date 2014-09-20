@@ -44,7 +44,6 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
         }
     }
 
-    internal var backgroundMusicInterrupted : Bool = false
     internal var deviceMuted : Bool {
         
         get {
@@ -73,6 +72,14 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
     }
     
     deinit {
+        
+        if self.playingMusic {
+        
+            if let backgroundMusicPlayer = self.backgroundMusicPlayer {
+                
+                backgroundMusicPlayer.close()
+            }
+        }
         
         for (_, object) in enumerate(self.audioSamplesIdentifiers) {
             
@@ -168,16 +175,5 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
         AudioServicesPlaySystemSound(self.audioSamplesIdentifiers[soundNumber])
     }
     
-    //MARK: AVAudioPlayer delegate implementation
-    
-    func audioPlayerBeginInterruption(player: AVAudioPlayer!) {
-        
-        self.backgroundMusicInterrupted = true
-    }
-    
-    func audioPlayerEndInterruption(player: AVAudioPlayer!, withOptions flags: Int) {
-        
-        self.backgroundMusicInterrupted = false
-    }
 }
 

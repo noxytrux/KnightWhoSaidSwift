@@ -14,6 +14,9 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
     private var communicationInterface : KWSBluetoothLEInterface?
     private var gameButtons = [UIButton]()
     
+    private var gameScene : KWSGameScene!
+    private var isSerwer : Bool = false
+    
     @IBOutlet weak var becomeServerButton: UIButton!
     @IBOutlet weak var becomeClientButton: UIButton!
     
@@ -48,6 +51,8 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
             scene.scaleMode = .AspectFill
             
             skView.presentScene(scene)
+            
+            self.gameScene = scene
         }
         
         self.gameButtons.append(self.moveLeftButton)
@@ -68,14 +73,20 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
     
     @IBAction func becomeServerPress(sender: UIButton) {
         
+        self.isSerwer = true
         self.communicationInterface = KWSBluetoothLEServer(ownerController: self, delegate: self)
         self.showGameButtons()
+        
+        self.gameScene.selectedPlayer = self.gameScene.players[1]
     }
     
     @IBAction func becomeClientPress(sender: UIButton) {
         
+        self.isSerwer = false
         self.communicationInterface = KWSBluetoothLEClient(ownerController: self, delegate: self)
         self.showGameButtons()
+        
+        self.gameScene.selectedPlayer = self.gameScene.players[0]
     }
     
     func showGameButtons() {
@@ -98,4 +109,58 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
     {
     
     }
+    
+    //MARK: player sterring
+    
+    @IBAction func pressLeftButton(sender: UIButton) {
+        
+        var currentPlayer = self.gameScene.selectedPlayer
+
+        currentPlayer!.buttonActive = true
+        currentPlayer!.playerMoveLeft()
+    }
+    
+    @IBAction func pressRightButton(sender: UIButton) {
+
+        var currentPlayer = self.gameScene.selectedPlayer
+        
+        currentPlayer!.buttonActive = true
+        currentPlayer!.playerMoveRight()
+    }
+    
+    @IBAction func unpressLeftButton(sender: UIButton) {
+        
+        var currentPlayer = self.gameScene.selectedPlayer
+        
+        currentPlayer!.buttonActive = false
+    }
+    
+    @IBAction func unpressRightButton(sender: UIButton) {
+        
+        var currentPlayer = self.gameScene.selectedPlayer
+        
+        currentPlayer!.buttonActive = false
+    }
+    
+    @IBAction func pressAttackButton(sender: UIButton) {
+        
+        var currentPlayer = self.gameScene.selectedPlayer
+        currentPlayer!.playerAttack()
+
+    }
+    
+    @IBAction func pressDefenseButton(sender: UIButton) {
+
+        var currentPlayer = self.gameScene.selectedPlayer
+        currentPlayer!.playerDefense()
+
+    }
+    
+    @IBAction func pressJumpButton(sender: UIButton) {
+
+        var currentPlayer = self.gameScene.selectedPlayer
+        currentPlayer!.playerJump()
+
+    }
+    
 }

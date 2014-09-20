@@ -28,7 +28,7 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
     
     private var gameWorld = SKNode()
     private var gameLayers = [SKNode]()
-    
+
     internal var sceneLoaded:Bool = false
    
     internal var mapSizeX : Int = 0
@@ -37,6 +37,10 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
     
     internal var enviroAtlas : SKTextureAtlas!
     internal var playerSpawnPosition : CGPoint!
+    
+    internal var players = [KWSPlayer]()
+    
+    internal var selectedPlayer : KWSPlayer?
     
     override func didMoveToView(view: SKView) {
 
@@ -68,6 +72,7 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
         dispatch_async(backgroundQueue) {
         
             self.enviroAtlas = SKTextureAtlas(named:"Enviro.atlas")
+            KWSPlayer.loadSharedAssets()
             
             dispatch_async(queue, { () -> Void in
                 
@@ -76,10 +81,24 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
                 
                 self.centerWorldOnPosition(self.playerSpawnPosition)
         
+                self.loadPlayers()
+                
                 self.sceneLoaded = true
             })
         }
     
+    }
+    
+    func loadPlayers() {
+    
+        var firstPlayer = KWSPlayer(atPosition: self.playerSpawnPosition, redPlayer: false)
+        var secondPlayer = KWSPlayer(atPosition: self.playerSpawnPosition, redPlayer: true)
+        
+        self.players.append(firstPlayer)
+        self.players.append(secondPlayer)
+        
+        self.addNode(firstPlayer, atWorldLayer: .ground)
+        self.addNode(secondPlayer, atWorldLayer: .ground)
     }
     
     func loadMap() {
@@ -115,7 +134,7 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
                     sprite.zPosition = 0
                     sprite.position = worldPoint
                 
-                    sprite.physicsBody = SKPhysicsBody(rectangleOfSize: size)
+                    sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
                     sprite.physicsBody!.dynamic = false
                     sprite.physicsBody!.categoryBitMask = ColliderType.Wall.toRaw()
                     sprite.physicsBody!.collisionBitMask = 0
@@ -145,7 +164,7 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
                     sprite.zPosition = 0
                     sprite.position = worldPoint
 
-                    sprite.physicsBody = SKPhysicsBody(rectangleOfSize: size)
+                    sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
                     sprite.physicsBody!.dynamic = false
                     sprite.physicsBody!.categoryBitMask = ColliderType.Ground.toRaw()
                     sprite.physicsBody!.collisionBitMask = 0
@@ -171,6 +190,17 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
         }
         
         self.animateClouds(currentTime)
+        
+        for player in self.players {
+        
+            player.updateWithTimeSinceLastUpdate(self.delta)
+        }
+
+        if let selectedPlayer = self.selectedPlayer {
+        
+            centerWorldOnPosition(selectedPlayer.position)
+        }
+        
     }
     
     func insertBackgroundNode() {
@@ -203,7 +233,33 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
     
     func didBeginContact(contact: SKPhysicsContact) {
         
+        if let player = contact.bodyA.node as? KWSPlayer {
         
+            player.collidedWith(contact.bodyB)
+            
+            if  contact.bodyB.categoryBitMask == ColliderType.Ground.toRaw() ||
+                contact.bodyB.categoryBitMask == ColliderType.Wall.toRaw() {
+                    
+                    if contact.contactNormal.dy > 0 {
+                        
+                        player.touchesGround = true
+                    }
+            }
+        }
+        
+        if let player = contact.bodyB.node as? KWSPlayer {
+            
+            player.collidedWith(contact.bodyA)
+            
+            if  contact.bodyA.categoryBitMask == ColliderType.Ground.toRaw() ||
+                contact.bodyA.categoryBitMask == ColliderType.Wall.toRaw() {
+                    
+                    if contact.contactNormal.dy > 0 {
+                        
+                        player.touchesGround = true
+                    }
+            }
+        }
     }
     
     func didEndContact(contact: SKPhysicsContact) {

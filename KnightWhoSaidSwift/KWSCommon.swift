@@ -21,14 +21,15 @@ enum KWSPacketType : Int {
     case Defense
 }
 
-enum KWSSoundType : Int {
+enum KWSActionType : Int {
     
-    case AttackSound
-    case JumpSound
-    case WalkSound
-    case DieSound
-    case DefenseSound
-    case HitSound
+    case AttackAction
+    case JumpAction
+    case WalkAction
+    case DieAction
+    case DefenseAction
+    case HitAction
+    case IdleAction
 }
 
 let kKWSWriteUUID : String! = "1E832CE0-FE05-4B93-90E4-870FF08DA162"

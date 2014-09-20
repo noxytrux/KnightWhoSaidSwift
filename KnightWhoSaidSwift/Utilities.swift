@@ -85,4 +85,24 @@ func loadMapData(mapName: String) -> (data: UnsafeMutablePointer<Void>, width: U
     return (dataPointer, imageWidth, imageHeight)
 }
 
+func loadFramesFromAtlas(atlas: SKTextureAtlas) -> [SKTexture] {
+    
+    return (atlas.textureNames as [String]).map { atlas.textureNamed($0) }
+}
 
+func loadFramesFromAtlasWithName(atlasName: String,
+                             #baseFileName: String,
+                           #numberOfFrames: Int) -> [SKTexture] {
+    
+    let atlas = SKTextureAtlas(named: atlasName)
+    
+    return [SKTexture](
+        
+        map(1...numberOfFrames) { i in
+        
+            let fileName = "\(baseFileName)_prefix_\(i).png"
+        
+            return atlas.textureNamed(fileName)
+        }
+    )
+}
