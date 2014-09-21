@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-let kDebugOption : Bool = 1
+let kDebugOption : Bool = 0
 
 class KWSMainMenuViewController: UIViewController, UIPopoverPresentationControllerDelegate{
 
@@ -21,7 +21,10 @@ class KWSMainMenuViewController: UIViewController, UIPopoverPresentationControll
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let scene = KWSMainMenuScene.unarchiveFromFile("KWSMainMenuScene") as? KWSMainMenuScene {
+        let classString = NSStringFromClass(KWSMainMenuScene)
+        let realClassName = classString.componentsSeparatedByString(".")[1]
+        
+        if let scene = KWSMainMenuScene.unarchiveFromFile(realClassName) as? KWSMainMenuScene {
           
             let skView = self.view as SKView
             

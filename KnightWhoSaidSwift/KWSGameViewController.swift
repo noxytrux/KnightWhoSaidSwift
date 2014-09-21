@@ -41,12 +41,18 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
         
         self.moveLeftButton.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
         
-        if let scene = KWSGameScene.unarchiveFromFile("KWSGameScene") as? KWSGameScene {
+        let classString = NSStringFromClass(KWSGameScene)
+        let realClassName = classString.componentsSeparatedByString(".")[1]
+        
+        if let scene = KWSGameScene.unarchiveFromFile(realClassName) as? KWSGameScene {
             
             let skView = self.view as SKView
         
             skView.ignoresSiblingOrder = true
             skView.shouldCullNonVisibleNodes = true
+            
+            skView.showsFPS = true
+            skView.showsNodeCount = true
             
             scene.scaleMode = .AspectFill
             

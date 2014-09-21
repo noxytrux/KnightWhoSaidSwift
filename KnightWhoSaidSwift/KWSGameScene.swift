@@ -124,7 +124,7 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
                     
                     self.playerSpawnPosition = worldPoint
                     
-                } else if tileData.wall >= kKWSAcceptValue {
+                } else if tileData.wall >= kKWSAcceptValue && tileData.ground == 0 {
                     
                     let sprite = SKSpriteNode(texture:self.enviroAtlas.textureNamed("Enviro_prefix_4"))
                     
@@ -154,7 +154,7 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
                     
                     self.addNode(sprite, atWorldLayer: .foliage)
                     
-                } else if tileData.ground >= kKWSAcceptValue {
+                } else if tileData.ground >= kKWSAcceptValue && tileData.wall == 0 {
                 
                     let sprite = SKSpriteNode(texture:self.enviroAtlas.textureNamed("Enviro_prefix_3"))
 
@@ -170,6 +170,18 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
                     sprite.physicsBody!.collisionBitMask = 0
                     
                     self.addNode(sprite, atWorldLayer: .ground)
+                    
+                } else if tileData.ground >= kKWSAcceptValue && tileData.wall >= kKWSAcceptValue  {
+                
+                    let sprite = SKSpriteNode(texture:self.enviroAtlas.textureNamed("Enviro_prefix_2"))
+                    
+                    sprite.size = CGSizeMake(32, 32)
+                    sprite.xScale = 2.0
+                    sprite.yScale = 2.0
+                    sprite.zPosition = 0
+                    sprite.position = worldPoint
+                    
+                    self.addNode(sprite, atWorldLayer: .ground)
                 }
             }
         }
@@ -179,6 +191,7 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
     func queryData(point: CGPoint) -> mapDataStruct {
         
         let index = (Int(point.y) * Int(self.mapSizeX)) + Int(point.x)
+        
         return mapBinaryData[index]
     }
     
@@ -219,7 +232,7 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
     func addNode(node: SKNode, atWorldLayer layer: WorldLayer) {
         
         let layerNode = gameLayers[layer.toRaw()]
-        layerNode.addChild(node)
+            layerNode.addChild(node)
     }
     
     func centerWorldOnPosition(position: CGPoint) {
