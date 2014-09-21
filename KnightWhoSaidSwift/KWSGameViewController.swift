@@ -26,6 +26,7 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
     @IBOutlet weak var jumpButton: UIButton!
     @IBOutlet weak var guardButton: UIButton!
     @IBOutlet weak var attackButton: UIButton!
+    @IBOutlet weak var restartButton: UIButton!
 
     override func viewWillAppear(animated: Bool) {
         
@@ -139,9 +140,7 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
             for button in self.gameButtons {
                 
                 button.alpha = 1.0
-                
-                //TODO: uncomment after tests
-                //button.userInteractionEnabled = false
+                button.userInteractionEnabled = false
             }
         })
     }
@@ -229,6 +228,21 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
             
             self.presentViewController(KWSAlertController, animated: true, completion: nil)
             
+        case .Restart:
+            
+            self.gameScene.selectedPlayer!.resetPlayer()
+            self.gameScene.otherPlayer!.resetPlayer()
+            
+            UIView.animateWithDuration(kKWSAnimationDuration, animations: { () -> Void in
+                
+                self.restartButton.alpha = 0.0
+                
+                for button in self.gameButtons {
+                    
+                    button.alpha = 1.0
+                }
+            })
+            
         default:
             ()
         }
@@ -240,6 +254,36 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
     
         //reset menu etc.
         
+        UIView.animateWithDuration(kKWSAnimationDuration, animations: { () -> Void in
+            
+            self.restartButton.alpha = 1.0
+            
+            for button in self.gameButtons {
+                
+                button.alpha = 0.0
+            }
+        })
+    }
+    
+    @IBAction func restartButtonPress(sender: UIButton) {
+        
+        if interfaceConnected {
+            
+            self.communicationInterface!.sendCommand(command: .Restart, data: nil)
+        }
+        
+        self.gameScene.selectedPlayer!.resetPlayer()
+        self.gameScene.otherPlayer!.resetPlayer()
+        
+        UIView.animateWithDuration(kKWSAnimationDuration, animations: { () -> Void in
+            
+            sender.alpha = 0.0
+            
+            for button in self.gameButtons {
+                
+                button.alpha = 1.0
+            }
+        })
     }
     
     //MARK: player sterring

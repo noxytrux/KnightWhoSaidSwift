@@ -304,6 +304,8 @@ CBPeripheralDelegate {
         println("peripheral disconnected")
         self.discoveredPeripheral = nil
         self.scan()
+        
+        self.delegate?.interfaceDidUpdate(interface: self, command: .Disconnect, data: nil)
     }
     
 }

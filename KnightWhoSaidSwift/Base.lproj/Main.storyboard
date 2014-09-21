@@ -14,6 +14,7 @@
             <string>FFFAtlantisTrial</string>
             <string>FFFAtlantisTrial</string>
             <string>FFFAtlantisTrial</string>
+            <string>FFFAtlantisTrial</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -198,7 +199,6 @@
                                 </state>
                                 <connections>
                                     <action selector="becomeServerPress:" destination="snk-ss-MKO" eventType="touchUpInside" id="kq6-KU-vg6"/>
-                                    <action selector="dismissViewController:" destination="4VY-CN-Ge8" eventType="touchUpInside" id="IQo-CI-0mg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YhZ-27-BJk">
@@ -211,7 +211,6 @@
                                 </state>
                                 <connections>
                                     <action selector="becomeClientPress:" destination="snk-ss-MKO" eventType="touchUpInside" id="AFr-Ln-t0R"/>
-                                    <action selector="dismissViewController:" destination="4VY-CN-Ge8" eventType="touchUpInside" id="2Gb-Ja-lNP"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dth-wM-pqs">
@@ -233,6 +232,18 @@
                                     <action selector="pressAttackButton:" destination="snk-ss-MKO" eventType="touchUpInside" id="puH-Cd-b1o"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2tK-V2-Oyu">
+                                <rect key="frame" x="244" y="278" width="112" height="44"/>
+                                <fontDescription key="fontDescription" name="FFFAtlantisTrial" family="FFF Atlantis  Trial" pointSize="11"/>
+                                <inset key="titleEdgeInsets" minX="34" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Restart" backgroundImage="sword.png">
+                                    <color key="titleColor" red="0.1960784314" green="0.18823529410000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="restartButtonPress:" destination="snk-ss-MKO" eventType="touchUpInside" id="yP6-G4-4sI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -249,9 +260,11 @@
                             <constraint firstAttribute="trailing" secondItem="Dth-wM-pqs" secondAttribute="trailing" constant="168" id="YLD-kq-rb3"/>
                             <constraint firstAttribute="centerX" secondItem="YhZ-27-BJk" secondAttribute="centerX" id="YmJ-Sj-xCT"/>
                             <constraint firstItem="gq2-7T-1Bv" firstAttribute="top" secondItem="aVb-Ky-3bX" secondAttribute="bottom" constant="8" id="Zqc-c4-U2S"/>
+                            <constraint firstAttribute="centerX" secondItem="2tK-V2-Oyu" secondAttribute="centerX" id="g7n-qd-bk9"/>
                             <constraint firstAttribute="trailing" secondItem="VS9-Bb-5pp" secondAttribute="trailing" constant="16" id="hzf-lD-wm8"/>
                             <constraint firstItem="2FP-h1-kUg" firstAttribute="leading" secondItem="s35-bD-Nqv" secondAttribute="trailing" constant="33" id="pkE-Hx-Yvl"/>
                             <constraint firstItem="s35-bD-Nqv" firstAttribute="leading" secondItem="HJQ-hR-1EZ" secondAttribute="leadingMargin" id="vKX-wK-pLj"/>
+                            <constraint firstAttribute="centerY" secondItem="2tK-V2-Oyu" secondAttribute="centerY" id="wxl-TS-dC3"/>
                         </constraints>
                     </view>
                     <connections>
@@ -262,6 +275,7 @@
                         <outlet property="jumpButton" destination="VS9-Bb-5pp" id="4Tm-fz-b2w"/>
                         <outlet property="moveLeftButton" destination="s35-bD-Nqv" id="y3N-J5-HuO"/>
                         <outlet property="moveRightButton" destination="2FP-h1-kUg" id="Kb9-c4-5K7"/>
+                        <outlet property="restartButton" destination="2tK-V2-Oyu" id="J0U-g8-2hh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4VY-CN-Ge8" userLabel="First Responder" sceneMemberID="firstResponder"/>

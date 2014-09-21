@@ -104,6 +104,14 @@ class KWSPlayer: SKSpriteNode {
         return self.scene as KWSGameScene
     }
     
+    func resetPlayer() {
+    
+        healt = 100
+        dying = false
+        animated = true
+        requestedAnimation = .IdleAction
+    }
+    
     //MARK: shader assets loading
     
     class func loadSharedAssets() {
@@ -325,25 +333,24 @@ class KWSPlayer: SKSpriteNode {
         switch animation {
             
         case .DieAction:
-            let actions = [
-                SKAction.runBlock{
-                    
-                    self.dying = false
-                },
-                SKAction.waitForDuration(1.0),
-                SKAction.runBlock {
-                    
-                    
-                    //delegate call to main controller
-                }]
+            let action = SKAction.runBlock{
+                
+                self.dying = false
+                self.notifyPlayerDied()
+            }
             
-            runAction(SKAction.sequence(actions))
+            runAction(action)
             
         default:
             ()
         }
     }
 
+    func notifyPlayerDied() {
+    
+        self.delegate?.playerDidDied()
+    }
+    
     //MARK: player actions
     
     func lockedWalkSound() {

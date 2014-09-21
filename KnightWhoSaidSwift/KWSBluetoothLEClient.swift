@@ -160,7 +160,7 @@ CBPeripheralManagerDelegate  {
                                                 central: CBCentral!,
         didUnsubscribeFromCharacteristic characteristic: CBCharacteristic!) {
         
-        //send end game / abort info here
+        self.delegate?.interfaceDidUpdate(interface: self, command: .Disconnect, data: nil)
     }
     
     func peripheralManagerIsReadyToUpdateSubscribers(peripheral: CBPeripheralManager!) {
