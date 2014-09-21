@@ -21,6 +21,7 @@ enum KWSPacketType : Int {
     case Attack
     case DefenseUp
     case DefenseDown
+    case Restart
 }
 
 enum KWSActionType : Int {

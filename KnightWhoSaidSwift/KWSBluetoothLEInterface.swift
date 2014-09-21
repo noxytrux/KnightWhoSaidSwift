@@ -15,7 +15,7 @@ protocol BTLEInterface {
 
 protocol KWSBlueToothLEDelegate {
 
-    func interfaceDidUpdate(#interface: BTLEInterface, command: KWSPacketType, data: NSData!)
+    func interfaceDidUpdate(#interface: BTLEInterface, command: KWSPacketType, data: NSData?)
 }
 
 class KWSBluetoothLEInterface: NSObject, BTLEInterface {
@@ -30,7 +30,7 @@ class KWSBluetoothLEInterface: NSObject, BTLEInterface {
         super.init()
     }
     
-    func sendCommand(#command: KWSPacketType, data: NSData!) {
+    func sendCommand(#command: KWSPacketType, data: NSData?) {
         
         self.doesNotRecognizeSelector(Selector(__FUNCTION__))
     }

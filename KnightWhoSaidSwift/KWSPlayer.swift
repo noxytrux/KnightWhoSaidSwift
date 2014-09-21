@@ -36,7 +36,15 @@ var KWSSharedSmokeEmitter = SKEmitterNode()
 var KWSSharedBloodEmitter = SKEmitterNode()
 var KWSSharedSparcleEmitter = SKEmitterNode()
 
+
+protocol KWSPlayerDelegate {
+    
+    func playerDidDied()
+}
+
 class KWSPlayer: SKSpriteNode {
+    
+    var delegate : KWSPlayerDelegate?
     
     private var animationSpeed: CGFloat = 0.1
     private var healt = 100

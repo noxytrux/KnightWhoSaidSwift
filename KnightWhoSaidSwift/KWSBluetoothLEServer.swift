@@ -31,11 +31,15 @@ CBPeripheralDelegate {
         self.centralManager = CBCentralManager(delegate: self, queue: self.centralQueue)
     }
     
-    override func sendCommand(#command: KWSPacketType, data: NSData!){
+    override func sendCommand(#command: KWSPacketType, data: NSData?){
         
         var header : Int = command.toRaw()
         var dataToSend : NSMutableData = NSMutableData(bytes: &header, length: sizeof(Int))
+        
+        if let data = data {
+            
             dataToSend.appendData(data)
+        }
         
         if dataToSend.length > kKWSMaxPacketSize {
             
@@ -155,12 +159,11 @@ CBPeripheralDelegate {
             
             AudioServicesPlaySystemSound(1254)
             
-            //add some player here
-            
             central.stopScan()
             peripheral.delegate = self
             peripheral.discoverServices([CBUUID.UUIDWithString(kKWServiceUUID)])
             
+            self.sendCommand(command: .Connect, data: nil)
         })
     }
     
@@ -213,8 +216,15 @@ CBPeripheralDelegate {
         
         let data : NSData = characteristic.value
         let header : NSData = data.subdataWithRange(NSMakeRange(0, sizeof(Int)))
-        let body : NSData = data.subdataWithRange(NSMakeRange(sizeof(Int), data.length - sizeof(Int)))
         
+        let remainingVal = data.length - sizeof(Int)
+        var body : NSData? = nil
+        
+        if remainingVal > 0 {
+            
+            body = data.subdataWithRange(NSMakeRange(sizeof(Int), remainingVal))
+        }
+
         let actionValue : UnsafePointer<Int> = UnsafePointer<Int>(header.bytes)
         let action : KWSPacketType = KWSPacketType.fromRaw(actionValue.memory)!
         

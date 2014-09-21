@@ -9,13 +9,14 @@
 import UIKit
 import SpriteKit
 
-class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
+class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerDelegate {
     
     private var communicationInterface : KWSBluetoothLEInterface?
     private var gameButtons = [UIButton]()
     
     private var gameScene : KWSGameScene!
     private var isSerwer : Bool = false
+    private var interfaceConnected : Bool = false
     
     @IBOutlet weak var becomeServerButton: UIButton!
     @IBOutlet weak var becomeClientButton: UIButton!
@@ -80,13 +81,24 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
         self.gameButtons.append(self.attackButton)
     }
     
-    @IBAction func popGameController(sender: UIButton) {
-        
+    func closeAndChangeMusic() {
+    
         self.navigationController?.popViewControllerAnimated(true)
         
         let gameAudio = KWSGameAudioManager.sharedInstance
             gameAudio.playMusic(musicName: "Menu")
             gameAudio.setMusicVolume(volume: 0.3)
+    
+    }
+    
+    @IBAction func popGameController(sender: UIButton) {
+        
+        closeAndChangeMusic()
+        
+        if interfaceConnected {
+        
+            self.communicationInterface!.sendCommand(command: .Disconnect, data: nil)
+        }
     }
     
     @IBAction func becomeServerPress(sender: UIButton) {
@@ -98,6 +110,9 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
         self.gameScene.selectedPlayer = self.gameScene.players[1]
         self.gameScene.otherPlayer = self.gameScene.players[0]
         self.gameScene.otherPlayer!.externalControl = true;
+        
+        self.gameScene.selectedPlayer!.delegate = self
+        self.gameScene.otherPlayer!.delegate = self
     }
     
     @IBAction func becomeClientPress(sender: UIButton) {
@@ -109,6 +124,9 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
         self.gameScene.selectedPlayer = self.gameScene.players[0]
         self.gameScene.otherPlayer = self.gameScene.players[1]
         self.gameScene.otherPlayer!.externalControl = true;
+        
+        self.gameScene.selectedPlayer!.delegate = self
+        self.gameScene.otherPlayer!.delegate = self
     }
     
     func showGameButtons() {
@@ -121,15 +139,107 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
             for button in self.gameButtons {
                 
                 button.alpha = 1.0
+                
+                //TODO: uncomment after tests
+                //button.userInteractionEnabled = false
             }
         })
     }
     
     //MARK: LE interface delegate 
     
-    func interfaceDidUpdate(#interface: BTLEInterface, command: KWSPacketType, data: NSData!)
+    func interfaceDidUpdate(#interface: BTLEInterface, command: KWSPacketType, data: NSData?)
     {
+        if !interfaceConnected && (command == KWSPacketType.Connect) {
+            
+            for button in self.gameButtons {
+                
+                button.userInteractionEnabled = true
+            }
+            
+            interfaceConnected = true
+            return;
+        }
+        
+        if !interfaceConnected {
+        
+            return
+        }
+        
+        switch( command ) {
+
+        case .Attack:
+            self.gameScene.otherPlayer!.playerAttack()
+            self.gameScene.otherPlayer!.collidedWith(self.gameScene.selectedPlayer!)
+        
+        case .DefenseDown:
+            self.gameScene.otherPlayer!.defenseButtonActive = true
+            self.gameScene.otherPlayer!.playerDefense()
+        
+        case .DefenseUp:
+            self.gameScene.otherPlayer!.defenseButtonActive = false
+        
+        case .Jump:
+            self.gameScene.otherPlayer!.playerJump()
+
+        case .MoveDown:
+            
+            if let data = data {
+            
+                self.gameScene.otherPlayer!.moveButtonActive = true
+                
+                let body : NSData = data.subdataWithRange(NSMakeRange(0, sizeof(Bool)))
+                let value : UnsafePointer<Bool> = UnsafePointer<Bool>(body.bytes)
+                let direction : Bool = value.memory
+                
+                if direction {
+                
+                    self.gameScene.otherPlayer!.playerMoveLeft()
+                
+                } else {
+                
+                    self.gameScene.otherPlayer!.playerMoveRight()
+                }
+            }
+            
+        case .MoveUp:
+            self.gameScene.otherPlayer!.moveButtonActive = false
+            
+        case .Disconnect:
+            
+            interfaceConnected = false
+            
+            for button in self.gameButtons {
+                
+                button.userInteractionEnabled = false
+            }
+            
+            let KWSAlertController = UIAlertController( title: NSLocalizedString("Error", comment: ""),
+                                                      message: NSLocalizedString("Other player has been disconnect", comment: ""),
+                                               preferredStyle: .Alert)
+            
+            let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""),
+                                         style: .Cancel,
+                                       handler: { (action: UIAlertAction!) -> Void in
+                    
+                                            self.closeAndChangeMusic()
+                                        })
+            
+            KWSAlertController.addAction(okAction)
+            
+            self.presentViewController(KWSAlertController, animated: true, completion: nil)
+            
+        default:
+            ()
+        }
+    }
     
+    //MARK: player delegate
+    
+    func playerDidDied() {
+    
+        //reset menu etc.
+        
     }
     
     //MARK: player sterring
@@ -140,6 +250,12 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
 
         currentPlayer!.moveButtonActive = true
         currentPlayer!.playerMoveLeft()
+
+        if interfaceConnected {
+        
+            var directionData = NSData(bytes: &currentPlayer!.movingLeft, length: sizeof(Bool))
+            self.communicationInterface!.sendCommand(command: .MoveDown, data: directionData)
+        }
     }
     
     @IBAction func pressRightButton(sender: UIButton) {
@@ -148,6 +264,12 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
         
         currentPlayer!.moveButtonActive = true
         currentPlayer!.playerMoveRight()
+        
+        if interfaceConnected {
+        
+            var directionData = NSData(bytes: &currentPlayer!.movingLeft, length: sizeof(Bool))
+            self.communicationInterface!.sendCommand(command: .MoveDown, data: directionData)
+        }
     }
     
     @IBAction func unpressLeftButton(sender: UIButton) {
@@ -155,6 +277,11 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
         var currentPlayer = self.gameScene.selectedPlayer
         
         currentPlayer!.moveButtonActive = false
+
+        if interfaceConnected {
+        
+            self.communicationInterface!.sendCommand(command: .MoveUp, data: nil)
+        }
     }
     
     @IBAction func unpressRightButton(sender: UIButton) {
@@ -162,6 +289,11 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
         var currentPlayer = self.gameScene.selectedPlayer
         
         currentPlayer!.moveButtonActive = false
+        
+        if interfaceConnected {
+            
+            self.communicationInterface!.sendCommand(command: .MoveUp, data: nil)
+        }
     }
     
     @IBAction func pressAttackButton(sender: UIButton) {
@@ -170,6 +302,11 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
         
         currentPlayer!.playerAttack()
         currentPlayer!.collidedWith(self.gameScene.otherPlayer!)
+        
+        if interfaceConnected {
+        
+            self.communicationInterface!.sendCommand(command: .Attack, data: nil)
+        }
     }
     
     @IBAction func pressDefenseButton(sender: UIButton) {
@@ -179,6 +316,10 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
         currentPlayer!.defenseButtonActive = true
         currentPlayer!.playerDefense()
 
+        if interfaceConnected {
+            
+            self.communicationInterface!.sendCommand(command: .DefenseDown, data: nil)
+        }
     }
     
     @IBAction func unpressDefenseButton(sender: UIButton){
@@ -187,6 +328,10 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
         
         currentPlayer!.defenseButtonActive = false
 
+        if interfaceConnected {
+            
+            self.communicationInterface!.sendCommand(command: .DefenseUp, data: nil)
+        }
     }
     
     @IBAction func pressJumpButton(sender: UIButton) {
@@ -195,6 +340,10 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
         
         currentPlayer!.playerJump()
 
+        if interfaceConnected {
+            
+            self.communicationInterface!.sendCommand(command: .Jump, data: nil)
+        }
     }
     
 }

@@ -30,11 +30,15 @@ CBPeripheralManagerDelegate  {
         self.peripheralManager = CBPeripheralManager(delegate: self, queue: self.peripheralQueue)
     }
     
-    override func sendCommand(#command: KWSPacketType, data: NSData!) {
+    override func sendCommand(#command: KWSPacketType, data: NSData?) {
     
         var header : Int = command.toRaw()
         var dataToSend : NSMutableData = NSMutableData(bytes: &header, length: sizeof(Int))
+        
+        if let data = data {
+        
             dataToSend.appendData(data)
+        }
         
         if dataToSend.length > kKWSMaxPacketSize {
             
@@ -122,7 +126,15 @@ CBPeripheralManagerDelegate  {
         
             let data : NSData = req.value
             let header : NSData = data.subdataWithRange(NSMakeRange(0, sizeof(Int)))
-            let body : NSData = data.subdataWithRange(NSMakeRange(sizeof(Int), data.length - sizeof(Int)))
+            
+            let remainingVal = data.length - sizeof(Int)
+            
+            var body : NSData? = nil
+            
+            if remainingVal > 0 {
+            
+                body = data.subdataWithRange(NSMakeRange(sizeof(Int), remainingVal))
+            }
             
             let actionValue : UnsafePointer<Int> = UnsafePointer<Int>(header.bytes)
             let action : KWSPacketType = KWSPacketType.fromRaw(actionValue.memory)!
