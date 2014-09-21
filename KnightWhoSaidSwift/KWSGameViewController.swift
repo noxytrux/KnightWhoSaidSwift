@@ -116,7 +116,7 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
         
         var currentPlayer = self.gameScene.selectedPlayer
 
-        currentPlayer!.buttonActive = true
+        currentPlayer!.moveButtonActive = true
         currentPlayer!.playerMoveLeft()
     }
     
@@ -124,7 +124,7 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
 
         var currentPlayer = self.gameScene.selectedPlayer
         
-        currentPlayer!.buttonActive = true
+        currentPlayer!.moveButtonActive = true
         currentPlayer!.playerMoveRight()
     }
     
@@ -132,19 +132,20 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
         
         var currentPlayer = self.gameScene.selectedPlayer
         
-        currentPlayer!.buttonActive = false
+        currentPlayer!.moveButtonActive = false
     }
     
     @IBAction func unpressRightButton(sender: UIButton) {
         
         var currentPlayer = self.gameScene.selectedPlayer
         
-        currentPlayer!.buttonActive = false
+        currentPlayer!.moveButtonActive = false
     }
     
     @IBAction func pressAttackButton(sender: UIButton) {
         
         var currentPlayer = self.gameScene.selectedPlayer
+        
         currentPlayer!.playerAttack()
 
     }
@@ -152,13 +153,24 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
     @IBAction func pressDefenseButton(sender: UIButton) {
 
         var currentPlayer = self.gameScene.selectedPlayer
+        
+        currentPlayer!.defenseButtonActive = true
         currentPlayer!.playerDefense()
+
+    }
+    
+    @IBAction func unpressDefenseButton(sender: UIButton){
+    
+        var currentPlayer = self.gameScene.selectedPlayer
+        
+        currentPlayer!.defenseButtonActive = false
 
     }
     
     @IBAction func pressJumpButton(sender: UIButton) {
 
         var currentPlayer = self.gameScene.selectedPlayer
+        
         currentPlayer!.playerJump()
 
     }

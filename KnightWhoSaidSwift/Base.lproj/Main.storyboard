@@ -165,7 +165,8 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="pressDefenseButton:" destination="snk-ss-MKO" eventType="touchUpInside" id="BQD-4j-3X2"/>
+                                    <action selector="pressDefenseButton:" destination="4VY-CN-Ge8" eventType="touchDown" id="f25-KC-W12"/>
+                                    <action selector="unpressDefenseButton:" destination="4VY-CN-Ge8" eventType="touchUpInside" id="TfR-yV-WPG"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VS9-Bb-5pp">

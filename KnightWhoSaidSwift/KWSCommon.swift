@@ -15,10 +15,12 @@ enum KWSPacketType : Int {
     case HearBeat
     case Connect
     case Disconnect
-    case Move
+    case MoveUp
+    case MoveDown
     case Jump
     case Attack
-    case Defense
+    case DefenseUp
+    case DefenseDown
 }
 
 enum KWSActionType : Int {

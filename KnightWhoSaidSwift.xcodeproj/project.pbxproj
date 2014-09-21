@@ -38,6 +38,7 @@
 		049137E619B240B800076903 /* CGPoint+KWSExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049137E519B240B800076903 /* CGPoint+KWSExtensions.swift */; };
 		049137E919B2489600076903 /* KWSVelocitySpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049137E819B2489600076903 /* KWSVelocitySpriteNode.swift */; };
 		049F752F19CDAAF600106AFA /* KWSPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F752E19CDAAF600106AFA /* KWSPlayer.swift */; };
+		049F753219CDEF4F00106AFA /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 049F753019CDEF4F00106AFA /* Shader.fsh */; };
 		04A855D719B4F5E800AE2E6E /* KWSSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A855D619B4F5E800AE2E6E /* KWSSettingsViewController.swift */; };
 		04A855D919B507E300AE2E6E /* KWSBluetoothLEServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A855D819B507E300AE2E6E /* KWSBluetoothLEServer.swift */; };
 		04A855DB19B507F700AE2E6E /* KWSBluetoothLEClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A855DA19B507F700AE2E6E /* KWSBluetoothLEClient.swift */; };
@@ -113,6 +114,7 @@
 		049137E519B240B800076903 /* CGPoint+KWSExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+KWSExtensions.swift"; sourceTree = "<group>"; };
 		049137E819B2489600076903 /* KWSVelocitySpriteNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSVelocitySpriteNode.swift; sourceTree = "<group>"; };
 		049F752E19CDAAF600106AFA /* KWSPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSPlayer.swift; sourceTree = "<group>"; };
+		049F753019CDEF4F00106AFA /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		04A855D619B4F5E800AE2E6E /* KWSSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSSettingsViewController.swift; sourceTree = "<group>"; };
 		04A855D819B507E300AE2E6E /* KWSBluetoothLEServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSBluetoothLEServer.swift; sourceTree = "<group>"; };
 		04A855DA19B507F700AE2E6E /* KWSBluetoothLEClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSBluetoothLEClient.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 				049137E819B2489600076903 /* KWSVelocitySpriteNode.swift */,
 				0402161719B64D7800B79A17 /* KWSCommon.swift */,
 				049F752E19CDAAF600106AFA /* KWSPlayer.swift */,
+				049F753019CDEF4F00106AFA /* Shader.fsh */,
 			);
 			name = Gameplay;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				049F753219CDEF4F00106AFA /* Shader.fsh in Resources */,
 				0431208919AE495600036D9F /* Images.xcassets in Resources */,
 				04E80C0119B1ED6D006C4917 /* logo@2x.png in Resources */,
 				04BBBF6519C0D4C00008222C /* Walk.aiff in Resources */,

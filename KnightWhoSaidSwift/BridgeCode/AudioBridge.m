@@ -78,8 +78,8 @@ void InitializeAudioSource(void *userAudioClass)
     
     if (path == nil) return;
     
-    UInt32 allowMixing = 1;
-    AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(allowMixing), &allowMixing);
+//    UInt32 allowMixing = 1;
+//    AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(allowMixing), &allowMixing);
     
     UInt32		size, maxPacketSize;
     char		*cookie;

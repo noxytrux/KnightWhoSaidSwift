@@ -41,12 +41,13 @@ class KWSPlayer: SKSpriteNode {
     private var dying = false
     private var requestedAnimation = KWSActionType.IdleAction
     
-    private var movingLeft : Bool = false
     private var mirrorDirection : SKAction = SKAction.scaleXTo(-kKWSPlayerScale, y: kKWSPlayerScale, duration: 0.0)
     private var resetDirection : SKAction = SKAction.scaleXTo(kKWSPlayerScale, y: kKWSPlayerScale, duration: 0.0)
 
     internal var touchesGround : Bool = false
-    internal var buttonActive : Bool = false
+    internal var moveButtonActive : Bool = false
+    internal var defenseButtonActive : Bool = false
+    internal var movingLeft : Bool = false
     
     //MARK: init
 
@@ -97,6 +98,9 @@ class KWSPlayer: SKSpriteNode {
 
     func applyRedShader() {
     
+        let playerShader = SKShader(fileNamed: "Shader.fsh")
+        
+        self.shader = playerShader
     }
     
     //MARK: game logic
@@ -215,6 +219,12 @@ class KWSPlayer: SKSpriteNode {
             attacking = false
         }
         
+        if self.defenseButtonActive {
+        
+            requestedAnimation = .DefenseAction
+            return
+        }
+        
         var actionMove   = actionForKey(kKWSMoveActionKey)
         var endJumping = self.touchesGround
         
@@ -261,7 +271,7 @@ class KWSPlayer: SKSpriteNode {
         
         let moveFinishAction = SKAction.runBlock {
             
-            if self.buttonActive {
+            if self.moveButtonActive {
                 
                 self.playerMoveLeft()
             }
@@ -279,7 +289,7 @@ class KWSPlayer: SKSpriteNode {
         
         let moveFinishAction = SKAction.runBlock {
            
-            if self.buttonActive {
+            if self.moveButtonActive {
             
                 self.playerMoveRight()
             }
@@ -309,7 +319,7 @@ class KWSPlayer: SKSpriteNode {
     }
 
     func playerDefense() {
-    
+        
         requestedAnimation = .DefenseAction
     }
 
