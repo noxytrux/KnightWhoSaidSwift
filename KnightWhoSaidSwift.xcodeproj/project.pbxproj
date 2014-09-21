@@ -30,6 +30,9 @@
 		0468D3B719BE2A820012EB82 /* KWSBackgroundStreamPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468D3B619BE2A820012EB82 /* KWSBackgroundStreamPlayer.swift */; };
 		0468D3B919BE39A60012EB82 /* Boolean+KWSExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468D3B819BE39A60012EB82 /* Boolean+KWSExtensions.swift */; };
 		046FC06119C2172900BA0E6F /* SKBaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FC06019C2172900BA0E6F /* SKBaseScene.swift */; };
+		0482CED519CEF9B000825C9B /* particle0.png in Resources */ = {isa = PBXBuildFile; fileRef = 0482CED219CEF9B000825C9B /* particle0.png */; };
+		0482CED619CEF9B000825C9B /* particle1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0482CED319CEF9B000825C9B /* particle1.png */; };
+		0482CED719CEF9B000825C9B /* particle2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0482CED419CEF9B000825C9B /* particle2.png */; };
 		048D36EA19C9FB5700CB211E /* KWSGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D36E919C9FB5700CB211E /* KWSGameViewController.swift */; };
 		048D36EC19C9FBF300CB211E /* KWSGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D36EB19C9FBF300CB211E /* KWSGameScene.swift */; };
 		048D36EE19C9FCEE00CB211E /* KWSGameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 048D36ED19C9FCEE00CB211E /* KWSGameScene.sks */; };
@@ -106,6 +109,9 @@
 		0468D3B619BE2A820012EB82 /* KWSBackgroundStreamPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSBackgroundStreamPlayer.swift; sourceTree = "<group>"; };
 		0468D3B819BE39A60012EB82 /* Boolean+KWSExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Boolean+KWSExtensions.swift"; sourceTree = "<group>"; };
 		046FC06019C2172900BA0E6F /* SKBaseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKBaseScene.swift; sourceTree = "<group>"; };
+		0482CED219CEF9B000825C9B /* particle0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle0.png; sourceTree = "<group>"; };
+		0482CED319CEF9B000825C9B /* particle1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle1.png; sourceTree = "<group>"; };
+		0482CED419CEF9B000825C9B /* particle2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle2.png; sourceTree = "<group>"; };
 		048D36E919C9FB5700CB211E /* KWSGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSGameViewController.swift; sourceTree = "<group>"; };
 		048D36EB19C9FBF300CB211E /* KWSGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSGameScene.swift; sourceTree = "<group>"; };
 		048D36ED19C9FCEE00CB211E /* KWSGameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = KWSGameScene.sks; sourceTree = "<group>"; };
@@ -255,6 +261,16 @@
 			name = Audio;
 			sourceTree = "<group>";
 		};
+		0482CED119CEF9B000825C9B /* particle */ = {
+			isa = PBXGroup;
+			children = (
+				0482CED219CEF9B000825C9B /* particle0.png */,
+				0482CED319CEF9B000825C9B /* particle1.png */,
+				0482CED419CEF9B000825C9B /* particle2.png */,
+			);
+			path = particle;
+			sourceTree = "<group>";
+		};
 		048D36E519C9F7BB00CB211E /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,6 +338,7 @@
 		04E80BE919B1ED6D006C4917 /* GFX */ = {
 			isa = PBXGroup;
 			children = (
+				0482CED119CEF9B000825C9B /* particle */,
 				0430F91B19CB2ECB0037C623 /* mapimage.png */,
 				048D36EF19CA02E600CB211E /* back@2x.png */,
 				0402160F19B64D5900B79A17 /* direction@2x.png */,
@@ -476,7 +493,9 @@
 				0431208919AE495600036D9F /* Images.xcassets in Resources */,
 				04E80C0119B1ED6D006C4917 /* logo@2x.png in Resources */,
 				04BBBF6519C0D4C00008222C /* Walk.aiff in Resources */,
+				0482CED519CEF9B000825C9B /* particle0.png in Resources */,
 				0402161519B64D5900B79A17 /* machete@2x.png in Resources */,
+				0482CED719CEF9B000825C9B /* particle2.png in Resources */,
 				0431208019AE495600036D9F /* KWSMainMenuScene.sks in Resources */,
 				04BBBF6119C0D4C00008222C /* Defense.aiff in Resources */,
 				04E80C0319B1ED6D006C4917 /* Level.mp3 in Resources */,
@@ -484,6 +503,7 @@
 				0402161319B64D5900B79A17 /* direction@2x.png in Resources */,
 				04BBBF6319C0D4C00008222C /* Jump.aiff in Resources */,
 				04E80BFB19B1ED6D006C4917 /* Enviro.atlas in Resources */,
+				0482CED619CEF9B000825C9B /* particle1.png in Resources */,
 				04E80BFA19B1ED6D006C4917 /* cloud@2x.png in Resources */,
 				042A794619B338C700D5B75A /* castle@2x.png in Resources */,
 				04E80BFD19B1ED6D006C4917 /* defense.atlas in Resources */,

@@ -36,6 +36,18 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
         }
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        UIApplication.sharedApplication().idleTimerDisabled = true
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        UIApplication.sharedApplication().idleTimerDisabled = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,6 +96,8 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
         self.showGameButtons()
         
         self.gameScene.selectedPlayer = self.gameScene.players[1]
+        self.gameScene.otherPlayer = self.gameScene.players[0]
+        self.gameScene.otherPlayer!.externalControl = true;
     }
     
     @IBAction func becomeClientPress(sender: UIButton) {
@@ -93,6 +107,8 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
         self.showGameButtons()
         
         self.gameScene.selectedPlayer = self.gameScene.players[0]
+        self.gameScene.otherPlayer = self.gameScene.players[1]
+        self.gameScene.otherPlayer!.externalControl = true;
     }
     
     func showGameButtons() {
@@ -153,7 +169,7 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate {
         var currentPlayer = self.gameScene.selectedPlayer
         
         currentPlayer!.playerAttack()
-
+        currentPlayer!.collidedWith(self.gameScene.otherPlayer!)
     }
     
     @IBAction func pressDefenseButton(sender: UIButton) {

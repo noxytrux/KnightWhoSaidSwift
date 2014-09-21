@@ -32,6 +32,10 @@ let kKWSIdleKey : String! = "anim_idle"
 let kKWSJumpKey : String! = "anim_jump"
 let kKWSDefenseKey : String! = "anim_defense"
 
+var KWSSharedSmokeEmitter = SKEmitterNode()
+var KWSSharedBloodEmitter = SKEmitterNode()
+var KWSSharedSparcleEmitter = SKEmitterNode()
+
 class KWSPlayer: SKSpriteNode {
     
     private var animationSpeed: CGFloat = 0.1
@@ -43,11 +47,13 @@ class KWSPlayer: SKSpriteNode {
     
     private var mirrorDirection : SKAction = SKAction.scaleXTo(-kKWSPlayerScale, y: kKWSPlayerScale, duration: 0.0)
     private var resetDirection : SKAction = SKAction.scaleXTo(kKWSPlayerScale, y: kKWSPlayerScale, duration: 0.0)
-
+    private var movingSound : Bool = false
+    
     internal var touchesGround : Bool = false
     internal var moveButtonActive : Bool = false
     internal var defenseButtonActive : Bool = false
     internal var movingLeft : Bool = false
+    internal var externalControl : Bool = false
     
     //MARK: init
 
@@ -82,7 +88,16 @@ class KWSPlayer: SKSpriteNode {
         
         super.init(coder: aDecoder)
     }
-
+    
+    //MARK: helper method
+    
+    var playerScene: KWSGameScene {
+        
+        return self.scene as KWSGameScene
+    }
+    
+    //MARK: shader assets loading
+    
     class func loadSharedAssets() {
         
         dispatch_once(&kKWSSharedAssetsOnceToken) {
@@ -93,6 +108,10 @@ class KWSPlayer: SKSpriteNode {
             KWSSharedJumpAnimationFrames = loadFramesFromAtlasWithName("jump", baseFileName: "jump", numberOfFrames: 3)
             KWSSharedDeathAnimationFrames = loadFramesFromAtlasWithName("die", baseFileName: "dead", numberOfFrames: 5)
             KWSSharedDefenseAnimationFrames = loadFramesFromAtlasWithName("defense", baseFileName: "defense", numberOfFrames: 1)
+            
+            KWSSharedSmokeEmitter = .sharedSmokeEmitter()
+            KWSSharedBloodEmitter = .sharedBloodEmitter()
+            KWSSharedSparcleEmitter = .sharedSparkleEmitter()
         }
     }
 
@@ -121,22 +140,69 @@ class KWSPlayer: SKSpriteNode {
     
     func applyDamage(damage: Int)
     {
+        if !animated {
+            
+            return
+        }
+        
+        KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.HitAction.toRaw() )
+        
         healt -= damage
         
-        if healt == 0 {
+        let emitter = KWSSharedBloodEmitter.copy() as SKEmitterNode
+            emitter.position = self.position
         
+        playerScene.addNode(emitter, atWorldLayer: .foliage)
+        runOneShotEmitter(emitter, withDuration: 0.15)
+        
+        if healt <= 0 {
+        
+            healt = 0
+            
+            KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.DieAction.toRaw() )
             dying = true
         }
     }
     
-    func collidedWith(other: SKPhysicsBody) {
+    func collidedWith(enemy: KWSPlayer) {
         
-        if let enemy = other.node as? KWSPlayer {
+        let ownFrame = CGRectInset(self.frame, -20, 0)
+        let enemyFrame = CGRectInset(enemy.frame, -20, 0)
+        
+        let distance = self.position.x - enemy.position.x
+        var canDefense = false
+        
+        if distance == 0 {
             
-            //TODO: add guarding
-            if !enemy.dying && enemy.attacking {
+            canDefense = true
+        }
+        else if distance < 0 {
+        
+            canDefense = !self.movingLeft && enemy.movingLeft
+        }
+        else if distance > 0 {
+        
+            canDefense = self.movingLeft && !enemy.movingLeft
+        }
+        
+        if CGRectIntersectsRect(ownFrame, enemyFrame) {
+        
+            if enemy.defenseButtonActive && canDefense {
                 
-                applyDamage(5.0)
+                let emitter = KWSSharedSparcleEmitter.copy() as SKEmitterNode
+                    emitter.position = CGPointMake(enemy.position.x, enemy.position.y - enemy.size.height * 0.3)
+                    emitter.xAcceleration = movingLeft ? 1000 : -1000
+                
+                playerScene.addNode(emitter, atWorldLayer: .foliage)
+                runOneShotEmitter(emitter, withDuration: 0.15)
+                KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.DefenseAction.toRaw() )
+                
+                return
+            }
+
+            if !dying && attacking {
+                
+                enemy.applyDamage(20.0)
             }
         }
     }
@@ -145,10 +211,11 @@ class KWSPlayer: SKSpriteNode {
     
     func updateWithTimeSinceLastUpdate(interval: NSTimeInterval) {
         
-        if !animated {
+        if !dying && !animated {
+        
             return
         }
-       
+        
         resolveRequestedAnimation()
     }
     
@@ -208,12 +275,18 @@ class KWSPlayer: SKSpriteNode {
     
     func animationHasCompleted(animationState: KWSActionType) {
         
-        if dying {
+        if dying && animated {
+            requestedAnimation = .DieAction
             animated = false
         }
         
         animationDidComplete(animationState)
     
+        if !animated {
+            
+            return
+        }
+        
         if attacking && (animationState == KWSActionType.AttackAction) {
             
             attacking = false
@@ -235,23 +308,26 @@ class KWSPlayer: SKSpriteNode {
         
         if !attacking && actionMove == nil && endJumping {
         
-            requestedAnimation = dying ? .DieAction : .IdleAction
+            requestedAnimation = .IdleAction
         }
     }
 
-    
     func animationDidComplete(animation: KWSActionType) {
         
         switch animation {
             
         case .DieAction:
-            let actions = [SKAction.waitForDuration(1.0),
-                
-                SKAction.runBlock {
-
-                    //delegate call to main controller
+            let actions = [
+                SKAction.runBlock{
+                    
+                    self.dying = false
                 },
-                SKAction.removeFromParent()]
+                SKAction.waitForDuration(1.0),
+                SKAction.runBlock {
+                    
+                    
+                    //delegate call to main controller
+                }]
             
             runAction(SKAction.sequence(actions))
             
@@ -262,8 +338,38 @@ class KWSPlayer: SKSpriteNode {
 
     //MARK: player actions
     
+    func lockedWalkSound() {
+        
+        if externalControl {
+        
+            return
+        }
+    
+        if movingSound {
+        
+            return
+        }
+        
+        movingSound = true
+        KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.WalkAction.toRaw() )
+        
+        let runAfter : dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(1.0 * Double(NSEC_PER_SEC)))
+        
+        dispatch_after(runAfter, dispatch_get_main_queue()) { () -> Void in
+            
+            self.movingSound = false
+        }
+
+    }
+    
     func playerMoveLeft() {
         
+        if !animated {
+         
+            return
+        }
+        
+        lockedWalkSound()
         movingLeft = true
         
         var action: SKAction = SKAction.moveByX(-kKWSMaxPlayerMovement, y: 0, duration: 0.1)
@@ -282,6 +388,12 @@ class KWSPlayer: SKSpriteNode {
     
     func playerMoveRight() {
     
+        if !animated {
+            
+            return
+        }
+        
+        lockedWalkSound()
         movingLeft = false
         
         var action: SKAction = SKAction.moveByX(kKWSMaxPlayerMovement, y: 0, duration: 0.1)
@@ -300,8 +412,18 @@ class KWSPlayer: SKSpriteNode {
     
     func playerJump() {
     
+        if !animated {
+            
+            return
+        }
+        
         if self.touchesGround {
+            
+            if !externalControl {
     
+                KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.JumpAction.toRaw() )
+            }
+            
             self.touchesGround = false
             
             var impulseY : CGFloat = 15.0
@@ -314,11 +436,31 @@ class KWSPlayer: SKSpriteNode {
 
     func playerAttack() {
     
+        if !animated {
+            
+            return
+        }
+        
+        if attacking {
+        
+            return
+        }
+        
+        if !externalControl {
+
+            KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.AttackAction.toRaw() )
+        }
+        
         attacking = true
         requestedAnimation = .AttackAction
     }
 
     func playerDefense() {
+        
+        if !animated {
+            
+            return
+        }
         
         requestedAnimation = .DefenseAction
     }

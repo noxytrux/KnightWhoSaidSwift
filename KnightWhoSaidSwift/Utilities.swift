@@ -106,3 +106,122 @@ func loadFramesFromAtlasWithName(atlasName: String,
         }
     )
 }
+
+extension SKEmitterNode {
+    
+    //broken in xCode 6.0 :( works only in 6.1Beta
+    class func emitterNodeWithName(name: String) -> SKEmitterNode {
+        
+        return NSKeyedUnarchiver.unarchiveObjectWithFile(NSBundle.mainBundle().pathForResource(name, ofType: "sks")!) as SKEmitterNode
+    }
+    
+    class func sharedSmokeEmitter() -> SKEmitterNode {
+    
+        var smoke = SKEmitterNode()
+        
+        smoke.particleTexture = SKTexture(imageNamed: "particle1.png")
+        smoke.particleColor = UIColor.blackColor()
+        smoke.numParticlesToEmit = 10
+        smoke.particleBirthRate = 100
+        smoke.particleLifetime = 1
+        smoke.emissionAngleRange = 360
+        smoke.particleSpeed = 100
+        smoke.particleSpeedRange = 50
+        smoke.xAcceleration = 0
+        smoke.yAcceleration = 200
+        smoke.particleAlpha = 0.8
+        smoke.particleAlphaRange = 0.2
+        smoke.particleAlphaSpeed = -0.5
+        smoke.particleScale = 0.6
+        smoke.particleScaleRange = 0.4
+        smoke.particleScaleSpeed = -0.5
+        smoke.particleRotation = 0
+        smoke.particleRotationRange = 360
+        smoke.particleRotationSpeed = 5
+    
+        smoke.particleColorBlendFactor = 1
+        smoke.particleColorBlendFactorRange = 0.2
+        smoke.particleColorBlendFactorSpeed = -0.2
+        smoke.particleBlendMode = SKBlendMode.Alpha
+        
+        return smoke
+    }
+    
+    class func sharedBloodEmitter() -> SKEmitterNode {
+        
+        var blood = SKEmitterNode()
+        
+        blood.particleTexture = SKTexture(imageNamed: "particle0.png")
+        blood.particleColor = UIColor.redColor()
+        blood.numParticlesToEmit = 35
+        blood.particleBirthRate = 200
+        blood.particleLifetime = 1.5
+        blood.emissionAngleRange = 360
+        blood.particleSpeed = 50
+        blood.particleSpeedRange = 20
+        blood.xAcceleration = 0
+        blood.yAcceleration = 0
+        blood.particleAlpha = 0.8
+        blood.particleAlphaRange = 0.2
+        blood.particleAlphaSpeed = -0.5
+        blood.particleScale = 1.5
+        blood.particleScaleRange = 0.4
+        blood.particleScaleSpeed = -0.5
+        blood.particleRotation = 0
+        blood.particleRotationRange = 0
+        blood.particleRotationSpeed = 0
+        
+        blood.particleColorBlendFactor = 1
+        blood.particleColorBlendFactorRange = 0
+        blood.particleColorBlendFactorSpeed = 0
+        blood.particleBlendMode = SKBlendMode.Alpha
+        
+        return blood
+    }
+    
+    class func sharedSparkleEmitter() -> SKEmitterNode {
+        
+        var sparcle = SKEmitterNode()
+        
+        sparcle.particleTexture = SKTexture(imageNamed: "particle2.png")
+        sparcle.particleColor = UIColor.yellowColor()
+        sparcle.numParticlesToEmit = 60
+        sparcle.particleBirthRate = 250
+        sparcle.particleLifetime = 0.7
+        sparcle.emissionAngle = 0
+        sparcle.emissionAngleRange = 90
+        sparcle.particleSpeed = 100
+        sparcle.particleSpeedRange = 50
+        sparcle.xAcceleration = 0
+        sparcle.yAcceleration = 0
+        sparcle.particleAlpha = 0.8
+        sparcle.particleAlphaRange = 0.2
+        sparcle.particleAlphaSpeed = -0.5
+        sparcle.particleScale = 1.0
+        sparcle.particleScaleRange = 0.4
+        sparcle.particleScaleSpeed = -0.5
+        sparcle.particleRotation = 0
+        sparcle.particleRotationRange = 0
+        sparcle.particleRotationSpeed = 0
+        
+        sparcle.particleColorBlendFactor = 1
+        sparcle.particleColorBlendFactorRange = 0
+        sparcle.particleColorBlendFactorSpeed = 0
+        sparcle.particleBlendMode = SKBlendMode.Add
+        
+        return sparcle
+    }
+}
+
+func runOneShotEmitter(emitter: SKEmitterNode, withDuration duration: CGFloat) {
+    
+    let waitAction = SKAction.waitForDuration(NSTimeInterval(duration))
+    let birthRateSet = SKAction.runBlock { emitter.particleBirthRate = 0.0 }
+    let waitAction2 = SKAction.waitForDuration(NSTimeInterval(emitter.particleLifetime + emitter.particleLifetimeRange))
+    let removeAction = SKAction.removeFromParent()
+    
+    var sequence = [ waitAction, birthRateSet, waitAction2, removeAction]
+    emitter.runAction(SKAction.sequence(sequence))
+}
+
+

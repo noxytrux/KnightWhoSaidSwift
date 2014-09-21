@@ -11,6 +11,8 @@ import SpriteKit
 
 let kKWSMaxLayerCount : Int! = 2
 let kKWSAcceptValue : UInt8! = 200
+let kKWSJumpImpactValue : CGFloat! = 15.0
+let kKWSJumpImpactHurtValue : CGFloat! = 22.0
 
 enum WorldLayer: Int {
     
@@ -41,6 +43,7 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
     internal var players = [KWSPlayer]()
     
     internal var selectedPlayer : KWSPlayer?
+    internal var otherPlayer : KWSPlayer?
     
     override func didMoveToView(view: SKView) {
 
@@ -244,34 +247,45 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
 
     //MARK: SKPhysicsContactDelegate methods
     
+    func playerOnGround(player: KWSPlayer!, body: SKPhysicsBody!, contact: SKPhysicsContact) {
+    
+        if  body.categoryBitMask == ColliderType.Ground.toRaw() ||
+            body.categoryBitMask == ColliderType.Wall.toRaw() {
+                
+                if contact.contactNormal.dy > 0 {
+                    
+                    player.touchesGround = true
+                    
+                    if contact.collisionImpulse > kKWSJumpImpactValue {
+                        
+                        let emitter = KWSSharedSmokeEmitter.copy() as SKEmitterNode
+                            emitter.position = CGPointMake(player.position.x, player.position.y - (player.size.height * 0.5))
+                        
+                        self.addNode(emitter, atWorldLayer: .foliage)
+                        
+                        runOneShotEmitter(emitter, withDuration: 0.15)
+                    }
+                    
+                    if contact.collisionImpulse > kKWSJumpImpactHurtValue {
+                    
+                        let hurtVal : Int = Int((contact.collisionImpulse * 2.0) - kKWSJumpImpactHurtValue)
+                        
+                        player.applyDamage(hurtVal)
+                    }
+                }
+        }
+    }
+    
     func didBeginContact(contact: SKPhysicsContact) {
         
         if let player = contact.bodyA.node as? KWSPlayer {
         
-            player.collidedWith(contact.bodyB)
-            
-            if  contact.bodyB.categoryBitMask == ColliderType.Ground.toRaw() ||
-                contact.bodyB.categoryBitMask == ColliderType.Wall.toRaw() {
-                    
-                    if contact.contactNormal.dy > 0 {
-                        
-                        player.touchesGround = true
-                    }
-            }
+            playerOnGround(player, body: contact.bodyB, contact: contact)
         }
         
         if let player = contact.bodyB.node as? KWSPlayer {
-            
-            player.collidedWith(contact.bodyA)
-            
-            if  contact.bodyA.categoryBitMask == ColliderType.Ground.toRaw() ||
-                contact.bodyA.categoryBitMask == ColliderType.Wall.toRaw() {
-                    
-                    if contact.contactNormal.dy > 0 {
-                        
-                        player.touchesGround = true
-                    }
-            }
+       
+            playerOnGround(player, body: contact.bodyA, contact: contact)
         }
     }
     

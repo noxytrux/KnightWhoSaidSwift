@@ -69,7 +69,15 @@ func /= (inout left: CGPoint, right: CGPoint) {
     left = left / right
 }
 
-extension CGPoint {
-
+extension CGPoint : Equatable {
     
+    func distanceTo(p : CGPoint) -> CGFloat {
+        let dx = self.x - p.x
+        let dy = self.y - p.y
+        let val = dx*dx + dy*dy
+    
+        return sqrt(val)
+    }
 }
+
+
