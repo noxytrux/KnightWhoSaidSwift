@@ -33,8 +33,9 @@ CBPeripheralDelegate {
     
     override func sendCommand(#command: KWSPacketType, data: NSData?){
         
-        var header : Int = command.toRaw()
-        var dataToSend : NSMutableData = NSMutableData(bytes: &header, length: sizeof(Int))
+        //DO NOT USE Int -> vary on platform!
+        var header : Int8 = command.toRaw()
+        var dataToSend : NSMutableData = NSMutableData(bytes: &header, length: sizeof(Int8))
         
         if let data = data {
             
@@ -164,8 +165,15 @@ CBPeripheralDelegate {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             
             AudioServicesPlaySystemSound(1254)
-            self.sendCommand(command: .Connect, data: nil)
         })
+        
+        
+        let runAfter : dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(3.0 * Double(NSEC_PER_SEC)))
+        
+        dispatch_after(runAfter, dispatch_get_main_queue()) { () -> Void in
+            
+            self.sendCommand(command: .Connect, data: nil)
+        }
     }
     
     func peripheral(peripheral: CBPeripheral!, didDiscoverServices error: NSError!) {
@@ -206,6 +214,7 @@ CBPeripheralDelegate {
                 self.writeCharacteristic = characteristic as? CBCharacteristic
             }
         }
+
     }
     
     func peripheral(peripheral: CBPeripheral!, didUpdateValueForCharacteristic characteristic: CBCharacteristic!, error: NSError!) {
@@ -216,17 +225,17 @@ CBPeripheralDelegate {
         }
         
         let data : NSData = characteristic.value
-        let header : NSData = data.subdataWithRange(NSMakeRange(0, sizeof(Int)))
+        let header : NSData = data.subdataWithRange(NSMakeRange(0, sizeof(Int8)))
         
-        let remainingVal = data.length - sizeof(Int)
+        let remainingVal = data.length - sizeof(Int8)
         var body : NSData? = nil
         
         if remainingVal > 0 {
             
-            body = data.subdataWithRange(NSMakeRange(sizeof(Int), remainingVal))
+            body = data.subdataWithRange(NSMakeRange(sizeof(Int8), remainingVal))
         }
 
-        let actionValue : UnsafePointer<Int> = UnsafePointer<Int>(header.bytes)
+        let actionValue : UnsafePointer<Int8> = UnsafePointer<Int8>(header.bytes)
         let action : KWSPacketType = KWSPacketType.fromRaw(actionValue.memory)!
         
         self.delegate?.interfaceDidUpdate(interface: self, command: action, data: body)
@@ -291,6 +300,7 @@ CBPeripheralDelegate {
         if characteristic.isNotifying {
         
             println("notification began on \(characteristic)")
+            
         }
         else {
         

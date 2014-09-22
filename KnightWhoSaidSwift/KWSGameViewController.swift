@@ -166,6 +166,8 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
     
     func interfaceDidUpdate(#interface: BTLEInterface, command: KWSPacketType, data: NSData?)
     {
+        println("Recivied Command: \(command)");
+        
         if !interfaceConnected && (command == KWSPacketType.Connect) {
             
             for button in self.gameButtons {

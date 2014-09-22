@@ -18,7 +18,7 @@ CBPeripheralManagerDelegate  {
     private var transferService : CBMutableService!
     private var readCharacteristic : CBMutableCharacteristic!
     private var writeCharacteristic : CBMutableCharacteristic!
-    private let serviceUUID = CBUUID.UUIDWithString(kKWServiceUUID)
+    private var serviceUUID = CBUUID.UUIDWithString(kKWServiceUUID)
     
     internal var recivedData : NSData? = nil
     internal var sendedData : NSData? = nil
@@ -33,8 +33,8 @@ CBPeripheralManagerDelegate  {
     
     override func sendCommand(#command: KWSPacketType, data: NSData?) {
     
-        var header : Int = command.toRaw()
-        var dataToSend : NSMutableData = NSMutableData(bytes: &header, length: sizeof(Int))
+        var header : Int8 = command.toRaw()
+        var dataToSend : NSMutableData = NSMutableData(bytes: &header, length: sizeof(Int8))
         
         if let data = data {
         
@@ -61,8 +61,8 @@ CBPeripheralManagerDelegate  {
             return;
         }
         
-        var packet : Int = KWSPacketType.Disconnect.toRaw()
-        self.sendedData = NSData(bytes: &packet, length: sizeof(Int))
+        var packet : Int8 = KWSPacketType.Disconnect.toRaw()
+        self.sendedData = NSData(bytes: &packet, length: sizeof(Int8))
         
         var killSignalSend : Bool = self.peripheralManager.updateValue( self.sendedData!,
                                                      forCharacteristic: self.readCharacteristic,
@@ -108,8 +108,8 @@ CBPeripheralManagerDelegate  {
         let runAfter : dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
         
         dispatch_after(runAfter, dispatch_get_main_queue()) { () -> Void in
-
-            self.peripheralManager.startAdvertising([ CBAdvertisementDataServiceUUIDsKey: self.serviceUUID ])
+            
+            self.peripheralManager.startAdvertising([CBAdvertisementDataServiceUUIDsKey : [self.serviceUUID]])
         }
     }
     
@@ -119,7 +119,7 @@ CBPeripheralManagerDelegate  {
         
         if let error = error {
         
-            println("Error: \(error)")
+            println("\(error)")
         }
     }
     
@@ -140,18 +140,18 @@ CBPeripheralManagerDelegate  {
         for req in requests as [CBATTRequest] {
         
             let data : NSData = req.value
-            let header : NSData = data.subdataWithRange(NSMakeRange(0, sizeof(Int)))
+            let header : NSData = data.subdataWithRange(NSMakeRange(0, sizeof(Int8)))
             
-            let remainingVal = data.length - sizeof(Int)
+            let remainingVal = data.length - sizeof(Int8)
             
             var body : NSData? = nil
             
             if remainingVal > 0 {
             
-                body = data.subdataWithRange(NSMakeRange(sizeof(Int), remainingVal))
+                body = data.subdataWithRange(NSMakeRange(sizeof(Int8), remainingVal))
             }
             
-            let actionValue : UnsafePointer<Int> = UnsafePointer<Int>(header.bytes)
+            let actionValue : UnsafePointer<Int8> = UnsafePointer<Int8>(header.bytes)
             let action : KWSPacketType = KWSPacketType.fromRaw(actionValue.memory)!
             
             self.delegate?.interfaceDidUpdate(interface: self, command: action, data: body)

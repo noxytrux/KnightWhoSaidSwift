@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import SpriteKit
 
-enum KWSPacketType : Int {
+enum KWSPacketType : Int8 {
     
     case HearBeat
     case Connect
