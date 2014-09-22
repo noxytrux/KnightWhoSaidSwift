@@ -265,11 +265,17 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
                         
                         runOneShotEmitter(emitter, withDuration: 0.15)
                     }
+
+                    //discard weird impulses
+                    if contact.collisionImpulse > 200 {
+                    
+                        return;
+                    }
                     
                     if contact.collisionImpulse > kKWSJumpImpactHurtValue {
                     
                         let hurtVal : Int = Int((contact.collisionImpulse * 2.0) - kKWSJumpImpactHurtValue)
-                        
+
                         player.applyDamage(hurtVal)
                     }
                 }

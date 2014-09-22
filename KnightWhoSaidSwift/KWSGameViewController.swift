@@ -18,6 +18,8 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
     private var isSerwer : Bool = false
     private var interfaceConnected : Bool = false
     
+    private var loopTimer : NSTimer? = nil
+    
     @IBOutlet weak var becomeServerButton: UIButton!
     @IBOutlet weak var becomeClientButton: UIButton!
     
@@ -145,6 +147,21 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
         })
     }
     
+    deinit {
+    
+        invalidateTimer()
+    }
+    
+    func invalidateTimer() {
+    
+        if let timer = self.loopTimer {
+            
+            timer.invalidate()
+        }
+        
+        self.loopTimer = nil
+    }
+    
     //MARK: LE interface delegate 
     
     func interfaceDidUpdate(#interface: BTLEInterface, command: KWSPacketType, data: NSData?)
@@ -157,6 +174,17 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
             }
             
             interfaceConnected = true
+            
+            //run hearBeat loop
+            
+            self.loopTimer = NSTimer( timeInterval: 0.5,
+                target: self,
+                selector: Selector(updateLoop()),
+                userInfo: nil,
+                repeats: true)
+            
+            NSRunLoop.currentRunLoop().addTimer(self.loopTimer!, forMode: NSRunLoopCommonModes)
+            
             return;
         }
         
@@ -166,7 +194,19 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
         }
         
         switch( command ) {
-
+            
+        case .HearBeat:
+            
+            if let data = data {
+                
+                let body : NSData = data.subdataWithRange(NSMakeRange(0, sizeof(Int)))
+                let value : UnsafePointer<Int> = UnsafePointer<Int>(body.bytes)
+                let healt : Int = value.memory
+            
+                self.gameScene.otherPlayer!.healt = healt
+                self.gameScene.otherPlayer!.applyDamage(0)
+            }
+            
         case .Attack:
             self.gameScene.otherPlayer!.playerAttack()
             self.gameScene.otherPlayer!.collidedWith(self.gameScene.selectedPlayer!)
@@ -205,6 +245,8 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
             self.gameScene.otherPlayer!.moveButtonActive = false
             
         case .Disconnect:
+            
+            invalidateTimer()
             
             interfaceConnected = false
             
@@ -249,7 +291,7 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
     }
     
     //MARK: player delegate
-    
+
     func playerDidDied() {
     
         //reset menu etc.
@@ -263,6 +305,14 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
                 button.alpha = 0.0
             }
         })
+    }
+    
+    func updateLoop() {
+    
+        var currentPlayer = self.gameScene.selectedPlayer
+        
+        var healtData = NSData(bytes: &currentPlayer!.healt, length: sizeof(Int))
+        self.communicationInterface!.sendCommand(command: .HearBeat, data: healtData)
     }
     
     @IBAction func restartButtonPress(sender: UIButton) {

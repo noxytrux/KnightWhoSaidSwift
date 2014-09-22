@@ -47,7 +47,6 @@ class KWSPlayer: SKSpriteNode {
     var delegate : KWSPlayerDelegate?
     
     private var animationSpeed: CGFloat = 0.1
-    private var healt = 100
     private var animated = true
     private var attacking = false
     private var dying = false
@@ -62,7 +61,8 @@ class KWSPlayer: SKSpriteNode {
     internal var defenseButtonActive : Bool = false
     internal var movingLeft : Bool = false
     internal var externalControl : Bool = false
-    
+    internal var healt : Int = 100
+
     //MARK: init
 
     init(atPosition position: CGPoint, redPlayer: Bool) {
@@ -161,15 +161,18 @@ class KWSPlayer: SKSpriteNode {
             return
         }
         
-        KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.HitAction.toRaw() )
+        if damage != 0 {
+        
+            KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.HitAction.toRaw() )
+            
+            let emitter = KWSSharedBloodEmitter.copy() as SKEmitterNode
+            emitter.position = self.position
+            
+            playerScene.addNode(emitter, atWorldLayer: .foliage)
+            runOneShotEmitter(emitter, withDuration: 0.15)
+        }
         
         healt -= damage
-        
-        let emitter = KWSSharedBloodEmitter.copy() as SKEmitterNode
-            emitter.position = self.position
-        
-        playerScene.addNode(emitter, atWorldLayer: .foliage)
-        runOneShotEmitter(emitter, withDuration: 0.15)
         
         if healt <= 0 {
         

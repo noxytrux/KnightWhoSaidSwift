@@ -20,8 +20,8 @@ CBPeripheralDelegate {
     private var centralManager : CBCentralManager!
     private var centralQueue : dispatch_queue_t!
     private var discoveredPeripheral : CBPeripheral? = nil
-    private var readCharacteristic : CBCharacteristic? = nil
-    private var writeCharacteristic : CBCharacteristic? = nil
+    private var readCharacteristic : CBCharacteristic!
+    private var writeCharacteristic : CBCharacteristic!
     
     override init(ownerController : UIViewController, delegate: KWSBlueToothLEDelegate) {
         
@@ -140,7 +140,9 @@ CBPeripheralDelegate {
         if self.discoveredPeripheral != peripheral {
         
             self.discoveredPeripheral = peripheral
-            self.centralManager.connectPeripheral(peripheral, options: nil)
+            
+            let options : [String:NSNumber] = [CBConnectPeripheralOptionNotifyOnConnectionKey : NSNumber(bool: true)]
+            self.centralManager.connectPeripheral(peripheral, options: options)
         }
     }
     
@@ -155,14 +157,13 @@ CBPeripheralDelegate {
         
         println("peripheral connected")
         
+        central.stopScan()
+        peripheral.delegate = self
+        peripheral.discoverServices([CBUUID.UUIDWithString(kKWServiceUUID)])
+        
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             
             AudioServicesPlaySystemSound(1254)
-            
-            central.stopScan()
-            peripheral.delegate = self
-            peripheral.discoverServices([CBUUID.UUIDWithString(kKWServiceUUID)])
-            
             self.sendCommand(command: .Connect, data: nil)
         })
     }
@@ -294,9 +295,9 @@ CBPeripheralDelegate {
         else {
         
             println("notification stopped on \(characteristic)")
+            self.centralManager.cancelPeripheralConnection(peripheral)
         }
         
-        self.centralManager.cancelPeripheralConnection(peripheral)
     }
     
     func centralManager(central: CBCentralManager!, didDisconnectPeripheral peripheral: CBPeripheral!, error: NSError!) {

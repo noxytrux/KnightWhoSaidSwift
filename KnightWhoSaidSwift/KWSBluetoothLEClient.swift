@@ -15,9 +15,10 @@ CBPeripheralManagerDelegate  {
    
     private var peripheralManager : CBPeripheralManager!
     private var peripheralQueue : dispatch_queue_t!
-    private var transferService : CBMutableService? = nil
-    private var readCharacteristic : CBMutableCharacteristic? = nil
-    private var writeCharacteristic : CBMutableCharacteristic? = nil
+    private var transferService : CBMutableService!
+    private var readCharacteristic : CBMutableCharacteristic!
+    private var writeCharacteristic : CBMutableCharacteristic!
+    private let serviceUUID = CBUUID.UUIDWithString(kKWServiceUUID)
     
     internal var recivedData : NSData? = nil
     internal var sendedData : NSData? = nil
@@ -94,17 +95,31 @@ CBPeripheralManagerDelegate  {
                                                            value: nil,
                                                      permissions: CBAttributePermissions.Writeable)
         
-        self.transferService = CBMutableService(type: CBUUID.UUIDWithString(kKWServiceUUID), primary: true)
-
-        self.peripheralManager.addService(self.transferService!)
+        self.transferService = CBMutableService(type: serviceUUID, primary: true)
         
-        let delay = 1.0
-        let runAfter : dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
-        let options : Dictionary<NSString, AnyObject> = [ CBAdvertisementDataServiceUUIDsKey: CBUUID.UUIDWithString(kKWServiceUUID) ]
+        var characteristics = [CBMutableCharacteristic]()
+            characteristics.append(self.readCharacteristic)
+            characteristics.append(self.writeCharacteristic)
+        
+        self.transferService.characteristics = characteristics
+        
+        self.peripheralManager.addService(self.transferService)
+        
+        let runAfter : dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
         
         dispatch_after(runAfter, dispatch_get_main_queue()) { () -> Void in
-            
-            self.peripheralManager.startAdvertising(options)
+
+            self.peripheralManager.startAdvertising([ CBAdvertisementDataServiceUUIDsKey: self.serviceUUID ])
+        }
+    }
+    
+    func peripheralManagerDidStartAdvertising(peripheral: CBPeripheralManager!, error: NSError!) {
+    
+        println("advertise started on perihperal")
+        
+        if let error = error {
+        
+            println("Error: \(error)")
         }
     }
     

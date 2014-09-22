@@ -77,10 +77,7 @@ void InitializeAudioSource(void *userAudioClass)
     repeatSong = BackgroundPlayer.repeat;
     
     if (path == nil) return;
-    
-//    UInt32 allowMixing = 1;
-//    AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(allowMixing), &allowMixing);
-    
+        
     UInt32		size, maxPacketSize;
     char		*cookie;
     int			i;
@@ -96,7 +93,7 @@ void InitializeAudioSource(void *userAudioClass)
     
     if (result != noErr) {
         
-        NSLog(@"ERROR: %d",result);
+        NSLog(@"ERROR: %d",(int)result);
     }
    
     // calculate number of packets to read and allocate space for packet descriptions if needed
