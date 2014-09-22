@@ -272,30 +272,19 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
             
         case .Restart:
             
-            self.gameScene.selectedPlayer!.resetPlayer()
-            self.gameScene.otherPlayer!.resetPlayer()
+            self.unlockControls()
             
-            UIView.animateWithDuration(kKWSAnimationDuration, animations: { () -> Void in
-                
-                self.restartButton.alpha = 0.0
-                
-                for button in self.gameButtons {
-                    
-                    button.alpha = 1.0
-                }
-            })
+        case .GameEnd:
+            
+            self.lockControls()
             
         default:
             ()
         }
     }
     
-    //MARK: player delegate
-
-    func playerDidDied() {
+    func lockControls() {
     
-        //reset menu etc.
-        
         UIView.animateWithDuration(kKWSAnimationDuration, animations: { () -> Void in
             
             self.restartButton.alpha = 1.0
@@ -305,6 +294,35 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
                 button.alpha = 0.0
             }
         })
+    }
+    
+    func unlockControls() {
+    
+        self.gameScene.selectedPlayer!.resetPlayer()
+        self.gameScene.otherPlayer!.resetPlayer()
+        
+        UIView.animateWithDuration(kKWSAnimationDuration, animations: { () -> Void in
+            
+            self.restartButton.alpha = 0.0
+            
+            for button in self.gameButtons {
+                
+                button.alpha = 1.0
+            }
+        })
+    }
+    
+    //MARK: player delegate
+
+    func playerDidDied() {
+    
+        if interfaceConnected {
+            
+            self.communicationInterface!.sendCommand(command: .GameEnd, data: nil)
+        }
+
+        //reset menu etc.
+        self.lockControls()
     }
     
     func updateLoop() {
@@ -322,18 +340,7 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
             self.communicationInterface!.sendCommand(command: .Restart, data: nil)
         }
         
-        self.gameScene.selectedPlayer!.resetPlayer()
-        self.gameScene.otherPlayer!.resetPlayer()
-        
-        UIView.animateWithDuration(kKWSAnimationDuration, animations: { () -> Void in
-            
-            sender.alpha = 0.0
-            
-            for button in self.gameButtons {
-                
-                button.alpha = 1.0
-            }
-        })
+        self.unlockControls()
     }
     
     //MARK: player sterring
