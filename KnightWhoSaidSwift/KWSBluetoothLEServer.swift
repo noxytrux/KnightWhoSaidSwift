@@ -53,7 +53,7 @@ CBPeripheralDelegate {
         
             discoveredPeripheral.writeValue( dataToSend,
                           forCharacteristic: self.writeCharacteristic,
-                                       type: .WithoutResponse)
+                                       type: .WithResponse)
         }
     }
   
@@ -167,13 +167,6 @@ CBPeripheralDelegate {
             AudioServicesPlaySystemSound(1254)
         })
         
-        
-        let runAfter : dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(3.0 * Double(NSEC_PER_SEC)))
-        
-        dispatch_after(runAfter, dispatch_get_main_queue()) { () -> Void in
-            
-            self.sendCommand(command: .Connect, data: nil)
-        }
     }
     
     func peripheral(peripheral: CBPeripheral!, didDiscoverServices error: NSError!) {
@@ -213,6 +206,15 @@ CBPeripheralDelegate {
             
                 self.writeCharacteristic = characteristic as? CBCharacteristic
             }
+        }
+
+        println("discovered Characteristics")
+        
+        let runAfter : dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
+        
+        dispatch_after(runAfter, dispatch_get_main_queue()) { () -> Void in
+            
+            self.sendCommand(command: .Connect, data: nil)
         }
 
     }

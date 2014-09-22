@@ -166,8 +166,6 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
     
     func interfaceDidUpdate(#interface: BTLEInterface, command: KWSPacketType, data: NSData?)
     {
-        println("Recivied Command: \(command)");
-        
         if !interfaceConnected && (command == KWSPacketType.Connect) {
             
             for button in self.gameButtons {
@@ -201,9 +199,9 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
             
             if let data = data {
                 
-                let body : NSData = data.subdataWithRange(NSMakeRange(0, sizeof(Int)))
-                let value : UnsafePointer<Int> = UnsafePointer<Int>(body.bytes)
-                let healt : Int = value.memory
+                let body : NSData = data.subdataWithRange(NSMakeRange(0, sizeof(Int32)))
+                let value : UnsafePointer<Int32> = UnsafePointer<Int32>(body.bytes)
+                let healt : Int32 = value.memory
             
                 self.gameScene.otherPlayer!.healt = healt
                 self.gameScene.otherPlayer!.applyDamage(0)
@@ -313,7 +311,7 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
     
         var currentPlayer = self.gameScene.selectedPlayer
         
-        var healtData = NSData(bytes: &currentPlayer!.healt, length: sizeof(Int))
+        var healtData = NSData(bytes: &currentPlayer!.healt, length: sizeof(Int32))
         self.communicationInterface!.sendCommand(command: .HearBeat, data: healtData)
     }
     
