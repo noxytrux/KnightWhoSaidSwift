@@ -167,6 +167,12 @@ CBPeripheralManagerDelegate  {
         println("Central subscribed to characteristic")
             
         //start sending data here 
+        
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                
+            AudioServicesPlaySystemSound(1254)
+        })
+
             
         self.sendCommand(command: .Connect, data: nil)
     }
