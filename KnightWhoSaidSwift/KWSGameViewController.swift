@@ -17,8 +17,7 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
     private var gameScene : KWSGameScene!
     private var isSerwer : Bool = false
     private var interfaceConnected : Bool = false
-    
-    private var loopTimer : NSTimer? = nil
+    private var continueLoop : Bool = false
     
     @IBOutlet weak var becomeServerButton: UIButton!
     @IBOutlet weak var becomeClientButton: UIButton!
@@ -149,20 +148,11 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
     
     deinit {
     
-        invalidateTimer()
+        continueLoop = false
     }
     
-    func invalidateTimer() {
-    
-        if let timer = self.loopTimer {
-            
-            timer.invalidate()
-        }
-        
-        self.loopTimer = nil
-    }
-    
-    //MARK: LE interface delegate 
+
+    //MARK: LE interface delegate
     
     func interfaceDidUpdate(#interface: BTLEInterface, command: KWSPacketType, data: NSData?)
     {
@@ -176,14 +166,8 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
             interfaceConnected = true
             
             //run hearBeat loop
-            
-            self.loopTimer = NSTimer( timeInterval: 0.5,
-                target: self,
-                selector: Selector(updateLoop()),
-                userInfo: nil,
-                repeats: true)
-            
-            NSRunLoop.currentRunLoop().addTimer(self.loopTimer!, forMode: NSRunLoopCommonModes)
+            continueLoop = true
+            heartBeat()
             
             return;
         }
@@ -207,6 +191,7 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
                 self.gameScene.otherPlayer!.applyDamage(0)
                 
                 let position = CGPointMake(CGFloat(packet.posx), CGFloat(packet.posy))
+                var realPos = self.gameScene.otherPlayer!.position
                 
                 self.gameScene.otherPlayer!.position = position
             }
@@ -250,7 +235,7 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
             
         case .Disconnect:
             
-            invalidateTimer()
+            continueLoop = false
             
             interfaceConnected = false
             
@@ -329,8 +314,8 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
         self.lockControls()
     }
     
-    func updateLoop() {
-    
+    func heartBeat() {
+
         var currentPlayer = self.gameScene.selectedPlayer
         
         var packet = syncPacket()
@@ -341,6 +326,16 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
         var packetData = NSData(bytes: &packet, length: sizeof(syncPacket))
         
         self.communicationInterface!.sendCommand(command: .HearBeat, data: packetData)
+        
+        if continueLoop {
+        
+            let runAfter : dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
+            
+            dispatch_after(runAfter, dispatch_get_main_queue()) { () -> Void in
+                
+                self.heartBeat()
+            }
+        }
     }
     
     @IBAction func restartButtonPress(sender: UIButton) {

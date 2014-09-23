@@ -18,7 +18,7 @@ var KWSSharedDeathAnimationFrames = [SKTexture]()
 var KWSSharedDefenseAnimationFrames = [SKTexture]()
 
 let kKWSPlayerScale : CGFloat! = 4
-let kKWSMaxPlayerMovement : CGFloat = 32
+let kKWSMaxPlayerMovement : CGFloat = 200
 
 //MARK: player animation keys 
 
@@ -399,7 +399,9 @@ class KWSPlayer: SKSpriteNode {
         lockedWalkSound()
         movingLeft = true
         
-        var action: SKAction = SKAction.moveByX(-kKWSMaxPlayerMovement, y: 0, duration: 0.1)
+        self.physicsBody?.velocity.dx = -kKWSMaxPlayerMovement
+        
+        var action: SKAction = SKAction.waitForDuration(0.1)
         requestedAnimation = .WalkAction
         
         let moveFinishAction = SKAction.runBlock {
@@ -407,6 +409,10 @@ class KWSPlayer: SKSpriteNode {
             if self.moveButtonActive {
                 
                 self.playerMoveLeft()
+            }
+            else {
+            
+                self.physicsBody?.velocity.dy = 0
             }
         }
         
@@ -423,7 +429,9 @@ class KWSPlayer: SKSpriteNode {
         lockedWalkSound()
         movingLeft = false
         
-        var action: SKAction = SKAction.moveByX(kKWSMaxPlayerMovement, y: 0, duration: 0.1)
+        self.physicsBody?.velocity.dx = kKWSMaxPlayerMovement
+        
+        var action: SKAction = SKAction.waitForDuration(0.1)
         requestedAnimation = .WalkAction
         
         let moveFinishAction = SKAction.runBlock {
@@ -431,6 +439,10 @@ class KWSPlayer: SKSpriteNode {
             if self.moveButtonActive {
             
                 self.playerMoveRight()
+            }
+            else {
+                
+                self.physicsBody?.velocity.dy = 0
             }
         }
         
