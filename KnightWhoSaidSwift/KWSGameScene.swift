@@ -82,11 +82,12 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
                 self.loadClouds()
                 self.loadMap()
                 
-                self.centerWorldOnPosition(self.playerSpawnPosition)
-        
                 self.loadPlayers()
                 
                 self.sceneLoaded = true
+                
+                self.centerWorldOnPosition(self.playerSpawnPosition)
+                
             })
         }
     

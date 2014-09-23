@@ -12,6 +12,7 @@
 		0402161519B64D5900B79A17 /* machete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0402161119B64D5900B79A17 /* machete@2x.png */; };
 		0402161619B64D5900B79A17 /* shield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0402161219B64D5900B79A17 /* shield@2x.png */; };
 		0402161819B64D7800B79A17 /* KWSCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402161719B64D7800B79A17 /* KWSCommon.swift */; };
+		0408D6B719D1B5E800CF6795 /* KWSHealtBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0408D6B619D1B5E800CF6795 /* KWSHealtBar.swift */; };
 		042A794619B338C700D5B75A /* castle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 042A794519B338C700D5B75A /* castle@2x.png */; };
 		0430F91A19CB242C0037C623 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0430F91919CB242C0037C623 /* Utilities.swift */; };
 		0430F91C19CB2ECB0037C623 /* mapimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0430F91B19CB2ECB0037C623 /* mapimage.png */; };
@@ -24,6 +25,8 @@
 		0431209519AE495600036D9F /* KnightWhoSaidSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0431209419AE495600036D9F /* KnightWhoSaidSwiftTests.swift */; };
 		0432501619BE01CD00188DF0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0432501519BE01CD00188DF0 /* AudioToolbox.framework */; };
 		0432501819BE0C2600188DF0 /* KWSBluetoothLEInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0432501719BE0C2600188DF0 /* KWSBluetoothLEInterface.swift */; };
+		043AF97C19D1B92C00189BFE /* barbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 043AF97A19D1B92C00189BFE /* barbackground.png */; };
+		043AF97D19D1B92C00189BFE /* healtbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 043AF97B19D1B92C00189BFE /* healtbar.png */; };
 		045C4BF419BF59A3007C11C5 /* AudioBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 045C4BF319BF59A3007C11C5 /* AudioBridge.m */; };
 		0464B70319B4BB6000A6E073 /* KWSCreditsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0464B70219B4BB6000A6E073 /* KWSCreditsViewController.swift */; };
 		0468D3B519BE255A0012EB82 /* KWSAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468D3B419BE255A0012EB82 /* KWSAudioManager.swift */; };
@@ -85,6 +88,7 @@
 		0402161119B64D5900B79A17 /* machete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "machete@2x.png"; sourceTree = "<group>"; };
 		0402161219B64D5900B79A17 /* shield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shield@2x.png"; sourceTree = "<group>"; };
 		0402161719B64D7800B79A17 /* KWSCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSCommon.swift; sourceTree = "<group>"; };
+		0408D6B619D1B5E800CF6795 /* KWSHealtBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSHealtBar.swift; sourceTree = "<group>"; };
 		042A794519B338C700D5B75A /* castle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "castle@2x.png"; sourceTree = "<group>"; };
 		0430F91919CB242C0037C623 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		0430F91B19CB2ECB0037C623 /* mapimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapimage.png; sourceTree = "<group>"; };
@@ -101,6 +105,8 @@
 		0431209419AE495600036D9F /* KnightWhoSaidSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnightWhoSaidSwiftTests.swift; sourceTree = "<group>"; };
 		0432501519BE01CD00188DF0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0432501719BE0C2600188DF0 /* KWSBluetoothLEInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSBluetoothLEInterface.swift; sourceTree = "<group>"; };
+		043AF97A19D1B92C00189BFE /* barbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barbackground.png; sourceTree = "<group>"; };
+		043AF97B19D1B92C00189BFE /* healtbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = healtbar.png; sourceTree = "<group>"; };
 		045C4BF119BF5976007C11C5 /* AudioBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioBridge.h; sourceTree = "<group>"; };
 		045C4BF219BF59A2007C11C5 /* KnightWhoSaidSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KnightWhoSaidSwift-Bridging-Header.h"; sourceTree = "<group>"; };
 		045C4BF319BF59A3007C11C5 /* AudioBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioBridge.m; sourceTree = "<group>"; };
@@ -299,6 +305,7 @@
 				0402161719B64D7800B79A17 /* KWSCommon.swift */,
 				049F752E19CDAAF600106AFA /* KWSPlayer.swift */,
 				049F753019CDEF4F00106AFA /* Shader.fsh */,
+				0408D6B619D1B5E800CF6795 /* KWSHealtBar.swift */,
 			);
 			name = Gameplay;
 			sourceTree = "<group>";
@@ -338,6 +345,8 @@
 		04E80BE919B1ED6D006C4917 /* GFX */ = {
 			isa = PBXGroup;
 			children = (
+				043AF97A19D1B92C00189BFE /* barbackground.png */,
+				043AF97B19D1B92C00189BFE /* healtbar.png */,
 				0482CED119CEF9B000825C9B /* particle */,
 				0430F91B19CB2ECB0037C623 /* mapimage.png */,
 				048D36EF19CA02E600CB211E /* back@2x.png */,
@@ -524,9 +533,11 @@
 				04E80C0419B1ED6D006C4917 /* Menu.mp3 in Resources */,
 				0402161419B64D5900B79A17 /* jump@2x.png in Resources */,
 				04E80C0019B1ED6D006C4917 /* walk.atlas in Resources */,
+				043AF97D19D1B92C00189BFE /* healtbar.png in Resources */,
 				04BBBF6419C0D4C00008222C /* Ouch.aiff in Resources */,
 				04E80BF919B1ED6D006C4917 /* bg@2x.png in Resources */,
 				04E80BFE19B1ED6D006C4917 /* die.atlas in Resources */,
+				043AF97C19D1B92C00189BFE /* barbackground.png in Resources */,
 				04E80BFC19B1ED6D006C4917 /* attack.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -565,6 +576,7 @@
 				0431207E19AE495600036D9F /* AppDelegate.swift in Sources */,
 				0468D3B519BE255A0012EB82 /* KWSAudioManager.swift in Sources */,
 				048D36EC19C9FBF300CB211E /* KWSGameScene.swift in Sources */,
+				0408D6B719D1B5E800CF6795 /* KWSHealtBar.swift in Sources */,
 				049F752F19CDAAF600106AFA /* KWSPlayer.swift in Sources */,
 				04A855D719B4F5E800AE2E6E /* KWSSettingsViewController.swift in Sources */,
 			);

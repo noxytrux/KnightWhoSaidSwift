@@ -142,7 +142,7 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
             for button in self.gameButtons {
                 
                 button.alpha = 1.0
-                button.userInteractionEnabled = false
+                //button.userInteractionEnabled = false
             }
         })
     }

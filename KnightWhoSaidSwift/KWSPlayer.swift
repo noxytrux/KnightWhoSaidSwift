@@ -46,6 +46,7 @@ class KWSPlayer: SKSpriteNode {
     
     var delegate : KWSPlayerDelegate?
     
+    private var healtBar : KWSHealtBar!
     private var animationSpeed: CGFloat = 0.1
     private var animated = true
     private var attacking = false
@@ -90,6 +91,11 @@ class KWSPlayer: SKSpriteNode {
         
             applyRedShader()
         }
+        
+        self.healtBar = KWSHealtBar()
+        self.healtBar.updateProgress(progress: 1.0)
+        
+        self.addChild(self.healtBar)
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -110,6 +116,7 @@ class KWSPlayer: SKSpriteNode {
         dying = false
         animated = true
         requestedAnimation = .IdleAction
+        self.healtBar.updateProgress(progress: 1.0)
     }
     
     //MARK: shader assets loading
@@ -173,6 +180,8 @@ class KWSPlayer: SKSpriteNode {
         }
         
         healt -= damage
+        
+        self.healtBar.updateProgress(progress: CGFloat(Float(healt)/100.0) )
         
         if healt <= 0 {
         

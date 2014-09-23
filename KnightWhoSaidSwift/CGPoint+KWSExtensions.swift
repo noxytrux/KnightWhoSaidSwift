@@ -69,6 +69,20 @@ func /= (inout left: CGPoint, right: CGPoint) {
     left = left / right
 }
 
+infix operator +- { associativity left precedence 140 }
+
+func +- (left: CGPoint, right: CGPoint) -> CGPoint {
+
+    return CGPointMake(left.x + right.x, left.y - right.y)
+}
+
+infix operator -+ { associativity left precedence 140 }
+
+func -+ (left: CGPoint, right: CGPoint) -> CGPoint {
+    
+    return CGPointMake(left.x - right.x, left.y + right.y)
+}
+
 extension CGPoint : Equatable {
     
     func distanceTo(p : CGPoint) -> CGFloat {
