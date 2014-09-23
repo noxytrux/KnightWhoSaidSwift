@@ -10,9 +10,19 @@ import UIKit
 
 class KWSSettingsViewController: UIViewController {
 
+    @IBOutlet weak var soundSwitch: UISwitch!
+    
+    private var audioManager = KWSGameAudioManager.sharedInstance
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        soundSwitch.on = !audioManager.deviceMuted
+    }
+   
+    @IBAction func soundSwitchPress(sender: AnyObject) {
+    
+        audioManager.deviceMuted = !soundSwitch.on
     }
 
     @IBAction func dismissViewController(sender: UIButton) {

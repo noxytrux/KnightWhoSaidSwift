@@ -41,6 +41,10 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
                     backgroundMusicPlayer.play()
                 }
             }
+            
+            let defaults = NSUserDefaults.standardUserDefaults()
+                defaults.setBool(_deviceMuted, forKey: kKWSAudioDeviceMuteKey)
+                defaults.synchronize()
         }
     }
 
@@ -143,8 +147,13 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
             
             backgroundMusicPlayer.loadFromFile(musicName, repeat: true)
             backgroundMusicPlayer.play()
-        
+            
             self.playingMusic = true
+            
+            if deviceMuted {
+             
+                backgroundMusicPlayer.pause()
+            }
         }
     }
 

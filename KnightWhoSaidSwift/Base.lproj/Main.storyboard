@@ -15,6 +15,7 @@
             <string>FFFAtlantisTrial</string>
             <string>FFFAtlantisTrial</string>
             <string>FFFAtlantisTrial</string>
+            <string>FFFAtlantisTrial</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -369,17 +370,36 @@
                                     <action selector="dismissViewController:" destination="bAK-1W-WFS" eventType="touchUpInside" id="HEW-RT-e5b"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sound" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1nu-tq-40f">
+                                <rect key="frame" x="205" y="284" width="90" height="33"/>
+                                <fontDescription key="fontDescription" name="FFFAtlantisTrial" family="FFF Atlantis  Trial" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3b1-Zs-EX8">
+                                <rect key="frame" x="316" y="286" width="51" height="31"/>
+                                <connections>
+                                    <action selector="soundSwitchPress:" destination="0WQ-Ve-qgN" eventType="valueChanged" id="bpK-ac-a94"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="DGT-t2-rrh" firstAttribute="leading" secondItem="NiA-sM-ulo" secondAttribute="leadingMargin" constant="-16" id="0is-Ic-TzU"/>
                             <constraint firstItem="DGT-t2-rrh" firstAttribute="top" secondItem="1NM-PH-Gdc" secondAttribute="bottom" id="H07-28-SyI"/>
+                            <constraint firstItem="DGT-t2-rrh" firstAttribute="centerY" secondItem="3b1-Zs-EX8" secondAttribute="centerY" constant="-1.5" id="QwW-cQ-VDo"/>
+                            <constraint firstItem="3b1-Zs-EX8" firstAttribute="leading" secondItem="1nu-tq-40f" secondAttribute="trailing" constant="21" id="Y50-ur-4St"/>
                             <constraint firstAttribute="centerX" secondItem="z2P-2a-8KJ" secondAttribute="centerX" id="fBQ-QA-63z"/>
+                            <constraint firstItem="DGT-t2-rrh" firstAttribute="centerY" secondItem="1nu-tq-40f" secondAttribute="centerY" id="mfJ-rd-Amd"/>
+                            <constraint firstItem="DGT-t2-rrh" firstAttribute="centerX" secondItem="1nu-tq-40f" secondAttribute="centerX" constant="50" id="q9I-gc-aFX"/>
                             <constraint firstItem="QaR-V0-wOh" firstAttribute="top" secondItem="DGT-t2-rrh" secondAttribute="bottom" id="sWZ-9j-hfo"/>
                             <constraint firstAttribute="trailingMargin" secondItem="DGT-t2-rrh" secondAttribute="trailing" constant="-16" id="tXt-kK-AkD"/>
                             <constraint firstAttribute="bottomMargin" secondItem="z2P-2a-8KJ" secondAttribute="bottom" constant="20" id="u4q-cr-8v2"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="soundSwitch" destination="3b1-Zs-EX8" id="2Sp-Fc-kWm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bAK-1W-WFS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
