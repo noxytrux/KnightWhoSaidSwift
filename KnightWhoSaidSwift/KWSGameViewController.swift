@@ -142,7 +142,7 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
             for button in self.gameButtons {
                 
                 button.alpha = 1.0
-                //button.userInteractionEnabled = false
+                button.userInteractionEnabled = false
             }
         })
     }
@@ -199,12 +199,16 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
             
             if let data = data {
                 
-                let body : NSData = data.subdataWithRange(NSMakeRange(0, sizeof(Int32)))
-                let value : UnsafePointer<Int32> = UnsafePointer<Int32>(body.bytes)
-                let healt : Int32 = value.memory
-            
-                self.gameScene.otherPlayer!.healt = healt
+                let subData : NSData = data.subdataWithRange(NSMakeRange(0, sizeof(syncPacket)))
+                let packetMemory = UnsafePointer<syncPacket>(subData.bytes)
+                let packet = packetMemory.memory
+                
+                self.gameScene.otherPlayer!.healt = packet.healt
                 self.gameScene.otherPlayer!.applyDamage(0)
+                
+                let position = CGPointMake(CGFloat(packet.posx), CGFloat(packet.posy))
+                
+                self.gameScene.otherPlayer!.position = position
             }
             
         case .Attack:
@@ -329,8 +333,14 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
     
         var currentPlayer = self.gameScene.selectedPlayer
         
-        var healtData = NSData(bytes: &currentPlayer!.healt, length: sizeof(Int32))
-        self.communicationInterface!.sendCommand(command: .HearBeat, data: healtData)
+        var packet = syncPacket()
+            packet.healt = currentPlayer!.healt
+            packet.posx = Float32(currentPlayer!.position.x)
+            packet.posy = Float32(currentPlayer!.position.y)
+        
+        var packetData = NSData(bytes: &packet, length: sizeof(syncPacket))
+        
+        self.communicationInterface!.sendCommand(command: .HearBeat, data: packetData)
     }
     
     @IBAction func restartButtonPress(sender: UIButton) {

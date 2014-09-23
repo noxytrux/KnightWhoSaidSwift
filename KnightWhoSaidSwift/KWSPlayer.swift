@@ -62,7 +62,7 @@ class KWSPlayer: SKSpriteNode {
     internal var defenseButtonActive : Bool = false
     internal var movingLeft : Bool = false
     internal var externalControl : Bool = false
-    internal var healt : Int32 = 100
+    internal var healt : Int8 = 100
 
     //MARK: init
 

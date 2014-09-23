@@ -130,8 +130,6 @@ CBPeripheralManagerDelegate  {
     
     func peripheralManager(peripheral: CBPeripheralManager!, didReceiveWriteRequests requests: [AnyObject]!) {
         
-        println("write request")
-        
         if requests.count == 0 {
             
             return;
