@@ -275,8 +275,14 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
                     
                     if contact.collisionImpulse > kKWSJumpImpactHurtValue {
                     
-                        let hurtVal : Int = Int((contact.collisionImpulse * 2.0) - kKWSJumpImpactHurtValue)
+                        var hurtVal : Int = Int((contact.collisionImpulse * 2.0) - kKWSJumpImpactHurtValue)
 
+                        //Int8 quard so we not go over 255
+                        if hurtVal > 100 {
+                            
+                            hurtVal = 100
+                        }
+                        
                         player.applyDamage(hurtVal)
                     }
                 }

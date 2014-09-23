@@ -239,11 +239,6 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
             
             interfaceConnected = false
             
-            for button in self.gameButtons {
-                
-                button.userInteractionEnabled = false
-            }
-            
             let KWSAlertController = UIAlertController( title: NSLocalizedString("Error", comment: ""),
                                                       message: NSLocalizedString("Other player has been disconnect", comment: ""),
                                                preferredStyle: .Alert)
@@ -304,6 +299,8 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
     //MARK: player delegate
 
     func playerDidDied() {
+        
+        println("player died.")
     
         if interfaceConnected {
             
