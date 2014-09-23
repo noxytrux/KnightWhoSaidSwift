@@ -48,8 +48,14 @@ class KWSHealtBar: SKSpriteNode {
 
     func updateProgress(#progress: CGFloat) {
     
-        let barSize = progress * 128.0
-        let lifeColor = progress * 60.0 //hue hue 60 -> Int
+        var localProgress = progress
+        if localProgress < 0.0 {
+        
+            localProgress = 0.0
+        }
+        
+        let barSize = localProgress * 128.0
+        let lifeColor = localProgress * 60.0 //hue hue 60 -> Int
         
         var r : CGFloat = (32.0 + 2.0 * (60.0 - lifeColor)) / 255.0
         var g : CGFloat = (32.0 + 2.0 * lifeColor) / 255.0

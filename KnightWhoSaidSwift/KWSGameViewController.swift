@@ -342,7 +342,12 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
         
         if interfaceConnected {
             
-            self.communicationInterface!.sendCommand(command: .Restart, data: nil)
+            let runAfter : dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(1.0 * Double(NSEC_PER_SEC)))
+            
+            dispatch_after(runAfter, dispatch_get_main_queue()) { () -> Void in
+             
+                self.communicationInterface!.sendCommand(command: .Restart, data: nil)
+            }
         }
         
         self.unlockControls()
