@@ -45,6 +45,11 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
     internal var selectedPlayer : KWSPlayer?
     internal var otherPlayer : KWSPlayer?
     
+    internal var mapScreenSize : CGFloat {
+    
+        return CGFloat(self.mapSizeX) * kKWSBlockSize + kKWSBlockSize / 2.0
+    }
+    
     override func didMoveToView(view: SKView) {
 
         physicsWorld.gravity = CGVector(0, -9.8)

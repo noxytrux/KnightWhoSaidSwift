@@ -22,7 +22,8 @@ class KWSBluetoothLEInterface: NSObject, BTLEInterface {
     
     var delegate : KWSBlueToothLEDelegate?
     var ownerViewController : UIViewController?
-    
+    var interfaceConnected : Bool = false
+
     init(ownerController : UIViewController, delegate: KWSBlueToothLEDelegate) {
         
         self.ownerViewController = ownerController

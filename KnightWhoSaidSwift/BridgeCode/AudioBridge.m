@@ -28,6 +28,9 @@ UInt64 packetIndex = 0;
 UInt32 numPacketsToRead = 0;
 bool repeatSong = false;
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
 UInt32 readPacketsIntoBuffer(AudioQueueBufferRef buffer)
 {
     UInt32		numBytes, numPackets;
@@ -51,6 +54,8 @@ UInt32 readPacketsIntoBuffer(AudioQueueBufferRef buffer)
     
     return numPackets;
 }
+
+#pragma GCC diagnostic pop
 
 static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBufferRef buffer)
 {

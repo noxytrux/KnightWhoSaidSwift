@@ -43,6 +43,7 @@ let kKWServiceUUID : String! = "07547DC7-FCFE-4827-8694-01788139B5B7"
 let kKWSMaxPacketSize : Int! = 20
 let kKWSBlockSize : CGFloat! = 64.0
 let kKWSAnimationDuration : NSTimeInterval! = 0.3
+let kKWSPacketRoonLoopTime : Double! = 0.2
 
 extension SKNode {
     
@@ -64,5 +65,4 @@ struct syncPacket {
     
     var healt : Int8 = 0
     var posx : Float32 = 0
-    var posy : Float32 = 0
 }

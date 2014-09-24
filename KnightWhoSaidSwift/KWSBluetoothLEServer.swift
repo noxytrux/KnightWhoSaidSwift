@@ -33,6 +33,11 @@ CBPeripheralDelegate {
     
     override func sendCommand(#command: KWSPacketType, data: NSData?){
         
+        if !interfaceConnected {
+            
+            return
+        }
+
         //DO NOT USE Int -> vary on platform!
         var header : Int8 = command.toRaw()
         var dataToSend : NSMutableData = NSMutableData(bytes: &header, length: sizeof(Int8))
@@ -210,6 +215,8 @@ CBPeripheralDelegate {
 
         println("discovered Characteristics")
         
+        self.interfaceConnected = true
+
         let runAfter : dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC)))
         
         dispatch_after(runAfter, dispatch_get_main_queue()) { () -> Void in
@@ -315,6 +322,7 @@ CBPeripheralDelegate {
     func centralManager(central: CBCentralManager!, didDisconnectPeripheral peripheral: CBPeripheral!, error: NSError!) {
      
         println("peripheral disconnected")
+        self.interfaceConnected = false
         self.discoveredPeripheral = nil
         self.scan()
         

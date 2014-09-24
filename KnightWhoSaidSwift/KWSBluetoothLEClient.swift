@@ -33,6 +33,11 @@ CBPeripheralManagerDelegate  {
     
     override func sendCommand(#command: KWSPacketType, data: NSData?) {
     
+        if !interfaceConnected {
+        
+            return
+        }
+        
         var header : Int8 = command.toRaw()
         var dataToSend : NSMutableData = NSMutableData(bytes: &header, length: sizeof(Int8))
         
@@ -171,7 +176,7 @@ CBPeripheralManagerDelegate  {
             AudioServicesPlaySystemSound(1254)
         })
 
-            
+        self.interfaceConnected = true
         self.sendCommand(command: .Connect, data: nil)
     }
     
@@ -179,6 +184,7 @@ CBPeripheralManagerDelegate  {
                                                 central: CBCentral!,
         didUnsubscribeFromCharacteristic characteristic: CBCharacteristic!) {
         
+        self.interfaceConnected = false
         self.delegate?.interfaceDidUpdate(interface: self, command: .Disconnect, data: nil)
     }
     
