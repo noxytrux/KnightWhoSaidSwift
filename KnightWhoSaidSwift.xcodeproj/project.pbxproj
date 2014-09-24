@@ -49,6 +49,7 @@
 		04A855D919B507E300AE2E6E /* KWSBluetoothLEServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A855D819B507E300AE2E6E /* KWSBluetoothLEServer.swift */; };
 		04A855DB19B507F700AE2E6E /* KWSBluetoothLEClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A855DA19B507F700AE2E6E /* KWSBluetoothLEClient.swift */; };
 		04A855DD19B5095700AE2E6E /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A855DC19B5095700AE2E6E /* CoreBluetooth.framework */; };
+		04BB2DD519D3076400D18A42 /* Float16.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BB2DD419D3076400D18A42 /* Float16.m */; };
 		04BBBF5619C0B39F0008222C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04BBBF5519C0B39F0008222C /* AVFoundation.framework */; };
 		04BBBF5819C0CD2E0008222C /* KWSGameAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BBBF5719C0CD2E0008222C /* KWSGameAudioManager.swift */; };
 		04BBBF6019C0D4C00008222C /* Attack.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 04BBBF5A19C0D4C00008222C /* Attack.aiff */; };
@@ -131,6 +132,8 @@
 		04A855D819B507E300AE2E6E /* KWSBluetoothLEServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSBluetoothLEServer.swift; sourceTree = "<group>"; };
 		04A855DA19B507F700AE2E6E /* KWSBluetoothLEClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSBluetoothLEClient.swift; sourceTree = "<group>"; };
 		04A855DC19B5095700AE2E6E /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		04BB2DD319D3076400D18A42 /* Float16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Float16.h; sourceTree = "<group>"; };
+		04BB2DD419D3076400D18A42 /* Float16.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Float16.m; sourceTree = "<group>"; };
 		04BBBF5519C0B39F0008222C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		04BBBF5719C0CD2E0008222C /* KWSGameAudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSGameAudioManager.swift; sourceTree = "<group>"; };
 		04BBBF5A19C0D4C00008222C /* Attack.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Attack.aiff; sourceTree = "<group>"; };
@@ -240,6 +243,8 @@
 		045C4BF019BF5922007C11C5 /* BridgeCode */ = {
 			isa = PBXGroup;
 			children = (
+				04BB2DD319D3076400D18A42 /* Float16.h */,
+				04BB2DD419D3076400D18A42 /* Float16.m */,
 				045C4BF119BF5976007C11C5 /* AudioBridge.h */,
 				045C4BF319BF59A3007C11C5 /* AudioBridge.m */,
 				045C4BF219BF59A2007C11C5 /* KnightWhoSaidSwift-Bridging-Header.h */,
@@ -571,6 +576,7 @@
 				0402161819B64D7800B79A17 /* KWSCommon.swift in Sources */,
 				049137E419B23CC500076903 /* CGFloat+KWSExtensions.swift in Sources */,
 				046FC06119C2172900BA0E6F /* SKBaseScene.swift in Sources */,
+				04BB2DD519D3076400D18A42 /* Float16.m in Sources */,
 				0468D3B719BE2A820012EB82 /* KWSBackgroundStreamPlayer.swift in Sources */,
 				048D36EA19C9FB5700CB211E /* KWSGameViewController.swift in Sources */,
 				0431207E19AE495600036D9F /* AppDelegate.swift in Sources */,

@@ -177,11 +177,9 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
                 self.gameScene.otherPlayer!.healt = packet.healt
                 self.gameScene.otherPlayer!.applyDamage(0)
                 
-//                var normalizedPosition : CGFloat = CGFloat(packet.posx) / 255.0
-//                var decodedPos = normalizedPosition * self.gameScene.mapScreenSize
-                
+                var decoded = Float16CompressorDecompress(packet.posx)
                 var realPos = self.gameScene.otherPlayer!.position
-                let position = CGPointMake(CGFloat(packet.posx), CGFloat(realPos.y)) //CGFloat(decodedPos)
+                let position = CGPointMake(CGFloat(decoded), CGFloat(realPos.y))
                 
                 self.gameScene.otherPlayer!.position = position
             }
@@ -300,13 +298,9 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
 
         var currentPlayer = self.gameScene.selectedPlayer
         
-        //normalize position to 0-1 and pack it to 255 Int8
-//        var normalizedPosition = CGFloat(currentPlayer!.position.x) / self.gameScene.mapScreenSize
-//        var packetPosition : Int8 = Int8(normalizedPosition * 255.0)
-        
         var packet = syncPacket()
             packet.healt = currentPlayer!.healt
-            packet.posx = Float32(currentPlayer!.position.x)//packetPosition
+            packet.posx = Float16CompressorCompress(Float32(currentPlayer!.position.x))
         
         var packetData = NSData(bytes: &packet, length: sizeof(syncPacket))
         

@@ -64,5 +64,5 @@ extension SKNode {
 struct syncPacket {
     
     var healt : Int8 = 0
-    var posx : Float32 = 0
+    var posx : UInt16 = 0
 }
