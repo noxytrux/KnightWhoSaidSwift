@@ -138,7 +138,7 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
                 
                 button.alpha = 1.0
                 //comment this line to play without connecting
-                button.userInteractionEnabled = false
+                //button.userInteractionEnabled = false
             }
         })
     }

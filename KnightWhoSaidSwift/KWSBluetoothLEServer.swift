@@ -39,7 +39,7 @@ CBPeripheralDelegate {
         }
 
         //DO NOT USE Int -> vary on platform!
-        var header : Int8 = command.toRaw()
+        var header : Int8 = command.rawValue
         var dataToSend : NSMutableData = NSMutableData(bytes: &header, length: sizeof(Int8))
         
         if let data = data {
@@ -78,7 +78,7 @@ CBPeripheralDelegate {
     
         println("Scaning started")
         
-        let service : [AnyObject] = [CBUUID.UUIDWithString(kKWServiceUUID)]
+        let service : [AnyObject] = [CBUUID(string: kKWServiceUUID)]
         let options : [String:NSNumber] = [CBCentralManagerScanOptionAllowDuplicatesKey : NSNumber(bool: true)]
         
         self.centralManager.scanForPeripheralsWithServices(service, options: options)
@@ -117,7 +117,7 @@ CBPeripheralDelegate {
                 
                     var currentCharacteristic : CBCharacteristic = characteristic as CBCharacteristic
                     
-                    if currentCharacteristic.UUID != CBUUID.UUIDWithString(kKWServiceUUID) {
+                    if currentCharacteristic.UUID != CBUUID(string: kKWServiceUUID) {
                     
                         continue
                     }
@@ -165,7 +165,7 @@ CBPeripheralDelegate {
         
         central.stopScan()
         peripheral.delegate = self
-        peripheral.discoverServices([CBUUID.UUIDWithString(kKWServiceUUID)])
+        peripheral.discoverServices([CBUUID(string: kKWServiceUUID)])
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             
@@ -185,7 +185,7 @@ CBPeripheralDelegate {
         
         for service in peripheral.services {
         
-            let characteristic : [AnyObject] = [CBUUID.UUIDWithString(kKWSReadUUID), CBUUID.UUIDWithString(kKWSWriteUUID)]
+            let characteristic : [AnyObject] = [CBUUID(string: kKWSReadUUID), CBUUID(string: kKWSWriteUUID)]
             
             peripheral.discoverCharacteristics(characteristic, forService: service as CBService)
         }
@@ -202,12 +202,12 @@ CBPeripheralDelegate {
         
         for characteristic in service.characteristics {
         
-            if characteristic.UUID == CBUUID.UUIDWithString(kKWSReadUUID) {
+            if characteristic.UUID == CBUUID(string: kKWSReadUUID) {
             
                 self.readCharacteristic = characteristic as? CBCharacteristic
                 peripheral.setNotifyValue(true, forCharacteristic: self.readCharacteristic)
             }
-            else if characteristic.UUID == CBUUID.UUIDWithString(kKWSWriteUUID) {
+            else if characteristic.UUID == CBUUID(string: kKWSWriteUUID) {
             
                 self.writeCharacteristic = characteristic as? CBCharacteristic
             }
@@ -245,7 +245,7 @@ CBPeripheralDelegate {
         }
 
         let actionValue : UnsafePointer<Int8> = UnsafePointer<Int8>(header.bytes)
-        let action : KWSPacketType = KWSPacketType.fromRaw(actionValue.memory)!
+        let action : KWSPacketType = KWSPacketType(rawValue: actionValue.memory)!
         
         self.delegate?.interfaceDidUpdate(interface: self, command: action, data: body)
     }
@@ -301,7 +301,7 @@ CBPeripheralDelegate {
             println("error while changing notification state: \(error.localizedDescription)")
         }
         
-        if characteristic.UUID != CBUUID.UUIDWithString(kKWServiceUUID) {
+        if characteristic.UUID != CBUUID(string: kKWServiceUUID) {
             
             return
         }

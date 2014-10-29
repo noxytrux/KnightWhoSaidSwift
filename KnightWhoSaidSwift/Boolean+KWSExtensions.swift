@@ -21,10 +21,10 @@ extension Boolean : BooleanType {
     }
 }
 
-extension Boolean : BooleanLiteralConvertible {
-    
-    public static func convertFromBooleanLiteral(value: Bool) -> Boolean {
-        
-        return value ? 1 : 0
-    }
-}
+//extension Boolean : BooleanLiteralConvertible {
+//    
+//    public static func convertFromBooleanLiteral(value: Bool) -> Boolean {
+//        
+//        return value ? 1 : 0
+//    }
+//}

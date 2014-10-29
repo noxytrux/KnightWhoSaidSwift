@@ -98,7 +98,7 @@ class KWSPlayer: SKSpriteNode {
         self.addChild(self.healtBar)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder)
     }
@@ -153,9 +153,9 @@ class KWSPlayer: SKSpriteNode {
         
         if let physicsBody = physicsBody {
         
-            physicsBody.categoryBitMask = ColliderType.Player.toRaw()
-            physicsBody.collisionBitMask = ColliderType.Wall.toRaw() | ColliderType.Ground.toRaw()
-            physicsBody.contactTestBitMask = ColliderType.Wall.toRaw() | ColliderType.Ground.toRaw() | ColliderType.Player.toRaw()
+            physicsBody.categoryBitMask = ColliderType.Player.rawValue
+            physicsBody.collisionBitMask = ColliderType.Wall.rawValue | ColliderType.Ground.rawValue
+            physicsBody.contactTestBitMask = ColliderType.Wall.rawValue | ColliderType.Ground.rawValue | ColliderType.Player.rawValue
             physicsBody.allowsRotation = false
             physicsBody.dynamic = true
         }
@@ -170,7 +170,7 @@ class KWSPlayer: SKSpriteNode {
         
         if damage != 0 {
         
-            KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.HitAction.toRaw() )
+            KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.HitAction.rawValue )
             
             let emitter = KWSSharedBloodEmitter.copy() as SKEmitterNode
             emitter.position = self.position
@@ -187,7 +187,7 @@ class KWSPlayer: SKSpriteNode {
         
             healt = 0
             
-            KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.DieAction.toRaw() )
+            KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.DieAction.rawValue )
             dying = true
         }
     }
@@ -223,14 +223,14 @@ class KWSPlayer: SKSpriteNode {
                 
                 playerScene.addNode(emitter, atWorldLayer: .foliage)
                 runOneShotEmitter(emitter, withDuration: 0.15)
-                KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.DefenseAction.toRaw() )
+                KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.DefenseAction.rawValue )
                 
                 return
             }
 
             if !dying && attacking {
                 
-                enemy.applyDamage(20.0)
+                enemy.applyDamage(20)
             }
         }
     }
@@ -378,7 +378,7 @@ class KWSPlayer: SKSpriteNode {
         }
         
         movingSound = true
-        KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.WalkAction.toRaw() )
+        KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.WalkAction.rawValue )
         
         let runAfter : dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(1.0 * Double(NSEC_PER_SEC)))
         
@@ -460,7 +460,7 @@ class KWSPlayer: SKSpriteNode {
             
             if !externalControl {
     
-                KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.JumpAction.toRaw() )
+                KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.JumpAction.rawValue)
             }
             
             self.touchesGround = false
@@ -487,7 +487,7 @@ class KWSPlayer: SKSpriteNode {
         
         if !externalControl {
 
-            KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.AttackAction.toRaw() )
+            KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.AttackAction.rawValue )
         }
         
         attacking = true

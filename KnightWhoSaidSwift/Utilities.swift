@@ -51,7 +51,7 @@ func createARGBBitmapContext(inImage: CGImage) -> CGContext {
     
     let colorSpace = CGColorSpaceCreateDeviceRGB()
     let bitmapData = malloc(CUnsignedLong(bitmapByteCount))
-    let bitmapInfo = CGBitmapInfo.fromRaw(CGImageAlphaInfo.PremultipliedFirst.toRaw())!
+    let bitmapInfo = CGBitmapInfo( UInt32(CGImageAlphaInfo.PremultipliedFirst.rawValue) )
     
     let context = CGBitmapContextCreate(bitmapData,
                                         pixelsWide,
@@ -67,9 +67,9 @@ func createARGBBitmapContext(inImage: CGImage) -> CGContext {
 func loadMapData(mapName: String) -> (data: UnsafeMutablePointer<Void>, width: UInt, height: UInt) {
     
     let image = UIImage(named: mapName)
-    let inImage = image.CGImage
+    let inImage = image?.CGImage
 
-    let cgContext = createARGBBitmapContext(inImage)
+    let cgContext = createARGBBitmapContext(inImage!)
     
     let imageWidth = CGImageGetWidth(inImage)
     let imageHeight = CGImageGetHeight(inImage)

@@ -18,7 +18,7 @@ CBPeripheralManagerDelegate  {
     private var transferService : CBMutableService!
     private var readCharacteristic : CBMutableCharacteristic!
     private var writeCharacteristic : CBMutableCharacteristic!
-    private var serviceUUID = CBUUID.UUIDWithString(kKWServiceUUID)
+    private var serviceUUID = CBUUID(string: kKWServiceUUID)
     
     internal var recivedData : NSData? = nil
     internal var sendedData : NSData? = nil
@@ -38,7 +38,7 @@ CBPeripheralManagerDelegate  {
             return
         }
         
-        var header : Int8 = command.toRaw()
+        var header : Int8 = command.rawValue
         var dataToSend : NSMutableData = NSMutableData(bytes: &header, length: sizeof(Int8))
         
         if let data = data {
@@ -66,7 +66,7 @@ CBPeripheralManagerDelegate  {
             return;
         }
         
-        var packet : Int8 = KWSPacketType.Disconnect.toRaw()
+        var packet : Int8 = KWSPacketType.Disconnect.rawValue
         self.sendedData = NSData(bytes: &packet, length: sizeof(Int8))
         
         var killSignalSend : Bool = self.peripheralManager.updateValue( self.sendedData!,
@@ -90,12 +90,12 @@ CBPeripheralManagerDelegate  {
         
         println("self.peripheralManager powered on.")
         
-        self.readCharacteristic = CBMutableCharacteristic(  type: CBUUID.UUIDWithString(kKWSReadUUID),
+        self.readCharacteristic = CBMutableCharacteristic(  type: CBUUID(string: kKWSReadUUID),
                                                       properties: CBCharacteristicProperties.Notify,
                                                            value: nil,
                                                      permissions: CBAttributePermissions.Readable)
         
-        self.writeCharacteristic = CBMutableCharacteristic( type: CBUUID.UUIDWithString(kKWSWriteUUID),
+        self.writeCharacteristic = CBMutableCharacteristic( type: CBUUID(string: kKWSWriteUUID),
                                                       properties: CBCharacteristicProperties.Write,
                                                            value: nil,
                                                      permissions: CBAttributePermissions.Writeable)
@@ -155,7 +155,7 @@ CBPeripheralManagerDelegate  {
             }
             
             let actionValue : UnsafePointer<Int8> = UnsafePointer<Int8>(header.bytes)
-            let action : KWSPacketType = KWSPacketType.fromRaw(actionValue.memory)!
+            let action : KWSPacketType = KWSPacketType(rawValue: actionValue.memory)!
             
             self.delegate?.interfaceDidUpdate(interface: self, command: action, data: body)
             

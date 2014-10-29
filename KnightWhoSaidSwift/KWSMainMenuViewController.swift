@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-let kDebugOption : Bool = 0
+let kDebugOption : Bool = false
 
 class KWSMainMenuViewController: UIViewController, UIPopoverPresentationControllerDelegate{
 
@@ -61,7 +61,7 @@ class KWSMainMenuViewController: UIViewController, UIPopoverPresentationControll
 
     override func supportedInterfaceOrientations() -> Int {
         
-       return Int(UIInterfaceOrientationMask.Landscape.toRaw())
+       return Int(UIInterfaceOrientationMask.Landscape.rawValue)
     }
 
     override func didReceiveMemoryWarning() {

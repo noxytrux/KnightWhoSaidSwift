@@ -12,7 +12,7 @@ class KWSVelocitySpriteNode: SKSpriteNode {
     
     internal var acceleration : CGPoint
     
-    init(imageNamed name: String!) {
+    init(imageNamed name: String) {
         acceleration = CGPointMake(10.0 + CGFloat(Int(rand()) % 40), 0)
         
         let texture : SKTexture = SKTexture(imageNamed: name)

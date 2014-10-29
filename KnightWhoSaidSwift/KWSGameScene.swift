@@ -52,7 +52,7 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
     
     override func didMoveToView(view: SKView) {
 
-        physicsWorld.gravity = CGVector(0, -9.8)
+        physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
         physicsWorld.contactDelegate = self
 
         gameWorld.name = "mainNode"
@@ -145,7 +145,7 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
                 
                     sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
                     sprite.physicsBody!.dynamic = false
-                    sprite.physicsBody!.categoryBitMask = ColliderType.Wall.toRaw()
+                    sprite.physicsBody!.categoryBitMask = ColliderType.Wall.rawValue
                     sprite.physicsBody!.collisionBitMask = 0
                     
                     self.addNode(sprite, atWorldLayer: .ground)
@@ -175,7 +175,7 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
 
                     sprite.physicsBody = SKPhysicsBody(rectangleOfSize: sprite.size)
                     sprite.physicsBody!.dynamic = false
-                    sprite.physicsBody!.categoryBitMask = ColliderType.Ground.toRaw()
+                    sprite.physicsBody!.categoryBitMask = ColliderType.Ground.rawValue
                     sprite.physicsBody!.collisionBitMask = 0
                     
                     self.addNode(sprite, atWorldLayer: .ground)
@@ -240,7 +240,7 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
     
     func addNode(node: SKNode, atWorldLayer layer: WorldLayer) {
         
-        let layerNode = gameLayers[layer.toRaw()]
+        let layerNode = gameLayers[layer.rawValue]
             layerNode.addChild(node)
     }
     
@@ -255,8 +255,8 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
     
     func playerOnGround(player: KWSPlayer!, body: SKPhysicsBody!, contact: SKPhysicsContact) {
     
-        if  body.categoryBitMask == ColliderType.Ground.toRaw() ||
-            body.categoryBitMask == ColliderType.Wall.toRaw() {
+        if  body.categoryBitMask == ColliderType.Ground.rawValue ||
+            body.categoryBitMask == ColliderType.Wall.rawValue {
                 
                 if contact.contactNormal.dy > 0 {
                     
