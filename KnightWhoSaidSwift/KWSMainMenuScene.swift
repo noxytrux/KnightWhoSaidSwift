@@ -15,9 +15,9 @@ class KWSMainMenuScene: SKBaseScene {
         let step : CGFloat = CGRectGetMaxX(self.frame) / kKWSBlockSize
         let iterations = Int32(ceil(Float(step)))
         
-        var imageAtlas = SKTextureAtlas(named:"Enviro.atlas")
+        let imageAtlas = SKTextureAtlas(named:"Enviro.atlas")
         
-        for (index, obj) in enumerate(1...iterations) {
+        for (index, _) in (1...iterations).enumerate() {
         
             let sprite = SKSpriteNode(texture:imageAtlas.textureNamed("Enviro_prefix_3"))
             sprite.size = CGSizeMake(32, 32)
@@ -34,7 +34,7 @@ class KWSMainMenuScene: SKBaseScene {
     override func didMoveToView(view: SKView) {
 
         //take castle node
-        var castleNode = self.childNodeWithName("castle") as SKSpriteNode
+        let castleNode = self.childNodeWithName("castle") as! SKSpriteNode
         let castleSeparator : CGFloat = 20
 
         self.loadBottomPart()

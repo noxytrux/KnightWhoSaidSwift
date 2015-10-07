@@ -55,8 +55,8 @@ class SKBaseScene: SKScene {
             
             cloud.updateVelocity(delta)
             
-            var pos = cloud.position.x - cloud.size.width*0.5
-            var maxWidth = CGRectGetMaxX(self.frame)
+            let pos = cloud.position.x - cloud.size.width*0.5
+            let maxWidth = CGRectGetMaxX(self.frame)
             
             if  pos > maxWidth {
                 

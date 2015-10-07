@@ -31,7 +31,7 @@ CBPeripheralManagerDelegate  {
         self.peripheralManager = CBPeripheralManager(delegate: self, queue: self.peripheralQueue)
     }
     
-    override func sendCommand(#command: KWSPacketType, data: NSData?) {
+    override func sendCommand(command command: KWSPacketType, data: NSData?) {
     
         if !interfaceConnected {
         
@@ -39,7 +39,7 @@ CBPeripheralManagerDelegate  {
         }
         
         var header : Int8 = command.rawValue
-        var dataToSend : NSMutableData = NSMutableData(bytes: &header, length: sizeof(Int8))
+        let dataToSend : NSMutableData = NSMutableData(bytes: &header, length: sizeof(Int8))
         
         if let data = data {
         
@@ -48,7 +48,7 @@ CBPeripheralManagerDelegate  {
         
         if dataToSend.length > kKWSMaxPacketSize {
             
-            println("Error data packet to long!")
+            print("Error data packet to long!")
             
             return
         }
@@ -69,7 +69,7 @@ CBPeripheralManagerDelegate  {
         var packet : Int8 = KWSPacketType.Disconnect.rawValue
         self.sendedData = NSData(bytes: &packet, length: sizeof(Int8))
         
-        var killSignalSend : Bool = self.peripheralManager.updateValue( self.sendedData!,
+        let killSignalSend : Bool = self.peripheralManager.updateValue( self.sendedData!,
                                                      forCharacteristic: self.readCharacteristic,
                                                   onSubscribedCentrals: nil)
         
@@ -81,14 +81,14 @@ CBPeripheralManagerDelegate  {
     
     //MARK: CBPeripheralManagerDelegate method implementation
     
-    func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager!) {
+    func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
     
         if peripheral.state != CBPeripheralManagerState.PoweredOn {
         
             return;
         }
         
-        println("self.peripheralManager powered on.")
+        print("self.peripheralManager powered on.")
         
         self.readCharacteristic = CBMutableCharacteristic(  type: CBUUID(string: kKWSReadUUID),
                                                       properties: CBCharacteristicProperties.Notify,
@@ -118,22 +118,22 @@ CBPeripheralManagerDelegate  {
         }
     }
     
-    func peripheralManagerDidStartAdvertising(peripheral: CBPeripheralManager!, error: NSError!) {
+    func peripheralManagerDidStartAdvertising(peripheral: CBPeripheralManager, error: NSError?) {
     
-        println("advertise started on perihperal")
+        print("advertise started on perihperal")
         
         if let error = error {
         
-            println("\(error)")
+            print("\(error)")
         }
     }
     
-    func peripheralManager(peripheral: CBPeripheralManager!, didReceiveReadRequest request: CBATTRequest!) {
+    func peripheralManager(peripheral: CBPeripheralManager, didReceiveReadRequest request: CBATTRequest) {
         
-        println("read request: \(request)")
+        print("read request: \(request)")
     }
     
-    func peripheralManager(peripheral: CBPeripheralManager!, didReceiveWriteRequests requests: [AnyObject]!) {
+    func peripheralManager(peripheral: CBPeripheralManager, didReceiveWriteRequests requests: [CBATTRequest]) {
         
         if requests.count == 0 {
             
@@ -142,7 +142,7 @@ CBPeripheralManagerDelegate  {
         
         for req in requests as [CBATTRequest] {
         
-            let data : NSData = req.value
+            let data : NSData = req.value!
             let header : NSData = data.subdataWithRange(NSMakeRange(0, sizeof(Int8)))
             
             let remainingVal = data.length - sizeof(Int8)
@@ -163,11 +163,11 @@ CBPeripheralManagerDelegate  {
         }
     }
     
-    func peripheralManager(              peripheral: CBPeripheralManager!,
-                                            central: CBCentral!,
-        didSubscribeToCharacteristic characteristic: CBCharacteristic!) {
+    func peripheralManager(              peripheral: CBPeripheralManager,
+                                            central: CBCentral,
+        didSubscribeToCharacteristic characteristic: CBCharacteristic) {
         
-        println("Central subscribed to characteristic")
+        print("Central subscribed to characteristic")
             
         //start sending data here 
         
@@ -180,16 +180,16 @@ CBPeripheralManagerDelegate  {
         self.sendCommand(command: .Connect, data: nil)
     }
     
-    func peripheralManager(                  peripheral: CBPeripheralManager!,
-                                                central: CBCentral!,
-        didUnsubscribeFromCharacteristic characteristic: CBCharacteristic!) {
+    func peripheralManager(                  peripheral: CBPeripheralManager,
+                                                central: CBCentral,
+        didUnsubscribeFromCharacteristic characteristic: CBCharacteristic) {
         
         self.interfaceConnected = false
         self.delegate?.interfaceDidUpdate(interface: self, command: .Disconnect, data: nil)
     }
     
-    func peripheralManagerIsReadyToUpdateSubscribers(peripheral: CBPeripheralManager!) {
+    func peripheralManagerIsReadyToUpdateSubscribers(peripheral: CBPeripheralManager) {
         
-        println("ready to send next packet")
+        print("ready to send next packet")
     }
 }

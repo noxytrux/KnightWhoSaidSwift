@@ -79,7 +79,7 @@ void InitializeAudioSource(void *userAudioClass)
     KWSBackgroundStreamPlayer *BackgroundPlayer = (__bridge KWSBackgroundStreamPlayer*)userAudioClass;
 
     NSString *path = BackgroundPlayer.filePath;
-    repeatSong = BackgroundPlayer.repeat;
+    repeatSong = BackgroundPlayer.repeatSong;
     
     if (path == nil) return;
         

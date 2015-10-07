@@ -83,7 +83,7 @@ func -+ (left: CGPoint, right: CGPoint) -> CGPoint {
     return CGPointMake(left.x - right.x, left.y + right.y)
 }
 
-extension CGPoint : Equatable {
+extension CGPoint {
     
     func distanceTo(p : CGPoint) -> CGFloat {
         let dx = self.x - p.x

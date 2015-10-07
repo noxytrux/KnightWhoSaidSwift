@@ -26,7 +26,7 @@ class KWSMainMenuViewController: UIViewController, UIPopoverPresentationControll
         
         if let scene = KWSMainMenuScene.unarchiveFromFile(realClassName) as? KWSMainMenuScene {
           
-            let skView = self.view as SKView
+            let skView = self.view as! SKView
             
             if kDebugOption {
         
@@ -59,9 +59,9 @@ class KWSMainMenuViewController: UIViewController, UIPopoverPresentationControll
         return true
     }
 
-    override func supportedInterfaceOrientations() -> Int {
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         
-       return Int(UIInterfaceOrientationMask.Landscape.rawValue)
+       return UIInterfaceOrientationMask.Landscape
     }
 
     override func didReceiveMemoryWarning() {

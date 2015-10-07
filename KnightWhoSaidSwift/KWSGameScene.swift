@@ -100,8 +100,8 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
     
     func loadPlayers() {
     
-        var firstPlayer = KWSPlayer(atPosition: self.playerSpawnPosition, redPlayer: false)
-        var secondPlayer = KWSPlayer(atPosition: self.playerSpawnPosition, redPlayer: true)
+        let firstPlayer = KWSPlayer(atPosition: self.playerSpawnPosition, redPlayer: false)
+        let secondPlayer = KWSPlayer(atPosition: self.playerSpawnPosition, redPlayer: true)
         
         self.players.append(firstPlayer)
         self.players.append(secondPlayer)
@@ -112,7 +112,7 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
     
     func loadMap() {
         
-        var levelMap = loadMapData("mapimage.png")
+        let levelMap = loadMapData("mapimage.png")
         self.mapSizeX = Int(levelMap.width)
         self.mapSizeY = Int(levelMap.height)
         self.mapBinaryData = UnsafePointer<mapDataStruct>(levelMap.data)
@@ -264,7 +264,7 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
                     
                     if contact.collisionImpulse > kKWSJumpImpactValue {
                         
-                        let emitter = KWSSharedSmokeEmitter.copy() as SKEmitterNode
+                        let emitter = KWSSharedSmokeEmitter.copy() as! SKEmitterNode
                             emitter.position = CGPointMake(player.position.x, player.position.y - (player.size.height * 0.5))
                         
                         self.addNode(emitter, atWorldLayer: .foliage)

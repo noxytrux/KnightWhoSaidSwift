@@ -47,16 +47,23 @@ let kKWSPacketRoonLoopTime : Double! = 0.2
 
 extension SKNode {
     
-    class func unarchiveFromFile(file : NSString) -> SKNode? {
+    class func unarchiveFromFile(file : String) -> SKNode? {
         
         let path = NSBundle.mainBundle().pathForResource(file, ofType: "sks")
+        var sceneData:NSData?
         
-        var sceneData = NSData(contentsOfFile: path!, options: .DataReadingMappedIfSafe, error: nil)!
-        var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
+        do {
+            sceneData = try NSData(contentsOfFile: path!, options: .DataReadingMappedIfSafe)
+        } catch {
+            print("Error: \(error)")
+        }
+        
+        let archiver = NSKeyedUnarchiver(forReadingWithData: sceneData!)
         
         archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-        let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as SKScene
+        let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as! SKScene
         archiver.finishDecoding()
+        
         return scene
     }
 }

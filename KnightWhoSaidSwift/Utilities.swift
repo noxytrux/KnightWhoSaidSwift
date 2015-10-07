@@ -50,21 +50,21 @@ func createARGBBitmapContext(inImage: CGImage) -> CGContext {
     bitmapByteCount = bitmapBytesPerRow * Int(pixelsHigh)
     
     let colorSpace = CGColorSpaceCreateDeviceRGB()
-    let bitmapData = malloc(CUnsignedLong(bitmapByteCount))
-    let bitmapInfo = CGBitmapInfo( UInt32(CGImageAlphaInfo.PremultipliedFirst.rawValue) )
+    let bitmapData = malloc(bitmapByteCount)
+    let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedFirst.rawValue )
     
     let context = CGBitmapContextCreate(bitmapData,
                                         pixelsWide,
                                         pixelsHigh,
-                                        CUnsignedLong(8),
-                                        CUnsignedLong(bitmapBytesPerRow),
+                                        8,
+                                        bitmapBytesPerRow,
                                         colorSpace,
-                                        bitmapInfo)
+                                        bitmapInfo.rawValue)
     
-    return context
+    return context!
 }
 
-func loadMapData(mapName: String) -> (data: UnsafeMutablePointer<Void>, width: UInt, height: UInt) {
+func loadMapData(mapName: String) -> (data: UnsafeMutablePointer<Void>, width: Int, height: Int) {
     
     let image = UIImage(named: mapName)
     let inImage = image?.CGImage
@@ -91,14 +91,14 @@ func loadFramesFromAtlas(atlas: SKTextureAtlas) -> [SKTexture] {
 }
 
 func loadFramesFromAtlasWithName(atlasName: String,
-                             #baseFileName: String,
-                           #numberOfFrames: Int) -> [SKTexture] {
+                             baseFileName: String,
+                           numberOfFrames: Int) -> [SKTexture] {
     
     let atlas = SKTextureAtlas(named: atlasName)
     
     return [SKTexture](
         
-        map(1...numberOfFrames) { i in
+        (1...numberOfFrames).map { i in
         
             let fileName = "\(baseFileName)_prefix_\(i).png"
         
@@ -112,12 +112,12 @@ extension SKEmitterNode {
     //broken in xCode 6.0 :( works only in 6.1Beta
     class func emitterNodeWithName(name: String) -> SKEmitterNode {
         
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(NSBundle.mainBundle().pathForResource(name, ofType: "sks")!) as SKEmitterNode
+        return NSKeyedUnarchiver.unarchiveObjectWithFile(NSBundle.mainBundle().pathForResource(name, ofType: "sks")!) as! SKEmitterNode
     }
     
     class func sharedSmokeEmitter() -> SKEmitterNode {
     
-        var smoke = SKEmitterNode()
+        let smoke = SKEmitterNode()
         
         smoke.particleTexture = SKTexture(imageNamed: "particle1.png")
         smoke.particleColor = UIColor.blackColor()
@@ -149,7 +149,7 @@ extension SKEmitterNode {
     
     class func sharedBloodEmitter() -> SKEmitterNode {
         
-        var blood = SKEmitterNode()
+        let blood = SKEmitterNode()
         
         blood.particleTexture = SKTexture(imageNamed: "particle0.png")
         blood.particleColor = UIColor.redColor()
@@ -181,7 +181,7 @@ extension SKEmitterNode {
     
     class func sharedSparkleEmitter() -> SKEmitterNode {
         
-        var sparcle = SKEmitterNode()
+        let sparcle = SKEmitterNode()
         
         sparcle.particleTexture = SKTexture(imageNamed: "particle2.png")
         sparcle.particleColor = UIColor.yellowColor()
@@ -220,7 +220,7 @@ func runOneShotEmitter(emitter: SKEmitterNode, withDuration duration: CGFloat) {
     let waitAction2 = SKAction.waitForDuration(NSTimeInterval(emitter.particleLifetime + emitter.particleLifetimeRange))
     let removeAction = SKAction.removeFromParent()
     
-    var sequence = [ waitAction, birthRateSet, waitAction2, removeAction]
+    let sequence = [ waitAction, birthRateSet, waitAction2, removeAction]
     emitter.runAction(SKAction.sequence(sequence))
 }
 

@@ -85,7 +85,7 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
             }
         }
         
-        for (_, object) in enumerate(self.audioSamplesIdentifiers) {
+        for (_, object) in self.audioSamplesIdentifiers.enumerate() {
             
             AudioServicesDisposeSystemSoundID(object)
         }
@@ -95,19 +95,27 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
         
         var setCategoryErr : NSError?
         var activateErr : NSError?
-        var audioSession = AVAudioSession.sharedInstance()
+        let audioSession = AVAudioSession.sharedInstance()
         
-        audioSession.setCategory(AVAudioSessionCategoryPlayback, withOptions: AVAudioSessionCategoryOptions.MixWithOthers, error: &setCategoryErr)
-        audioSession.setActive(true, error: &activateErr)
+        do {
+            try audioSession.setCategory(AVAudioSessionCategoryPlayback, withOptions: AVAudioSessionCategoryOptions.MixWithOthers)
+        } catch let error as NSError {
+            setCategoryErr = error
+        }
+        do {
+            try audioSession.setActive(true)
+        } catch let error as NSError {
+            activateErr = error
+        }
         
         if let setCategoryErr = setCategoryErr {
         
-            println("Error while setting category: \(setCategoryErr)")
+            print("Error while setting category: \(setCategoryErr)")
         }
         
         if let activateErr = activateErr {
             
-            println("Error while activating session: \(activateErr)")
+            print("Error while activating session: \(activateErr)")
         }
     }
     
@@ -118,10 +126,10 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
             staticStruct.instance = KWSAudioManager()
         }
         
-        return staticStruct.instance! as KWSAudioManager
+        return staticStruct.instance! as! KWSAudioManager
     }
     
-    func setMusicVolume(#volume: Float) {
+    func setMusicVolume(volume volume: Float) {
         
         if let backgroundMusicPlayer = self.backgroundMusicPlayer {
             
@@ -139,13 +147,13 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
         }
     }
 
-    func playMusic(#musicName: String!) {
+    func playMusic(musicName musicName: String!) {
     
         self.backgroundMusicPlayer = KWSBackgroundStreamPlayer()
         
         if let backgroundMusicPlayer = self.backgroundMusicPlayer {
             
-            backgroundMusicPlayer.loadFromFile(musicName, repeat: true)
+            backgroundMusicPlayer.loadFromFile(musicName, repeatSong: true)
             backgroundMusicPlayer.play()
             
             self.playingMusic = true
@@ -157,11 +165,11 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
         }
     }
 
-    func loadSound(#soundName: String!) {
+    func loadSound(soundName soundName: String!) {
     
         var soundID : SystemSoundID = 0
         
-        var path = NSBundle.mainBundle().pathForResource(soundName, ofType: "aiff")
+        let path = NSBundle.mainBundle().pathForResource(soundName, ofType: "aiff")
         
         if let path = path {
             
@@ -170,11 +178,11 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
         }
         else {
         
-            println("Error while loading sound named: \(soundName)")
+            print("Error while loading sound named: \(soundName)")
         }
     }
     
-    func playSound(#soundNumber: Int) {
+    func playSound(soundNumber soundNumber: Int) {
         
         if deviceMuted {
         

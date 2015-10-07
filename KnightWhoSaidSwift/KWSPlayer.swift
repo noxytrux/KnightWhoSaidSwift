@@ -107,7 +107,7 @@ class KWSPlayer: SKSpriteNode {
     
     var playerScene: KWSGameScene {
         
-        return self.scene as KWSGameScene
+        return self.scene as! KWSGameScene
     }
     
     func resetPlayer() {
@@ -172,7 +172,7 @@ class KWSPlayer: SKSpriteNode {
         
             KWSGameAudioManager.sharedInstance.playSound(soundNumber: KWSActionType.HitAction.rawValue )
             
-            let emitter = KWSSharedBloodEmitter.copy() as SKEmitterNode
+            let emitter = KWSSharedBloodEmitter.copy() as! SKEmitterNode
             emitter.position = self.position
             
             playerScene.addNode(emitter, atWorldLayer: .foliage)
@@ -217,7 +217,7 @@ class KWSPlayer: SKSpriteNode {
         
             if enemy.defenseButtonActive && canDefense {
                 
-                let emitter = KWSSharedSparcleEmitter.copy() as SKEmitterNode
+                let emitter = KWSSharedSparcleEmitter.copy() as! SKEmitterNode
                     emitter.position = CGPointMake(enemy.position.x, enemy.position.y - enemy.size.height * 0.3)
                     emitter.xAcceleration = movingLeft ? 1000 : -1000
                 
@@ -251,7 +251,7 @@ class KWSPlayer: SKSpriteNode {
     
     func resolveRequestedAnimation() {
         
-        var (frames, key) = animationFramesAndKeyForState(requestedAnimation)
+        let (frames, key) = animationFramesAndKeyForState(requestedAnimation)
         
         fireAnimationForState(requestedAnimation, usingTextures: frames, withKey: key)
     }
@@ -284,7 +284,7 @@ class KWSPlayer: SKSpriteNode {
     
     func fireAnimationForState(animationState: KWSActionType, usingTextures frames: [SKTexture], withKey key: String) {
     
-        var animAction = actionForKey(key)
+        let animAction = actionForKey(key)
         
         if animAction != nil || frames.count < 1 {
             return
@@ -296,7 +296,7 @@ class KWSPlayer: SKSpriteNode {
             self.animationHasCompleted(animationState)
         }
         
-        var animateWithDirection : SKAction = movingLeft ? SKAction.group([mirrorDirection, animationAction]) : SKAction.group([resetDirection, animationAction])
+        let animateWithDirection : SKAction = movingLeft ? SKAction.group([mirrorDirection, animationAction]) : SKAction.group([resetDirection, animationAction])
         
         runAction(SKAction.sequence([animateWithDirection, blockAction]), withKey: key)
     }
@@ -326,7 +326,7 @@ class KWSPlayer: SKSpriteNode {
             return
         }
         
-        var actionMove   = actionForKey(kKWSMoveActionKey)
+        let actionMove   = actionForKey(kKWSMoveActionKey)
         var endJumping = self.touchesGround
         
         if self.touchesGround == false && (animationState == KWSActionType.JumpAction) {
@@ -401,7 +401,7 @@ class KWSPlayer: SKSpriteNode {
         
         self.physicsBody?.velocity.dx = -kKWSMaxPlayerMovement
         
-        var action: SKAction = SKAction.waitForDuration(0.1)
+        let action: SKAction = SKAction.waitForDuration(0.1)
         requestedAnimation = .WalkAction
         
         let moveFinishAction = SKAction.runBlock {
@@ -431,7 +431,7 @@ class KWSPlayer: SKSpriteNode {
         
         self.physicsBody?.velocity.dx = kKWSMaxPlayerMovement
         
-        var action: SKAction = SKAction.waitForDuration(0.1)
+        let action: SKAction = SKAction.waitForDuration(0.1)
         requestedAnimation = .WalkAction
         
         let moveFinishAction = SKAction.runBlock {
@@ -465,7 +465,7 @@ class KWSPlayer: SKSpriteNode {
             
             self.touchesGround = false
             
-            var impulseY : CGFloat = 15.0
+            let impulseY : CGFloat = 15.0
             
             self.physicsBody!.applyImpulse(CGVectorMake(0, impulseY), atPoint: self.position)
             

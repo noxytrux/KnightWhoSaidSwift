@@ -31,7 +31,7 @@ CBPeripheralDelegate {
         self.centralManager = CBCentralManager(delegate: self, queue: self.centralQueue)
     }
     
-    override func sendCommand(#command: KWSPacketType, data: NSData?){
+    override func sendCommand(command command: KWSPacketType, data: NSData?){
         
         if !interfaceConnected {
             
@@ -40,7 +40,7 @@ CBPeripheralDelegate {
 
         //DO NOT USE Int -> vary on platform!
         var header : Int8 = command.rawValue
-        var dataToSend : NSMutableData = NSMutableData(bytes: &header, length: sizeof(Int8))
+        let dataToSend : NSMutableData = NSMutableData(bytes: &header, length: sizeof(Int8))
         
         if let data = data {
             
@@ -49,7 +49,7 @@ CBPeripheralDelegate {
         
         if dataToSend.length > kKWSMaxPacketSize {
             
-            println("Error data packet to long!")
+            print("Error data packet to long!")
             
             return
         }
@@ -64,7 +64,7 @@ CBPeripheralDelegate {
   
     //MARK: Central methods
     
-    func centralManagerDidUpdateState(central: CBCentralManager!) {
+    func centralManagerDidUpdateState(central: CBCentralManager) {
         
         if central.state != .PoweredOn {
         
@@ -76,9 +76,9 @@ CBPeripheralDelegate {
     
     func scan() {
     
-        println("Scaning started")
+        print("Scaning started")
         
-        let service : [AnyObject] = [CBUUID(string: kKWServiceUUID)]
+        let service : [CBUUID] = [CBUUID(string: kKWServiceUUID)]
         let options : [String:NSNumber] = [CBCentralManagerScanOptionAllowDuplicatesKey : NSNumber(bool: true)]
         
         self.centralManager.scanForPeripheralsWithServices(service, options: options)
@@ -99,49 +99,52 @@ CBPeripheralDelegate {
                 return
             }
             
-            if discoveredPeripheral.services == nil {
+            guard let _ = discoveredPeripheral.services else {
              
                 return
             }
             
-            for service in discoveredPeripheral.services {
-                
-                var currentService : CBService = service as CBService
-                
-                if currentService.characteristics == nil {
+            if let serives = discoveredPeripheral.services {
+            
+                for service in serives {
                     
-                    continue
-                }
-                
-                for characteristic in currentService.characteristics {
-                
-                    var currentCharacteristic : CBCharacteristic = characteristic as CBCharacteristic
+                    let currentService: CBService = service as CBService
                     
-                    if currentCharacteristic.UUID != CBUUID(string: kKWServiceUUID) {
-                    
+                    if currentService.characteristics == nil {
+                        
                         continue
                     }
                     
-                    if currentCharacteristic.isNotifying {
+                    for characteristic in currentService.characteristics! {
                         
-                        discoveredPeripheral.setNotifyValue(false, forCharacteristic: currentCharacteristic)
-                        return
+                        let currentCharacteristic: CBCharacteristic = characteristic as CBCharacteristic
+                        
+                        if currentCharacteristic.UUID != CBUUID(string: kKWServiceUUID) {
+                            
+                            continue
+                        }
+                        
+                        if currentCharacteristic.isNotifying {
+                            
+                            discoveredPeripheral.setNotifyValue(false, forCharacteristic: currentCharacteristic)
+                            return
+                        }
                     }
                 }
             }
-        
+            
             self.centralManager.cancelPeripheralConnection(discoveredPeripheral)
         }
     }
     
-    func centralManager(central: CBCentralManager!, didDiscoverPeripheral peripheral: CBPeripheral!, advertisementData: [NSObject : AnyObject]!, RSSI: NSNumber!) {
+    func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
         
         if (RSSI.integerValue > -5) || (RSSI.integerValue < -35) {
         
             return;
         }
         
-        println("discovered at: \(RSSI) name: \(peripheral.name)")
+        print("discovered at: \(RSSI) name: \(peripheral.name)")
         
         if self.discoveredPeripheral != peripheral {
         
@@ -152,16 +155,19 @@ CBPeripheralDelegate {
         }
     }
     
-    func centralManager(central: CBCentralManager!, didFailToConnectPeripheral peripheral: CBPeripheral!, error: NSError!) {
+    func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {
         
-        println("failed to connect: \(peripheral.name) error: \(error.localizedDescription)")
+        if let error = error {
+        
+            print("failed to connect: \(peripheral.name) error: \(error.localizedDescription)")
+        }
         
         self.cleanup()
     }
     
-    func centralManager(central: CBCentralManager!, didConnectPeripheral peripheral: CBPeripheral!) {
+    func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
         
-        println("peripheral connected")
+        print("peripheral connected")
         
         central.stopScan()
         peripheral.delegate = self
@@ -174,46 +180,46 @@ CBPeripheralDelegate {
         
     }
     
-    func peripheral(peripheral: CBPeripheral!, didDiscoverServices error: NSError!) {
+    func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
         
-        if (error != nil) {
+        if let error = error {
         
-            println("error while discovering services: \(error.localizedDescription)")
+            print("error while discovering services: \(error.localizedDescription)")
             self.cleanup()
             return
         }
         
-        for service in peripheral.services {
+        for service in peripheral.services! {
         
-            let characteristic : [AnyObject] = [CBUUID(string: kKWSReadUUID), CBUUID(string: kKWSWriteUUID)]
+            let characteristic: [CBUUID] = [CBUUID(string: kKWSReadUUID), CBUUID(string: kKWSWriteUUID)]
             
             peripheral.discoverCharacteristics(characteristic, forService: service as CBService)
         }
     }
     
-    func peripheral(peripheral: CBPeripheral!, didDiscoverCharacteristicsForService service: CBService!, error: NSError!) {
+    func peripheral(peripheral: CBPeripheral, didDiscoverCharacteristicsForService service: CBService, error: NSError?) {
         
-        if (error != nil) {
+        if let error = error {
             
-            println("error while discovering characteristic: \(error.localizedDescription)")
+            print("error while discovering characteristic: \(error.localizedDescription)")
             self.cleanup()
             return
         }
         
-        for characteristic in service.characteristics {
+        for characteristic in service.characteristics! {
         
             if characteristic.UUID == CBUUID(string: kKWSReadUUID) {
             
-                self.readCharacteristic = characteristic as? CBCharacteristic
+                self.readCharacteristic = characteristic
                 peripheral.setNotifyValue(true, forCharacteristic: self.readCharacteristic)
             }
             else if characteristic.UUID == CBUUID(string: kKWSWriteUUID) {
             
-                self.writeCharacteristic = characteristic as? CBCharacteristic
+                self.writeCharacteristic = characteristic
             }
         }
 
-        println("discovered Characteristics")
+        print("discovered Characteristics")
         
         self.interfaceConnected = true
 
@@ -226,14 +232,14 @@ CBPeripheralDelegate {
 
     }
     
-    func peripheral(peripheral: CBPeripheral!, didUpdateValueForCharacteristic characteristic: CBCharacteristic!, error: NSError!) {
+    func peripheral(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
         
-        if (error != nil) {
-            println("didUpdateValueForCharacteristic error: \(error.localizedDescription)")
+        if let error = error {
+            print("didUpdateValueForCharacteristic error: \(error.localizedDescription)")
             return
         }
         
-        let data : NSData = characteristic.value
+        let data : NSData = characteristic.value!
         let header : NSData = data.subdataWithRange(NSMakeRange(0, sizeof(Int8)))
         
         let remainingVal = data.length - sizeof(Int8)
@@ -250,11 +256,11 @@ CBPeripheralDelegate {
         self.delegate?.interfaceDidUpdate(interface: self, command: action, data: body)
     }
     
-    func peripheral(peripheral: CBPeripheral!, didWriteValueForCharacteristic characteristic: CBCharacteristic!, error: NSError!) {
+    func peripheral(peripheral: CBPeripheral, didWriteValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
         
-        if (error != nil) {
+        if let error = error {
             
-            println("didWriteValueForCharacteristic error: \(error.localizedDescription)")
+            print("didWriteValueForCharacteristic error: \(error.localizedDescription)")
         
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 
@@ -270,7 +276,7 @@ CBPeripheralDelegate {
                     
                     let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""),
                         style: .Cancel,
-                        handler: { (action: UIAlertAction!) -> Void in
+                        handler: { (action: UIAlertAction) -> Void in
                             
                             KWSAlertController.dismissViewControllerAnimated(true, completion: nil)
                             
@@ -286,19 +292,19 @@ CBPeripheralDelegate {
         
     }
     
-    func peripheral(peripheral: CBPeripheral!, didUpdateValueForDescriptor descriptor: CBDescriptor!, error: NSError!) {
+    func peripheral(peripheral: CBPeripheral, didUpdateValueForDescriptor descriptor: CBDescriptor, error: NSError?) {
         
-        if (error != nil) {
+        if let error = error {
         
-            println("peripheraldidWriteValueForDescriptorError: \(error.localizedDescription)")
+            print("peripheraldidWriteValueForDescriptorError: \(error.localizedDescription)")
         }
     }
     
-    func peripheral(peripheral: CBPeripheral!, didUpdateNotificationStateForCharacteristic characteristic: CBCharacteristic!, error: NSError!) {
+    func peripheral(peripheral: CBPeripheral, didUpdateNotificationStateForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
         
-        if (error != nil) {
+        if let error = error {
 
-            println("error while changing notification state: \(error.localizedDescription)")
+            print("error while changing notification state: \(error.localizedDescription)")
         }
         
         if characteristic.UUID != CBUUID(string: kKWServiceUUID) {
@@ -308,20 +314,20 @@ CBPeripheralDelegate {
         
         if characteristic.isNotifying {
         
-            println("notification began on \(characteristic)")
+            print("notification began on \(characteristic)")
             
         }
         else {
         
-            println("notification stopped on \(characteristic)")
+            print("notification stopped on \(characteristic)")
             self.centralManager.cancelPeripheralConnection(peripheral)
         }
         
     }
     
-    func centralManager(central: CBCentralManager!, didDisconnectPeripheral peripheral: CBPeripheral!, error: NSError!) {
+    func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
      
-        println("peripheral disconnected")
+        print("peripheral disconnected")
         self.interfaceConnected = false
         self.discoveredPeripheral = nil
         self.scan()

@@ -13,7 +13,7 @@ class KWSHealtBar: SKSpriteNode {
     var coloredBar: SKSpriteNode!
     var borderBar: SKSpriteNode!
 
-    override init() {
+    required init() {
         
         super.init(texture: nil,
             color: UIColor.clearColor(),
@@ -46,7 +46,7 @@ class KWSHealtBar: SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func updateProgress(#progress: CGFloat) {
+    func updateProgress(progress progress: CGFloat) {
     
         var localProgress = progress
         if localProgress < 0.0 {
@@ -57,9 +57,9 @@ class KWSHealtBar: SKSpriteNode {
         let barSize = localProgress * 128.0
         let lifeColor = localProgress * 60.0 //hue hue 60 -> Int
         
-        var r : CGFloat = (32.0 + 2.0 * (60.0 - lifeColor)) / 255.0
-        var g : CGFloat = (32.0 + 2.0 * lifeColor) / 255.0
-        var b : CGFloat = 32.0 / 255.0
+        let r : CGFloat = (32.0 + 2.0 * (60.0 - lifeColor)) / 255.0
+        let g : CGFloat = (32.0 + 2.0 * lifeColor) / 255.0
+        let b : CGFloat = 32.0 / 255.0
         
         self.coloredBar.color = UIColor(red: r, green: g, blue: b, alpha: 1.0)
         self.coloredBar.size = CGSizeMake(barSize, self.coloredBar.size.height);

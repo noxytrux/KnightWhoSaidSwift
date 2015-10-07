@@ -14,6 +14,7 @@
 		0402161819B64D7800B79A17 /* KWSCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0402161719B64D7800B79A17 /* KWSCommon.swift */; };
 		0408D6B719D1B5E800CF6795 /* KWSHealtBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0408D6B619D1B5E800CF6795 /* KWSHealtBar.swift */; };
 		042A794619B338C700D5B75A /* castle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 042A794519B338C700D5B75A /* castle@2x.png */; };
+		042E04891BC5B2C100528FAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 042E04881BC5B2C100528FAF /* LaunchScreen.storyboard */; settings = {ASSET_TAGS = (); }; };
 		0430F91A19CB242C0037C623 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0430F91919CB242C0037C623 /* Utilities.swift */; };
 		0430F91C19CB2ECB0037C623 /* mapimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0430F91B19CB2ECB0037C623 /* mapimage.png */; };
 		0431207E19AE495600036D9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0431207D19AE495600036D9F /* AppDelegate.swift */; };
@@ -91,6 +92,7 @@
 		0402161719B64D7800B79A17 /* KWSCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSCommon.swift; sourceTree = "<group>"; };
 		0408D6B619D1B5E800CF6795 /* KWSHealtBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSHealtBar.swift; sourceTree = "<group>"; };
 		042A794519B338C700D5B75A /* castle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "castle@2x.png"; sourceTree = "<group>"; };
+		042E04881BC5B2C100528FAF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0430F91919CB242C0037C623 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		0430F91B19CB2ECB0037C623 /* mapimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mapimage.png; sourceTree = "<group>"; };
 		0431207819AE495600036D9F /* KnightWhoSaidSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KnightWhoSaidSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,7 +102,7 @@
 		0431208119AE495600036D9F /* KWSMainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KWSMainMenuScene.swift; sourceTree = "<group>"; };
 		0431208319AE495600036D9F /* KWSMainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KWSMainMenuViewController.swift; sourceTree = "<group>"; };
 		0431208619AE495600036D9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		0431208819AE495600036D9F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		0431208819AE495600036D9F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../KnightWhoSaidSwift/Images.xcassets; sourceTree = "<group>"; };
 		0431208E19AE495600036D9F /* KnightWhoSaidSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KnightWhoSaidSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0431209319AE495600036D9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0431209419AE495600036D9F /* KnightWhoSaidSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnightWhoSaidSwiftTests.swift; sourceTree = "<group>"; };
@@ -209,7 +211,6 @@
 				04E80C0519B232CC006C4917 /* ViewControllers */,
 				04E80BE619B1ED6D006C4917 /* Data */,
 				0431207D19AE495600036D9F /* AppDelegate.swift */,
-				0431208819AE495600036D9F /* Images.xcassets */,
 				0431207B19AE495600036D9F /* Supporting Files */,
 			);
 			path = KnightWhoSaidSwift;
@@ -331,10 +332,12 @@
 		04E80BE619B1ED6D006C4917 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				0431208819AE495600036D9F /* Images.xcassets */,
 				04E80C0719B232E7006C4917 /* Storyboards */,
 				04E80BE719B1ED6D006C4917 /* Font */,
 				04E80BE919B1ED6D006C4917 /* GFX */,
 				04E80BF519B1ED6D006C4917 /* SFX */,
+				042E04881BC5B2C100528FAF /* LaunchScreen.storyboard */,
 			);
 			path = Data;
 			sourceTree = SOURCE_ROOT;
@@ -467,7 +470,9 @@
 		0431207019AE495600036D9F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Marcin Pedzimaz";
 				TargetAttributes = {
 					0431207719AE495600036D9F = {
@@ -539,6 +544,7 @@
 				0402161419B64D5900B79A17 /* jump@2x.png in Resources */,
 				04E80C0019B1ED6D006C4917 /* walk.atlas in Resources */,
 				043AF97D19D1B92C00189BFE /* healtbar.png in Resources */,
+				042E04891BC5B2C100528FAF /* LaunchScreen.storyboard in Resources */,
 				04BBBF6419C0D4C00008222C /* Ouch.aiff in Resources */,
 				04E80BF919B1ED6D006C4917 /* bg@2x.png in Resources */,
 				04E80BFE19B1ED6D006C4917 /* die.atlas in Resources */,
@@ -639,6 +645,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -653,7 +660,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -689,7 +696,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -700,12 +707,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = KnightWhoSaidSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.marcinpedzimaz.labs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "KnightWhoSaidSwift/BridgeCode/KnightWhoSaidSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -716,12 +723,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				INFOPLIST_FILE = KnightWhoSaidSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.marcinpedzimaz.labs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "KnightWhoSaidSwift/BridgeCode/KnightWhoSaidSwift-Bridging-Header.h";
 			};
@@ -741,6 +748,7 @@
 				);
 				INFOPLIST_FILE = KnightWhoSaidSwiftTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.marcinpedzimaz.labs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};
@@ -756,6 +764,7 @@
 				);
 				INFOPLIST_FILE = KnightWhoSaidSwiftTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.marcinpedzimaz.labs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 			};

@@ -22,7 +22,7 @@ class KWSGameAudioManager: KWSAudioManager {
             staticStruct.instance = KWSGameAudioManager()
         }
         
-        return staticStruct.instance! as KWSGameAudioManager
+        return staticStruct.instance! as! KWSGameAudioManager
     }
     
     override init() {

@@ -14,28 +14,28 @@ class KWSBackgroundStreamPlayer: NSObject {
     private var trackClosed : Bool
    
     internal var filePath : String!
-    internal var repeat : Bool
+    internal var repeatSong : Bool
     
     override init() {
         
         self.trackClosed = false
-        self.repeat = false
+        self.repeatSong = false
         
         super.init()
     }
     
-    func loadFromFile(filename : String!, repeat: Bool ) {
+    func loadFromFile(filename : String!, repeatSong: Bool ) {
         
         if filename == nil {
             return
         }
     
-        var path = NSBundle.mainBundle().pathForResource(filename, ofType: "mp3")
+        let path = NSBundle.mainBundle().pathForResource(filename, ofType: "mp3")
         
         if let path = path {
             
             self.filePath = path
-            self.repeat = repeat
+            self.repeatSong = repeatSong
 
             //convert self to proper void pointer
             let anUnmanaged = Unmanaged<KWSBackgroundStreamPlayer>.passUnretained(self)
@@ -48,7 +48,7 @@ class KWSBackgroundStreamPlayer: NSObject {
         }
         else {
             
-            println("Error while loading music named: \(filename)")
+            print("Error while loading music named: \(filename)")
         }
     }
     
