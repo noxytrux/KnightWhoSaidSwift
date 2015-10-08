@@ -14,7 +14,7 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
     private var communicationInterface : KWSBluetoothLEInterface?
     private var gameButtons = [UIButton]()
     
-    private var gameScene : KWSGameScene!
+    private weak var gameScene : KWSGameScene!
     private var isSerwer : Bool = false
     private var continueLoop : Bool = false
     

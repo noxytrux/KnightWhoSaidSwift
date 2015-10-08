@@ -42,12 +42,17 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
     
     internal var players = [KWSPlayer]()
     
-    internal var selectedPlayer : KWSPlayer?
-    internal var otherPlayer : KWSPlayer?
+    internal weak var selectedPlayer : KWSPlayer?
+    internal weak var otherPlayer : KWSPlayer?
     
     internal var mapScreenSize : CGFloat {
     
         return CGFloat(self.mapSizeX) * kKWSBlockSize + kKWSBlockSize / 2.0
+    }
+    
+    deinit {
+    
+        print("DEALLOC \(self)")
     }
     
     override func didMoveToView(view: SKView) {

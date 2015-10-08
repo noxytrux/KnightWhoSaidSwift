@@ -27,5 +27,4 @@ class KWSCreditsViewController: UIViewController {
 
         self.navigationController?.popViewControllerAnimated(true)
     }
-    
 }
