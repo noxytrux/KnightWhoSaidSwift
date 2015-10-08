@@ -8,6 +8,21 @@
 
 import UIKit
 
+enum KWSPacketType : Int8 {
+    
+    case HearBeat
+    case Connect
+    case Disconnect
+    case MoveUp
+    case MoveDown
+    case Jump
+    case Attack
+    case DefenseUp
+    case DefenseDown
+    case Restart
+    case GameEnd
+}
+
 protocol KWSBlueToothLEDelegate: class {
 
     func interfaceDidUpdate(interface interface: KWSBluetoothLEInterface, command: KWSPacketType, data: NSData?)

@@ -10,21 +10,6 @@ import Foundation
 import UIKit
 import SpriteKit
 
-enum KWSPacketType : Int8 {
-    
-    case HearBeat
-    case Connect
-    case Disconnect
-    case MoveUp
-    case MoveDown
-    case Jump
-    case Attack
-    case DefenseUp
-    case DefenseDown
-    case Restart
-    case GameEnd
-}
-
 enum KWSActionType : Int {
     
     case AttackAction
