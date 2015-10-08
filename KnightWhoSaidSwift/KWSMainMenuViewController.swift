@@ -16,7 +16,7 @@ class KWSMainMenuViewController: UIViewController, UIPopoverPresentationControll
     let kKWSSettingsSegueIdentifier : String! = "kKWSSettingsSegueIdentifier"
     let kKWSPlayGameSegueIdentifier : String! = "kKWSPlayGameSegueIdentifier"
     
-    var gameAudio : KWSGameAudioManager?
+    weak var gameAudio : KWSGameAudioManager?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,15 +43,20 @@ class KWSMainMenuViewController: UIViewController, UIPopoverPresentationControll
         }
         
         self.gameAudio = KWSGameAudioManager.sharedInstance
-        self.gameAudio!.playMusic(musicName: "Menu")
-        self.gameAudio!.setMusicVolume(volume: 0.3)
-
+        
+        if let gameAudio = self.gameAudio {
+            
+            gameAudio.playMusic(musicName: "Menu")
+            gameAudio.setMusicVolume(volume: 0.3)
+        }
     }
 
     @IBAction func didPressMenuButton(sender: AnyObject) {
         
-        let gameAudio = KWSGameAudioManager.sharedInstance
+        if let gameAudio = self.gameAudio {
+            
             gameAudio.playClickButtonSound()
+        }
     }
 
     override func shouldAutorotate() -> Bool {

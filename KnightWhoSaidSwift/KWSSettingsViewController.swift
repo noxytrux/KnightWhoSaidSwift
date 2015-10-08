@@ -12,23 +12,31 @@ class KWSSettingsViewController: UIViewController {
 
     @IBOutlet weak var soundSwitch: UISwitch!
     
-    private var audioManager = KWSGameAudioManager.sharedInstance
+    private weak var audioManager = KWSGameAudioManager.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        soundSwitch.on = !audioManager.deviceMuted
-    }
+        if let audioManager = self.audioManager {
+            
+            soundSwitch.on = !audioManager.deviceMuted
+        }
+     }
    
     @IBAction func soundSwitchPress(sender: AnyObject) {
     
-        audioManager.deviceMuted = !soundSwitch.on
+        if let audioManager = self.audioManager {
+            
+            audioManager.deviceMuted = !soundSwitch.on
+        }
     }
 
     @IBAction func dismissViewController(sender: UIButton) {
         
-        let gameAudio = KWSGameAudioManager.sharedInstance
-            gameAudio.playClickButtonSound()
+        if let audioManager = self.audioManager {
+            
+            audioManager.playClickButtonSound()
+        }
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }

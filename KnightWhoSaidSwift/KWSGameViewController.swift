@@ -106,26 +106,34 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
     
     @IBAction func becomeServerPress(sender: UIButton) {
         
-        self.isSerwer = true
-        self.communicationInterface = KWSBluetoothLEServer(ownerController: self, delegate: self)
-        self.showGameButtons()
-        
-        self.gameScene.selectedPlayer = self.gameScene.players[1]
-        self.gameScene.otherPlayer = self.gameScene.players[0]
-        self.gameScene.otherPlayer!.externalControl = true;
-        
-        self.gameScene.selectedPlayer!.delegate = self
-        self.gameScene.otherPlayer!.delegate = self
+        self.setupGameLogic(true)
     }
     
     @IBAction func becomeClientPress(sender: UIButton) {
         
-        self.isSerwer = false
-        self.communicationInterface = KWSBluetoothLEClient(ownerController: self, delegate: self)
+        self.setupGameLogic(false)
+    }
+    
+    func setupGameLogic(becomeServer:Bool) {
+    
+        self.isSerwer = becomeServer
+        
+        if self.isSerwer {
+            
+            self.communicationInterface = KWSBluetoothLEServer(ownerController: self, delegate: self)
+        }
+        else {
+            
+            self.communicationInterface = KWSBluetoothLEClient(ownerController: self, delegate: self)
+        }
+        
         self.showGameButtons()
         
-        self.gameScene.selectedPlayer = self.gameScene.players[0]
-        self.gameScene.otherPlayer = self.gameScene.players[1]
+        let playerA = self.gameScene.players[1]
+        let playerB = self.gameScene.players[0]
+        
+        self.gameScene.selectedPlayer = self.isSerwer ? playerA : playerB
+        self.gameScene.otherPlayer = self.isSerwer ? playerB : playerA
         self.gameScene.otherPlayer!.externalControl = true;
         
         self.gameScene.selectedPlayer!.delegate = self
@@ -156,7 +164,7 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
 
     //MARK: LE interface delegate
     
-    func interfaceDidUpdate(interface interface: BTLEInterface, command: KWSPacketType, data: NSData?)
+    func interfaceDidUpdate(interface interface: KWSBluetoothLEInterface, command: KWSPacketType, data: NSData?)
     {
         
         switch( command ) {

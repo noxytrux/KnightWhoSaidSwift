@@ -85,12 +85,6 @@ CBPeripheralDelegate {
     }
     
     func cleanup() {
-        //funny: Compile error ?! SEG FAULT 11
-        
-//        if self.discoveredPeripheral?.state == .Disconnected {
-//            
-//            return
-//        }
         
         if let discoveredPeripheral = self.discoveredPeripheral {
             

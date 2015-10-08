@@ -20,8 +20,8 @@ CBPeripheralManagerDelegate  {
     private var writeCharacteristic : CBMutableCharacteristic!
     private var serviceUUID = CBUUID(string: kKWServiceUUID)
     
-    internal var recivedData : NSData? = nil
-    internal var sendedData : NSData? = nil
+    var recivedData : NSData? = nil
+    var sendedData : NSData? = nil
     
     override init(ownerController : UIViewController, delegate: KWSBlueToothLEDelegate) {
         

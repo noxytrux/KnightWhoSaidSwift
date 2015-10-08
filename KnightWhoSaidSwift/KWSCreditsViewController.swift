@@ -15,7 +15,7 @@ class KWSCreditsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.creditsTextView.text = "Programing:\n\nMarcin Pedzimaz\n\nGraphics:\n\nInternet"
+        self.creditsTextView.text = "Programing:\n\nMarcin Malysz\n\nGraphics:\n\nInternet"
         self.creditsTextView.textAlignment = NSTextAlignment.Center
         self.creditsTextView.font = UIFont(name: "FFFAtlantisTrial", size: 14)
     }

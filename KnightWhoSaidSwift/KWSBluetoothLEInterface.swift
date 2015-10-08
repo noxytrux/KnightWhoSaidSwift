@@ -8,20 +8,16 @@
 
 import UIKit
 
-protocol BTLEInterface {
-    
-    var ownerViewController : UIViewController? {get set}
+protocol KWSBlueToothLEDelegate: class {
+
+    func interfaceDidUpdate(interface interface: KWSBluetoothLEInterface, command: KWSPacketType, data: NSData?)
 }
 
-protocol KWSBlueToothLEDelegate {
-
-    func interfaceDidUpdate(interface interface: BTLEInterface, command: KWSPacketType, data: NSData?)
-}
-
-class KWSBluetoothLEInterface: NSObject, BTLEInterface {
+class KWSBluetoothLEInterface: NSObject {
     
-    var delegate : KWSBlueToothLEDelegate?
-    var ownerViewController : UIViewController?
+    weak var delegate : KWSBlueToothLEDelegate?
+    weak var ownerViewController : UIViewController?
+
     var interfaceConnected : Bool = false
 
     init(ownerController : UIViewController, delegate: KWSBlueToothLEDelegate) {
