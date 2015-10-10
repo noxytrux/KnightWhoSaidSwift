@@ -76,10 +76,10 @@ static void BufferCallback(void *inUserData, AudioQueueRef inAQ, AudioQueueBuffe
 
 void InitializeAudioSource(void *userAudioClass)
 {
-    KWSBackgroundStreamPlayer *BackgroundPlayer = (__bridge KWSBackgroundStreamPlayer*)userAudioClass;
+    KWSBackgroundStreamPlayer *backgroundPlayer = (__bridge KWSBackgroundStreamPlayer*)userAudioClass;
 
-    NSString *path = BackgroundPlayer.filePath;
-    repeatSong = BackgroundPlayer.repeatSong;
+    NSString *path = backgroundPlayer.filePath;
+    repeatSong = backgroundPlayer.repeatSong;
     
     if (path == nil) return;
         
@@ -94,7 +94,7 @@ void InitializeAudioSource(void *userAudioClass)
     
     size = sizeof(dataFormat);
     AudioFileGetProperty(audioFile, kAudioFilePropertyDataFormat, &size, &dataFormat);
-    OSStatus result = AudioQueueNewOutput(&dataFormat, BufferCallback, (__bridge void *)(BackgroundPlayer), nil, nil, 0, &queue);
+    OSStatus result = AudioQueueNewOutput(&dataFormat, BufferCallback, (__bridge void *)(backgroundPlayer), nil, nil, 0, &queue);
     
     if (result != noErr) {
         

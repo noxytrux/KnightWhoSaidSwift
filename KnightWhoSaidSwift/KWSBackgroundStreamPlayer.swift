@@ -37,13 +37,15 @@ class KWSBackgroundStreamPlayer: NSObject {
             self.filePath = path
             self.repeatSong = repeatSong
 
-            //convert self to proper void pointer
+            //convert self to unmanaged object
             let anUnmanaged = Unmanaged<KWSBackgroundStreamPlayer>.passUnretained(self)
+            //get raw data pointer
             let opaque : COpaquePointer = anUnmanaged.toOpaque()
+            //convert to Mutable to match Swift safe type check
             let voidSelf = UnsafeMutablePointer<Void>(opaque)
-
-            InitializeAudioSource( voidSelf )
             
+            InitializeAudioSource( voidSelf )
+        
             self.trackClosed = false;
         }
         else {
