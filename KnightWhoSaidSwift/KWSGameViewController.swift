@@ -15,7 +15,7 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
     private var gameButtons = [UIButton]()
     
     private weak var gameScene : KWSGameScene!
-    private var isSerwer : Bool = false
+    private var isServer : Bool = false
     private var continueLoop : Bool = false
     
     @IBOutlet weak var becomeServerButton: UIButton!
@@ -116,9 +116,9 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
     
     func setupGameLogic(becomeServer:Bool) {
     
-        self.isSerwer = becomeServer
+        self.isServer = becomeServer
         
-        if self.isSerwer {
+        if self.isServer {
             
             self.communicationInterface = KWSBluetoothLEServer(ownerController: self, delegate: self)
         }
@@ -132,8 +132,8 @@ class KWSGameViewController: UIViewController, KWSBlueToothLEDelegate,KWSPlayerD
         let playerA = self.gameScene.players[1]
         let playerB = self.gameScene.players[0]
         
-        self.gameScene.selectedPlayer = self.isSerwer ? playerA : playerB
-        self.gameScene.otherPlayer = self.isSerwer ? playerB : playerA
+        self.gameScene.selectedPlayer = self.isServer ? playerA : playerB
+        self.gameScene.otherPlayer = self.isServer ? playerB : playerA
         self.gameScene.otherPlayer!.externalControl = true;
         
         self.gameScene.selectedPlayer!.delegate = self

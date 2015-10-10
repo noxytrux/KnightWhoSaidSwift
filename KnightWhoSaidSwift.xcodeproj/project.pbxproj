@@ -32,7 +32,6 @@
 		0464B70319B4BB6000A6E073 /* KWSCreditsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0464B70219B4BB6000A6E073 /* KWSCreditsViewController.swift */; };
 		0468D3B519BE255A0012EB82 /* KWSAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468D3B419BE255A0012EB82 /* KWSAudioManager.swift */; };
 		0468D3B719BE2A820012EB82 /* KWSBackgroundStreamPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468D3B619BE2A820012EB82 /* KWSBackgroundStreamPlayer.swift */; };
-		0468D3B919BE39A60012EB82 /* Boolean+KWSExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0468D3B819BE39A60012EB82 /* Boolean+KWSExtensions.swift */; };
 		046FC06119C2172900BA0E6F /* SKBaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046FC06019C2172900BA0E6F /* SKBaseScene.swift */; };
 		0482CED519CEF9B000825C9B /* particle0.png in Resources */ = {isa = PBXBuildFile; fileRef = 0482CED219CEF9B000825C9B /* particle0.png */; };
 		0482CED619CEF9B000825C9B /* particle1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0482CED319CEF9B000825C9B /* particle1.png */; };
@@ -116,7 +115,6 @@
 		0464B70219B4BB6000A6E073 /* KWSCreditsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSCreditsViewController.swift; sourceTree = "<group>"; };
 		0468D3B419BE255A0012EB82 /* KWSAudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSAudioManager.swift; sourceTree = "<group>"; };
 		0468D3B619BE2A820012EB82 /* KWSBackgroundStreamPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KWSBackgroundStreamPlayer.swift; sourceTree = "<group>"; };
-		0468D3B819BE39A60012EB82 /* Boolean+KWSExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Boolean+KWSExtensions.swift"; sourceTree = "<group>"; };
 		046FC06019C2172900BA0E6F /* SKBaseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKBaseScene.swift; sourceTree = "<group>"; };
 		0482CED219CEF9B000825C9B /* particle0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle0.png; sourceTree = "<group>"; };
 		0482CED319CEF9B000825C9B /* particle1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle1.png; sourceTree = "<group>"; };
@@ -296,7 +294,6 @@
 			children = (
 				049137E319B23CC500076903 /* CGFloat+KWSExtensions.swift */,
 				049137E519B240B800076903 /* CGPoint+KWSExtensions.swift */,
-				0468D3B819BE39A60012EB82 /* Boolean+KWSExtensions.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -577,7 +574,6 @@
 				045C4BF419BF59A3007C11C5 /* AudioBridge.m in Sources */,
 				04BBBF5819C0CD2E0008222C /* KWSGameAudioManager.swift in Sources */,
 				0430F91A19CB242C0037C623 /* Utilities.swift in Sources */,
-				0468D3B919BE39A60012EB82 /* Boolean+KWSExtensions.swift in Sources */,
 				0431208419AE495600036D9F /* KWSMainMenuViewController.swift in Sources */,
 				0402161819B64D7800B79A17 /* KWSCommon.swift in Sources */,
 				049137E419B23CC500076903 /* CGFloat+KWSExtensions.swift in Sources */,

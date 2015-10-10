@@ -15,15 +15,7 @@ class KWSGameAudioManager: KWSAudioManager {
     //http://iphonedevwiki.net/index.php/AudioServices
     let kKWSKeyPressedID : SystemSoundID = 1306
     
-    override class var sharedInstance : KWSGameAudioManager {
-        
-        dispatch_once(&staticStruct.onceToken) {
-        
-            staticStruct.instance = KWSGameAudioManager()
-        }
-        
-        return staticStruct.instance! as! KWSGameAudioManager
-    }
+    static let sharedInstance = KWSGameAudioManager()
     
     override init() {
     

@@ -14,12 +14,6 @@ let kKWSAudioDeviceMuteKey : String! = "kKWSAudioDeviceMuteKey"
 
 class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
     
-    internal struct staticStruct {
-        
-        static var onceToken : dispatch_once_t = 0
-        static var instance : AnyObject? = nil
-    }
-
     private var audioSamplesIdentifiers = [SystemSoundID]()
     
     private var backgroundMusicPlayer : KWSBackgroundStreamPlayer? = nil
@@ -65,9 +59,7 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
     } 
     
     override init() {
-        
-        assert(staticStruct.instance == nil, "Singleton already initialized!")
-        
+    
         super.init()
         
         let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -118,17 +110,7 @@ class KWSAudioManager: NSObject, AVAudioPlayerDelegate {
             print("Error while activating session: \(activateErr)")
         }
     }
-    
-    class var sharedInstance : KWSAudioManager {
-        
-        dispatch_once(&staticStruct.onceToken) {
-            
-            staticStruct.instance = KWSAudioManager()
-        }
-        
-        return staticStruct.instance! as! KWSAudioManager
-    }
-    
+
     func setMusicVolume(volume volume: Float) {
         
         if let backgroundMusicPlayer = self.backgroundMusicPlayer {

@@ -26,7 +26,7 @@ enum ColliderType: UInt32 {
     case Ground = 4
 }
 
-class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
+class KWSGameScene: SKBaseScene {
     
     private var gameWorld = SKNode()
     private var gameLayers = [SKNode]()
@@ -48,11 +48,6 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
     internal var mapScreenSize : CGFloat {
     
         return CGFloat(self.mapSizeX) * kKWSBlockSize + kKWSBlockSize / 2.0
-    }
-    
-    deinit {
-    
-        print("DEALLOC \(self)")
     }
     
     override func didMoveToView(view: SKView) {
@@ -256,7 +251,11 @@ class KWSGameScene: SKBaseScene, SKPhysicsContactDelegate {
 
     }
 
-    //MARK: SKPhysicsContactDelegate methods
+}
+
+//MARK: SKPhysicsContactDelegate methods
+
+extension KWSGameScene: SKPhysicsContactDelegate {
     
     func playerOnGround(player: KWSPlayer!, body: SKPhysicsBody!, contact: SKPhysicsContact) {
     
